@@ -14,11 +14,11 @@ from    pbx_gs_python_utils.utils.Http          import PUT, DELETE
 
 
 class Elastic_Search:
-    def __init__(self, index = 'iis-logs-', aws_secret_id = None):
+    def __init__(self, index, aws_secret_id = None):
         self.timestamp      = datetime.datetime.utcnow()
         self.index          = index
         self._setup_Elastic_on_localhost()                  # default to localhost
-        self._result        = None
+        self._result        = None                          # used to cache some responses (for methods that return self)
 
         if index and aws_secret_id:
             self._setup_Elastic_on_cloud_via_AWS_Secret(index, aws_secret_id)
@@ -116,17 +116,27 @@ class Elastic_Search:
                 "index-pattern": {"title": self.index + '*'}
             }
         data = json.dumps(payload)
-        headers = {'Content-Type': 'application/json'}
+        headers = {'Content-Type': 'application/json', 'kbn-xsrf' : 'kibana'}
 
         if self.host == 'localhost':
             url = 'http://{0}:{1}/.kibana/doc/index-pattern:{2}'.format(self.host, self.port, self.index)
             self._result = json.loads(PUT(url, data, headers))
 
         else:
-            url = 'https://{0}:{1}/.kibana/doc/index-pattern:{2}'.format(self.host, self.port, self.index)
-            response = requests.put(url, data, headers=headers, auth=HTTPBasicAuth(self.username, self.password))
+            # todo: refactor line below to use kibana url from Secrets object (since we this is using Kibana api directly)
+            #url = 'https://{0}:{1}/.kibana/doc/index-pattern:{2}'.format(self.host, self.port, self.index)
+            url ='https://3b9de4482ca24840b16b0ef9b0db402c.eu-west-1.aws.found.io:9243/api/saved_objects/index-pattern'
+
+            data = json.dumps({"attributes":{"title":"test-index*","fields":"[]"}})
+
+            response = requests.post(url, data, headers=headers, auth=HTTPBasicAuth(self.username, self.password))
             self._result = json.loads(response.text)
 
+        return self
+
+    def delete_index(self):
+        if self.exists():
+            self._result = self.es.indices.delete(self.index)
         return self
 
     def delete_index_pattern(self):
@@ -135,6 +145,7 @@ class Elastic_Search:
                 url = 'http://{0}:{1}/.kibana/doc/index-pattern:{2}'.format(self.host,self.port, self.index)
                 self._result = json.loads(DELETE(url))
             else:
+                #not working, will need to use something like /api/saved_objects/index-pattern/784b1a30-3931-11ea-a5e9-45b5e8966813
                 url = 'https://{0}:{1}/.kibana/doc/index-pattern:{2}'.format(self.host, self.port, self.index)
                 response = requests.delete(url, auth=HTTPBasicAuth(self.username, self.password))
                 self._result = json.loads(response.text)
@@ -246,13 +257,11 @@ class Elastic_Search:
         results = self.es.delete_by_query(index=self.index, body=query)
         return results
 
-    def delete_index(self):
-        if self.exists():
-            self._result = self.es.indices.delete(self.index)
-        return self
-
     def index_list(self):
         return set(self.es.indices.get_alias())
+
+    def info(self):
+        return self.es.info()
 
     def exists(self):
         return self.es.indices.exists(self.index)

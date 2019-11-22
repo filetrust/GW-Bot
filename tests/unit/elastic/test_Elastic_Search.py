@@ -1,23 +1,42 @@
 import unittest
 
+from osbot_aws.apis.Secrets import Secrets
 from pbx_gs_python_utils.utils.Dev import Dev
 
 from gw_bot.elastic.Elastic_Search import Elastic_Search
+from gw_bot.helpers.Test_Helper import Test_Helper
 
 
-class Test_Elastic_Search(unittest.TestCase):
+class Test_Elastic_Search(Test_Helper):
 
     def setUp(self):
         self.index     = 'test-index'
-        self.secret_id = 'elastic-jira-dev-2'
-        self.elastic = Elastic_Search()._setup_Elastic_on_cloud_via_AWS_Secret(self.index, self.secret_id)
+        self.secret_id = 'gw-elastic-server-1'
+
+
+        self.elastic = Elastic_Search(self.index, self.secret_id)
         self.result = None
 
     def tearDown(self) -> None:
-        if self.result:
+        if self.result is not None:
             Dev.pprint(self.result)
 
+    def test_create_index(self):
+        #self.elastic.create_index()._result
+        #self.elastic.add({'answer':42})
+        #self.result = self.elastic.create_index_pattern()._result
+        self.elastic.index = 'test-index*'
+        self.elastic.delete_index_pattern()
+        self.elastic.delete_index()
+        self.result = self.elastic._result
 
+    def test_info(self):
+        info = self.elastic.es.info()
+        assert info['tagline'] == 'You Know, for Search'
+        list(set(info)) == ['version', 'tagline', 'cluster_name', 'cluster_uuid', 'name']
+
+    def test_test_info(self):
+        assert '.apm-agent-configuration' in self.elastic.index_list()
 
     def test_add_data_with_timestamp(self):
         data    = { 'answer' : 42}
