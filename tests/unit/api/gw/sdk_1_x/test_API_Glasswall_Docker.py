@@ -17,15 +17,25 @@ class test_API_Docker_Glasswall_1_x(TestCase):
     def test_ctor(self):
         assert self.glasswall.docker_image == 'safiankhan/glasswallclassic:2.0'
 
-    def test_docker_cli(self):
+    def test_glasswall_cli(self):
         #assert self.glasswall.docker_cli(['-v']) == '1.42.33256\nSUCCESS\n'
-        self.result =self.glasswall.docker_cli(['ls','config'])
+        self.result =self.glasswall.glasswall_cli(['ls','config'])
 
-
-    def test_docker_scan(self):
-        self.result = self.glasswall.docker_scan()
+    def test_glasswall_scan(self):
+        self.result = self.glasswall.glasswall_scan()
 
     def test_docker_run_bash_command(self):
         assert 'home'                      in self.glasswall.docker_run_bash_command(['ls','/'])
         assert 'glasswallCLI'              in self.glasswall.docker_run_bash_command(['ls'])
         assert 'executable file not found' in self.glasswall.docker_run_bash_command('aaaa')
+
+    def test_scan_file(self):
+        file_to_scan = '/tmp/gcon-sessions.pdf'
+        new_file     = '/tmp/gcon-sessions-NEW.pdf'
+        self.result = self.glasswall.scan_file(file_to_scan,new_file)
+
+    def test_watermark_file(self):
+        file_to_scan = '/tmp/gcon-sessions.pdf'
+        new_file     = '/tmp/gcon-sessions-with-WATERMARK.pdf'
+        watermark    = 'Hello World!!!'
+        self.result = self.glasswall.watermark_file(file_to_scan, new_file,watermark)
