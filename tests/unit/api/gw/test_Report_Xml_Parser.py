@@ -105,3 +105,14 @@ class test_Report_Xml_Parser(TestCase):
         assert 0   == len(self.parser.ids_content_groups_section(self.parser.parse_document(), 'IssueItems'))
         assert 2   == len(self.parser.ids_content_groups_section(self.parser.parse_document(), 'RemedyItems'))
         assert 6   == len(self.parser.ids_content_groups_section(self.parser.parse_document(), 'SanitisationItems'))
+
+
+
+    # misc use cases
+
+    def test__dave_docx_report(self):
+        target       = '/tmp/dave-docx-report.xml'
+        xml_report   = Files.contents(target)
+        parser       = Report_Xml_Parser(xml_report)
+        json_report  = parser.parse_document()
+        self.result  = parser.analysis_report_summary(json_report)
