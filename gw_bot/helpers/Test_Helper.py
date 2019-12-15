@@ -2,7 +2,7 @@ from unittest import TestCase
 
 from pbx_gs_python_utils.utils.Dev import Dev
 
-from oss_bot.setup.OSS_Setup import OSS_Setup
+from gw_bot.setup.OSS_Setup import OSS_Setup
 
 
 class Test_Helper(TestCase):

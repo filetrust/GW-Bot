@@ -1,13 +1,13 @@
 from osbot_aws.apis.Lambda import Lambda
 from pbx_gs_python_utils.utils.Lambdas_Helpers import slack_message
 
-from oss_bot.api.API_OSS_Slack import API_OSS_Slack
+from gw_bot.api.API_OSS_Slack import API_OSS_Slack
 
 
 def send_screenshot_to_slack(path, channel, extra_params: list):
     if path is None: path = ''
     url = 'https://open-security-summit.org/' + path
-    from oss_bot.api.commands.OSS_Bot_Commands import OSS_Bot_Commands
+    from gw_bot.api.commands.OSS_Bot_Commands import OSS_Bot_Commands
     params = ["screenshot", url]
     params.extend(extra_params)
     OSS_Bot_Commands().browser({'channel': channel}, params)
@@ -25,7 +25,7 @@ class Participant_Commands:
     @staticmethod
     def info(team_id=None, channel=None, params=None):
         name = " ".join(params)
-        aws_lambda = Lambda('oss_bot.lambdas.git_lambda')
+        aws_lambda = Lambda('gw_bot.lambdas.git_lambda')
         payload = {'action' : 'participant_info' ,
                    'name'   : name               ,
                    'channel': channel            ,
@@ -35,7 +35,7 @@ class Participant_Commands:
     @staticmethod
     def view(team_id=None, channel=None, params=None):
         name = " ".join(params)
-        aws_lambda = Lambda('oss_bot.lambdas.git_lambda')
+        aws_lambda = Lambda('gw_bot.lambdas.git_lambda')
         payload = {'action': 'participant_url',
                    'name'  : name,
                    'commit': False}
@@ -57,7 +57,7 @@ class Participant_Commands:
         name  = name.strip()
         field = field.strip()
         value = value.strip()
-        aws_lambda = Lambda('oss_bot.lambdas.git_lambda')
+        aws_lambda = Lambda('gw_bot.lambdas.git_lambda')
         payload = {'action' : 'participant_edit_field',
                    'name'   : name,
                    'channel': channel,
@@ -74,7 +74,7 @@ class Participant_Commands:
         name = name.strip()
         field = field.strip()
         value = value.strip()
-        aws_lambda = Lambda('oss_bot.lambdas.git_lambda')
+        aws_lambda = Lambda('gw_bot.lambdas.git_lambda')
         payload = {'action': 'participant_append_to_field',
                    'name': name,
                    'channel': channel,
@@ -91,7 +91,7 @@ class Participant_Commands:
         name = name.strip()
         field = field.strip()
         value = value.strip()
-        aws_lambda = Lambda('oss_bot.lambdas.git_lambda')
+        aws_lambda = Lambda('gw_bot.lambdas.git_lambda')
         payload = {'action': 'participant_remove_from_field',
                    'name': name,
                    'channel': channel,

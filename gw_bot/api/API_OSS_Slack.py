@@ -1,4 +1,4 @@
-from oss_bot.lambdas.png_to_slack import load_dependency
+from gw_bot.lambdas.png_to_slack import load_dependency
 
 
 class API_OSS_Slack:

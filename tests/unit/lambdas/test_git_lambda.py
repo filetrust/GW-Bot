@@ -6,17 +6,17 @@ from osbot_aws.helpers.Lambda_Package import Lambda_Package
 from pbx_gs_python_utils.utils.Dev import Dev
 from pbx_gs_python_utils.utils.Misc import Misc
 
-from oss_bot.Deploy import Deploy
-from oss_bot.helpers.Test_Helper import Test_Helper
+from gw_bot.Deploy import Deploy
+from gw_bot.helpers.Test_Helper import Test_Helper
 
 
 class test_git_lambda(Test_Helper):
     def setUp(self):
         self.oss_setup = super().setUp()
-        # self.aws_lambda = Lambda_Package('oss_bot.lambdas.git_lambda')
+        # self.aws_lambda = Lambda_Package('gw_bot.lambdas.git_lambda')
         # self.aws_lambda._lambda.set_s3_bucket(self.oss_setup.s3_bucket_lambdas)         \
         #                        .set_role     (self.oss_setup.role_lambdas)
-        self.aws_lambda = Lambda('oss_bot.lambdas.git_lambda')
+        self.aws_lambda = Lambda('gw_bot.lambdas.git_lambda')
         self.result = None
 
     def tearDown(self):

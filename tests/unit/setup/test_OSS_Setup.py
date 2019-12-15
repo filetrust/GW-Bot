@@ -1,5 +1,5 @@
-from oss_bot.helpers.Test_Helper import Test_Helper
-from oss_bot.setup.OSS_Setup import OSS_Setup
+from gw_bot.helpers.Test_Helper import Test_Helper
+from gw_bot.setup.OSS_Setup import OSS_Setup
 
 
 class test_OSS_Setup(Test_Helper):

@@ -4,7 +4,7 @@ from pbx_gs_python_utils.utils.Misc import Misc
 def send_screenshot_to_slack(path, channel, extra_params: list):
     if path is None: path = ''
     url = 'https://open-security-summit.org/' + path
-    from oss_bot.api.commands.OSS_Bot_Commands import OSS_Bot_Commands
+    from gw_bot.api.commands.OSS_Bot_Commands import OSS_Bot_Commands
     params = ["screenshot", url]
     params.extend(extra_params)
     OSS_Bot_Commands().browser({'channel': channel}, params)

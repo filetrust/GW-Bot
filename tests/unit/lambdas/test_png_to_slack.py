@@ -4,7 +4,7 @@ import unittest
 from pbx_gs_python_utils.utils.Dev import Dev
 from osbot_aws.apis.Lambda import Lambda
 
-from oss_bot.Deploy import Deploy
+from gw_bot.Deploy import Deploy
 
 
 class Test_Lambda_pdf_to_slack(unittest.TestCase):

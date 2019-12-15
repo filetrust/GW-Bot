@@ -4,7 +4,7 @@ import urllib
 
 from osbot_aws.apis.Secrets import Secrets
 
-from oss_bot.api.commands.OSS_Bot_Commands import OSS_Bot_Commands
+from gw_bot.api.commands.OSS_Bot_Commands import OSS_Bot_Commands
 
 
 class API_OSS_Bot:
@@ -30,7 +30,7 @@ class API_OSS_Bot:
     def handle_command(self, slack_event):
         try:
             if slack_event.get('text'):
-                command = slack_event.get('text').replace('<@UJ3RRH17C>', '').strip()          # UJ3RRH17C is the oss_bot slack ids
+                command = slack_event.get('text').replace('<@UJ3RRH17C>', '').strip()          # UJ3RRH17C is the gw_bot slack ids
                 if not command:
                     command = 'hello'
                 method_name = command.split(' ')[0].split('\n')[0]
@@ -40,7 +40,7 @@ class API_OSS_Bot:
                     method_params      = command.split(' ')[1:]
                     (text,attachments) = method(slack_event,method_params)                       # invoke method
                 else:
-                    text = ":exclamation: OSS bot command `{0}` not found. Use `oss_bot help` to see a list of available commands".format(method_name)
+                    text = ":exclamation: OSS bot command `{0}` not found. Use `gw_bot help` to see a list of available commands".format(method_name)
                     #text = "text = {0}, command= {1}".format(slack_event.get('text'), command )
                     attachments = []
             else:

@@ -1,8 +1,8 @@
 from pbx_gs_python_utils.utils.Lambdas_Helpers import slack_message
 
-from oss_bot.api.API_OSS_Slack import API_OSS_Slack
-from oss_bot.api.commands.Participant_Commands import Participant_Commands
-from oss_bot.api.commands.Participant_Commands import send_screenshot_to_slack
+from gw_bot.api.API_OSS_Slack import API_OSS_Slack
+from gw_bot.api.commands.Participant_Commands import Participant_Commands
+from gw_bot.api.commands.Participant_Commands import send_screenshot_to_slack
 
 
 class Schedule_Commands:
@@ -32,7 +32,7 @@ class Schedule_Commands:
 
         text = 'participant view {0}'.format(name)
         from osbot_aws.apis.Lambda import Lambda
-        aws_lambda = Lambda('oss_bot.lambdas.oss_bot')
+        aws_lambda = Lambda('gw_bot.lambdas.gw_bot')
         aws_lambda.invoke_async({'event': {'type': 'message', 'text': text, "channel": channel}})
         # Participant_Commands.view(slack_id, channel, [name])
 

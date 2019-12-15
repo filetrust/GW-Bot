@@ -1,13 +1,13 @@
 from osbot_aws.apis.Lambdas import Lambdas
 from osbot_aws.apis.test_helpers.Temp_Aws_Roles import Temp_Aws_Roles
-from oss_bot.helpers.Test_Helper import Test_Helper
+from gw_bot.helpers.Test_Helper import Test_Helper
 
 
 class test_run_command(Test_Helper):
     def setUp(self):
         self.lambda_name = 'gw_bot.lambdas.dev.hello_world'
         self.aws_lambda   = super().setUp().lambda_package(self.lambda_name)
-        self.aws_lambda.add_module('oss_bot')
+        self.aws_lambda.add_module('gw_bot')
 
     def tearDown(self):
         super().tearDown()

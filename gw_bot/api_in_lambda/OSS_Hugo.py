@@ -1,7 +1,7 @@
 import json
 
 from pbx_gs_python_utils.utils.Misc import Misc
-from oss_bot.api_in_lambda.Git_Lambda import Git_Lambda
+from gw_bot.api_in_lambda.Git_Lambda import Git_Lambda
 
 class OSS_Hugo:
     def __init__(self):

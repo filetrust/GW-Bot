@@ -1,5 +1,5 @@
-from oss_bot.api.Slack_Handler import Slack_Handler
-from oss_bot.helpers.Test_Helper import Test_Helper
+from gw_bot.api.Slack_Handler import Slack_Handler
+from gw_bot.helpers.Test_Helper import Test_Helper
 
 
 class test_Slack_Handler(Test_Helper):

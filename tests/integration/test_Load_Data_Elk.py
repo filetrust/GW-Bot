@@ -7,7 +7,7 @@ from pbx_gs_python_utils.utils import Http
 from pbx_gs_python_utils.utils.Dev import Dev
 from pbx_gs_python_utils.utils.Elastic_Search import Elastic_Search
 
-from oss_bot.helpers.Test_Helper import Test_Helper
+from gw_bot.helpers.Test_Helper import Test_Helper
 
 
 class Load_Data_Elk:

@@ -2,13 +2,13 @@ from osbot_aws.apis.Lambda import Lambda
 from pbx_gs_python_utils.utils.Misc import Misc
 from pbx_gs_python_utils.utils.slack.Slack_Commands_Helper import Slack_Commands_Helper
 
-from oss_bot.api.commands.Maps_Commands         import Maps_Commands
-from oss_bot.api.commands.Dev_Commands          import Dev_Commands
-from oss_bot.api.commands.Participant_Commands  import Participant_Commands
-from oss_bot.api.commands.Schedule_Commands     import Schedule_Commands
-from oss_bot.api.commands.Sessions_Commands     import Sessions_Commands
-from oss_bot.api.commands.Site_Commands         import Site_Commands
-from oss_bot.api.commands.FAQ_Commands          import FAQ_Commands
+from gw_bot.api.commands.Maps_Commands         import Maps_Commands
+from gw_bot.api.commands.Dev_Commands          import Dev_Commands
+from gw_bot.api.commands.Participant_Commands  import Participant_Commands
+from gw_bot.api.commands.Schedule_Commands     import Schedule_Commands
+from gw_bot.api.commands.Sessions_Commands     import Sessions_Commands
+from gw_bot.api.commands.Site_Commands         import Site_Commands
+from gw_bot.api.commands.FAQ_Commands          import FAQ_Commands
 
 def use_command_class(slack_event, params, target_class):
     channel = Misc.get_value(slack_event, 'channel')

@@ -6,7 +6,7 @@ import tempfile
 from pbx_gs_python_utils.utils.Files import Files
 from pbx_gs_python_utils.utils.Process import Process
 
-from oss_bot.lambdas.png_to_slack import load_dependency
+from gw_bot.lambdas.png_to_slack import load_dependency
 
 
 def run(event, context):

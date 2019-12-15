@@ -3,9 +3,9 @@ import json
 from osbot_aws.apis.Lambda import Lambda
 from pbx_gs_python_utils.utils.Lambdas_Helpers import slack_message
 
-from oss_bot.api.API_OSS_Slack import API_OSS_Slack
-from oss_bot.api.commands.Participant_Commands import Participant_Commands
-from oss_bot.api.commands.Site_Commands import send_screenshot_to_slack
+from gw_bot.api.API_OSS_Slack import API_OSS_Slack
+from gw_bot.api.commands.Participant_Commands import Participant_Commands
+from gw_bot.api.commands.Site_Commands import send_screenshot_to_slack
 
 
 class Sessions_Commands:
@@ -17,7 +17,7 @@ class Sessions_Commands:
     @staticmethod
     def list(slack_id=None, channel=None, params=None):
         name = API_OSS_Slack().slack_id_to_slack_full_name(slack_id)
-        aws_lambda = Lambda('oss_bot.lambdas.git_lambda')
+        aws_lambda = Lambda('gw_bot.lambdas.git_lambda')
         payload = {'action': 'participant_info',
                    'name': name,
                    'commit': False}
@@ -48,7 +48,7 @@ class Sessions_Commands:
         slack_message(text, [], channel)
 
         command = "participant append {0},sessions,{1}".format(name, value)
-        aws_lambda = Lambda('oss_bot.lambdas.oss_bot')
+        aws_lambda = Lambda('gw_bot.lambdas.gw_bot')
         aws_lambda.invoke_async({'event': {'type': 'message', 'text': command, "channel": channel}})
 
 
@@ -66,5 +66,5 @@ class Sessions_Commands:
         slack_message(text, [], channel)
 
         command = "participant remove {0},sessions,{1}".format(name, value)
-        aws_lambda = Lambda('oss_bot.lambdas.oss_bot')
+        aws_lambda = Lambda('gw_bot.lambdas.gw_bot')
         aws_lambda.invoke_async({'event': {'type': 'message', 'text': command, "channel": channel}})

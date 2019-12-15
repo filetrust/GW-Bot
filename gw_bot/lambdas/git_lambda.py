@@ -3,7 +3,7 @@ from pbx_gs_python_utils.utils.Lambdas_Helpers import slack_message
 from pbx_gs_python_utils.utils.Misc import Misc
 from pbx_gs_python_utils.utils.Process import Process
 
-from oss_bot.lambdas.png_to_slack import load_dependency
+from gw_bot.lambdas.png_to_slack import load_dependency
 
 
 def run(event, context):
@@ -25,7 +25,7 @@ def run(event, context):
         load_dependency('frontmatter')
 
 
-        from oss_bot.api_in_lambda.OSS_Hugo   import OSS_Hugo
+        from gw_bot.api_in_lambda.OSS_Hugo   import OSS_Hugo
         try:
             oss_hugo = OSS_Hugo().setup()
             method   = getattr(oss_hugo,action)

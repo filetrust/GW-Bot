@@ -1,6 +1,6 @@
 from pbx_gs_python_utils.utils.Dev import Dev
 
-from oss_bot.api.API_OSS_Bot import API_OSS_Bot
+from gw_bot.api.API_OSS_Bot import API_OSS_Bot
 
 
 class Slack_Handler:

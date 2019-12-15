@@ -1,6 +1,6 @@
 from osbot_aws.apis.Lambda import Lambda
 
-from oss_bot.api.API_OSS_Slack import API_OSS_Slack
+from gw_bot.api.API_OSS_Slack import API_OSS_Slack
 
 class Dev_Commands:
 
@@ -20,7 +20,7 @@ class Dev_Commands:
 
     @staticmethod
     def git_diff(team_id=None, channel=None, params=None):
-        aws_lambda = Lambda('oss_bot.lambdas.git_lambda')
+        aws_lambda = Lambda('gw_bot.lambdas.git_lambda')
         payload = {'action' : 'git_dff' ,
                    'channel': channel            ,
                    'commit' : False              }
@@ -28,7 +28,7 @@ class Dev_Commands:
 
     @staticmethod
     def git_status(team_id=None, channel=None, params=None):
-        aws_lambda = Lambda('oss_bot.lambdas.git_lambda')
+        aws_lambda = Lambda('gw_bot.lambdas.git_lambda')
         payload = {'action': 'git_status',
                    'channel': channel,
                    'commit': False}
@@ -36,7 +36,7 @@ class Dev_Commands:
 
     @staticmethod
     def git_pull(team_id=None, channel=None, params=None):
-        aws_lambda = Lambda('oss_bot.lambdas.git_lambda')
+        aws_lambda = Lambda('gw_bot.lambdas.git_lambda')
         payload = {'action': 'git_pull',
                    'channel': channel,
                    'commit': False}
@@ -44,7 +44,7 @@ class Dev_Commands:
 
     @staticmethod
     def git_reset(team_id=None, channel=None, params=None):
-        aws_lambda = Lambda('oss_bot.lambdas.git_lambda')
+        aws_lambda = Lambda('gw_bot.lambdas.git_lambda')
         payload = {'action': 'git_reset',
                    'channel': channel,
                    'commit': False}

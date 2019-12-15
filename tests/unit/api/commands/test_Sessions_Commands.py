@@ -1,8 +1,8 @@
 from pbx_gs_python_utils.utils.Dev import Dev
 
-from oss_bot.Deploy import Deploy
-from oss_bot.api.commands.Sessions_Commands import Sessions_Commands
-from oss_bot.helpers.Test_Helper import Test_Helper
+from gw_bot.Deploy import Deploy
+from gw_bot.api.commands.Sessions_Commands import Sessions_Commands
+from gw_bot.helpers.Test_Helper import Test_Helper
 
 
 class test_Sessions_Commands(Test_Helper):
