@@ -7,8 +7,8 @@ from oss_bot.setup.OSS_Setup import OSS_Setup
 
 class Test_Helper(TestCase):
 
-    def setUp(self):
-        self.s3_bucket = 'oss_bot_lambdas'
+
+    def setUp(self) -> OSS_Setup:
         self.result = None
         return OSS_Setup().setup_test_environment()
 

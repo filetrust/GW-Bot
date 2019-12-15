@@ -1,28 +1,36 @@
-from unittest import TestCase
-
-from osbot_aws.apis.Lambda import Lambda
 from osbot_aws.apis.Lambdas import Lambdas
-from osbot_aws.helpers.Lambda_Package import Lambda_Package
-
+from osbot_aws.apis.test_helpers.Temp_Aws_Roles import Temp_Aws_Roles
 from oss_bot.helpers.Test_Helper import Test_Helper
 
 
 class test_run_command(Test_Helper):
     def setUp(self):
-        self.oss_setup = super().setUp()
-        self.aws_lambda = Lambda_Package('oss_bot.lambdas.dev.hello_world')
-        self.aws_lambda._lambda.set_s3_bucket(self.oss_setup.s3_bucket_lambdas)         \
-                               .set_role     (self.oss_setup.role_lambdas)
-        self.aws_lambda.create()  # use when wanting to update lambda function
+        self.lambda_name = 'gw_bot.lambdas.dev.hello_world'
+        self.aws_lambda   = super().setUp().lambda_package(self.lambda_name)
+        self.aws_lambda.add_module('oss_bot')
 
     def tearDown(self):
         super().tearDown()
-        self.aws_lambda.delete()
+        #self.aws_lambda.delete()
 
-    def test_invoke(self):
+    # this test needs to be executed once (since it will create the role used for these executions)
+    def test_create_aws_role(self):
+        aws_role_lambda = Temp_Aws_Roles().create__for_lambda_invocation()
+        assert aws_role_lambda == 'arn:aws:iam::311800962295:role/temp_role_for_lambda_invocation'
+        #self.result = aws_role_lambda
+
+    # this test will check that that everything required to run the lambda has been correctly setup
+    def test_create(self):
+        self.aws_lambda._lambda.upload()
+        self.aws_lambda.create()
+        assert 'gw_bot_lambdas_dev_hello_world'              in list(set(Lambdas().list()))
+        assert 'lambdas/gw_bot.lambdas.dev.hello_world.zip'  in self.aws_lambda._lambda.s3().find_files('gw-bot-lambdas','lambdas')
+
+    # test the invocation
+    def test_update_and_invoke(self):
+        self.aws_lambda.update()
         assert self.aws_lambda.invoke({'name':'abc'}) == 'Hello abc (from lambda)'
 
-    #workflow tests
-    def test____check_current_lambdas(self):
-        list = Lambdas().list()
-        self.result = len(set(list))
+    # test the invocation
+    def test_just_invoke(self):
+        assert self.aws_lambda.invoke({'name': 'abc'}) == 'Hello abc (from lambda)'

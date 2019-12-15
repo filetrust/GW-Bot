@@ -9,7 +9,16 @@ class test_OSS_Setup(Test_Helper):
 
 
     def test__init__(self):
-        assert self.oss_setup.profile_name == 'gs-detect-aws'
+        assert self.oss_setup.profile_name == 'gw-bot'
+
+    def test_lambda_package(self):
+        self.lambda_package = self.oss_setup.lambda_package('an-lambda-name')
+
+        assert self.lambda_package.lambda_name   == 'an-lambda-name'
+        assert self.lambda_package.tmp_s3_bucket == self.oss_setup.s3_bucket_lambdas
+        assert self.lambda_package.tmp_s3_key    == 'lambdas/an-lambda-name.zip'
+
+        #self.result = self.lambda_package.tmp_s3_key
 
 
     def test_set_up_buckets(self):
