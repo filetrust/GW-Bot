@@ -18,7 +18,7 @@ def use_command_class(slack_event, params, target_class):
 
 class OSS_Bot_Commands:                                      # move to separate class
 
-    gsbot_version = 'v0.47'
+    gsbot_version = 'v0.11'
 
     @staticmethod
     def browser(slack_event=None, params=None):

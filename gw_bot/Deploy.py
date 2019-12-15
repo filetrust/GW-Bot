@@ -18,7 +18,9 @@ class Deploy:
     def get_package(self, lambda_name):
         package = Lambda_Package(lambda_name)
         package._lambda.set_s3_bucket(self.oss_setup.s3_bucket_lambdas) \
+                       .set_s3_key('lambdas/{0}.zip'.format(lambda_name)) \
                        .set_role(self.oss_setup.role_lambdas)
+
         return package
 
     def deploy_lambda__oss_bot(self):

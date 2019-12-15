@@ -15,3 +15,7 @@ class Test_Helper(TestCase):
     def tearDown(self):
         if self.result is not None:
             Dev.pprint(self.result)
+
+    def lambda_package(self, lambda_name):
+        self.result = None
+        return OSS_Setup().setup_test_environment().lambda_package(lambda_name)

@@ -6,12 +6,12 @@ from gw_bot.helpers.Test_Helper import Test_Helper
 class test_run_command(Test_Helper):
     def setUp(self):
         self.lambda_name = 'gw_bot.lambdas.dev.hello_world'
-        self.aws_lambda   = super().setUp().lambda_package(self.lambda_name)
+        self.aws_lambda   = super().lambda_package(self.lambda_name)
         self.aws_lambda.add_module('gw_bot')
 
     def tearDown(self):
         super().tearDown()
-        #self.aws_lambda.delete()
+        self.aws_lambda.delete()
 
     # this test needs to be executed once (since it will create the role used for these executions)
     def test_create_aws_role(self):

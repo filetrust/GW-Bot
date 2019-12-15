@@ -15,7 +15,7 @@ class test_slack_message(Test_Helper):
     def test_invoke(self):
         from gw_bot.Deploy import Deploy
         Deploy().deploy_lambda__slack_message()
-        channel = 'DJ8UA0RFT' # gw_bot
+        channel = 'DRE51D4EM' # gw_bot
         #API_OSS_Bot()
         payload = {
             'text': 'this is a text',

@@ -11,7 +11,7 @@ class OSS_Setup:
         self.profile_name      = 'gw-bot'
         self.region_name       = 'eu-west-1'
         self.account_id        = '311800962295' #glasswalltestframework'
-        self.role_lambdas      = "arn:aws:iam::{0}:role/service-role/osbot-lambdas".format(self.account_id)
+        self.role_lambdas      = "arn:aws:iam::{0}:role/gwbot-lambdas-temp".format(self.account_id)
         self.s3_bucket_lambdas = '{0}-lambdas'.format(self.bot_name).replace('_','-')
         self.s3                = S3()
 
