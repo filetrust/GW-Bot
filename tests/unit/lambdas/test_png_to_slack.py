@@ -19,7 +19,7 @@ class Test_Lambda_pdf_to_slack(unittest.TestCase):
         png_file = '/tmp/lambda_png_file.png'
         png_data = base64.b64encode(open(png_file, 'rb').read()).decode()
         Dev.pprint(len(png_data))
-        payload   = { "png_data": png_data, 'aws_secrets_id':'slack-gs-bot', 'channel': 'DDKUZTK6X'}
+        payload   = { "png_data": png_data, 'aws_secrets_id':'slack-gs-bot', 'channel': 'DRE51D4EM'}
 
         result = self.png_to_slack.invoke(payload)
 

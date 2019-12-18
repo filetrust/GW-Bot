@@ -25,7 +25,7 @@ class test_Maps_Commands(Test_Helper):
         self.result = Maps_Commands().simple(None, 'DJ8UA0RFT')
 
     def test_deploy_lambda__oss_bot(self):
-        Deploy().setup().deploy_lambda__oss_bot()
+        Deploy().setup().deploy_lambda__gw_bot()
 
     def test_deploy_lambda__browser(self):
         Deploy().setup().deploy_lambda__browser()

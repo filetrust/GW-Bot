@@ -23,7 +23,7 @@ class Deploy:
 
         return package
 
-    def deploy_lambda__oss_bot(self):
+    def deploy_lambda__gw_bot(self):
         return self.get_package('gw_bot.lambdas.gw_bot').update_code()
 
     def deploy_lambda__git_lambda(self):

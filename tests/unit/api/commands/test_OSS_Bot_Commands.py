@@ -21,6 +21,10 @@ class test_OSS_Bot_Commands(Test_Helper):
     def test_hello(self):
         assert OSS_Bot_Commands.hello() == ('Hello <@None>, how can I help you?', [])
 
+    def test_gw(self):
+        self.result = OSS_Bot_Commands.gw()
+
+
     def test_help(self):
         assert OSS_Bot_Commands.help()[0] ==  '*Here are the commands available*'
 
@@ -40,7 +44,7 @@ class test_OSS_Bot_Commands(Test_Helper):
 
     # deploy helpers
 
-    def test_deploy_lambda__oss_bot(self):
-        Deploy().setup().deploy_lambda__oss_bot()
+    def test_deploy_lambda__gw_bot(self):
+        Deploy().setup().deploy_lambda__gw_bot()
 
 

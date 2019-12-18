@@ -11,7 +11,7 @@ class test_run_command(Test_Helper):
 
     def tearDown(self):
         super().tearDown()
-        self.aws_lambda.delete()
+        #self.aws_lambda.delete()
 
     # this test needs to be executed once (since it will create the role used for these executions)
     def test_create_aws_role(self):
@@ -33,4 +33,7 @@ class test_run_command(Test_Helper):
 
     # test the invocation
     def test_just_invoke(self):
-        assert self.aws_lambda.invoke({'name': 'abc'}) == 'Hello abc (from lambda)'
+        self.aws_lambda.update()
+        #self.result = self.aws_lambda.invoke({'name': 'abc'})
+        print(self.aws_lambda.invoke({'name': 'abc'}))
+        #assert self.aws_lambda.invoke({'name': 'abc'}) == 'Hello abc (from lambda)'

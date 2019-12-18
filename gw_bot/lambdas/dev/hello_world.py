@@ -1,2 +1,2 @@
 def run(event, context):
-    return "Hello {0} (from lambda)".format(event.get('name'))
+    return "..CHANGED LOCally..Hello {0} (from lambda)".format(event.get('name'))

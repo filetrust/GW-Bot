@@ -23,7 +23,7 @@ class test_Dev_Commands(Test_Helper):
         # deploy helpers
 
     def test_deploy_lambda__oss_bot(self):
-        Deploy().setup().deploy_lambda__oss_bot()
+        Deploy().setup().deploy_lambda__gw_bot()
 
 
 

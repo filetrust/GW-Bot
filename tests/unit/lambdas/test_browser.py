@@ -42,7 +42,7 @@ class test_run_command(Test_Helper):
         deploy.oss_setup.setup_test_environment()
         deploy.deploy_lambda__browser()
         payload = {"params": ["screenshot", "https://www.google.com/images", "1200"],
-                   'data': {'channel': 'DJ8UA0RFT'}}
+                   'data': {'channel': 'DRE51D4EM'}}
         self.result = self.aws_lambda.invoke(payload)
         #self.png_data = self.aws_lambda.invoke(payload)
 

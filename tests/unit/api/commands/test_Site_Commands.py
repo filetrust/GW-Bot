@@ -32,5 +32,5 @@ class test_OSS_Bot_Commands(Test_Helper):
         self.result = package._lambda.invoke()
 
     def test_deploy_lambda__oss_bot(self):
-        package = Deploy().setup().deploy_lambda__oss_bot()
+        package = Deploy().setup().deploy_lambda__gw_bot()
         self.result = package._lambda.invoke()

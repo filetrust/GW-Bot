@@ -18,7 +18,7 @@ class test_Deploy(TestCase):
             Dev.pprint(self.result)
 
     def test_deploy_lambda__oss_bot(self):
-        self.deploy.deploy_lambda__oss_bot()
+        self.deploy.deploy_lambda__gw_bot()
 
     def test_deploy_lambda__browser(self):
         self.result = self.deploy.deploy_lambda__browser()
