@@ -4,3 +4,6 @@
 [submodule "modules/OSBot-Jupyter"]
 	path = modules/OSBot-Jupyter
 	url = git@github.com:pbx-gs/OSBot-Jupyter.git
+[submodule "modules/OSBot-jira"]
+	path = modules/OSBot-jira
+	url = git@github.com:owasp-sbot/OSBot-jira.git
