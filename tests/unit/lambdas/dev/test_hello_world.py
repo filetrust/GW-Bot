@@ -34,6 +34,7 @@ class test_run_command(Test_Helper):
     # test the invocation
     def test_just_invoke(self):
         self.aws_lambda.update()
-        #self.result = self.aws_lambda.invoke({'name': 'abc'})
         print(self.aws_lambda.invoke({'name': 'abc'}))
+
+
         #assert self.aws_lambda.invoke({'name': 'abc'}) == 'Hello abc (from lambda)'
