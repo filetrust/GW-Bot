@@ -30,24 +30,25 @@ class API_OSS_Bot:
     def handle_command(self, slack_event):
         try:
             if slack_event.get('text'):
-                command = slack_event.get('text').replace('<@UJ3RRH17C>', '').strip()          # UJ3RRH17C is the gw_bot slack ids
+                original = slack_event.get('text')
+                command = slack_event.get('text').replace('<@URS8QH4UF>', '').strip()          # URS8QH4UF is the gw_bot slack ids
                 if not command:
                     command = 'hello'
                 method_name = command.split(' ')[0].split('\n')[0]
 
-                method             = self.resolve_command_method(command)                    # find method to invoke
+                method             = self.resolve_command_method(command)                        # find method to invoke
                 if method:
                     method_params      = command.split(' ')[1:]
                     (text,attachments) = method(slack_event,method_params)                       # invoke method
                 else:
-                    text = ":exclamation: OSS bot command `{0}` not found. Use `gw_bot help` to see a list of available commands".format(method_name)
+                    text = ":exclamation: GW bot command `{0}` not found. Use `gw_bot help` to see a list of available commands".format(method_name)
                     #text = "text = {0}, command= {1}".format(slack_event.get('text'), command )
                     attachments = []
             else:
                 return None, None
 
         except Exception as error:
-            text = '*GS Bot command execution error in `handle_command` :exclamation:*'
+            text = '*GW Bot command execution error in `handle_command` :exclamation:*'
             attachments = [ { 'text': ' ' + str(error) , 'color' :  'danger'}]
         return text, attachments
 

@@ -27,9 +27,9 @@ class test_run_command(Test_Helper):
         from gw_bot.lambdas.gw_bot import run
         self.result = run({'event': {'type': 'message', 'text': 'gw'}}, {})
 
-    def test__invoke_directly_gw(self):
+    def test__invoke_directly_version(self):
         from gw_bot.lambdas.gw_bot import run
-        self.result = run({'event': {'type': 'message', 'text': 'gw'}}, {})
+        self.result = run({'event': {'type': 'message', 'text': 'version'}}, {})
 
     def test_invoke(self):
         self.update_lambda()
@@ -38,6 +38,10 @@ class test_run_command(Test_Helper):
     def test_invoke_gw(self):
         self.update_lambda()
         self.result = self.aws_lambda.invoke({'event': {'type': 'message', 'text': 'gw'}})
+
+    def test_invoke_version(self):
+        self.update_lambda()
+        self.result = self.aws_lambda.invoke({'event': {'type': 'message', 'text': 'version'}})
 
     def test_invoke_with_channel(self):
         self.update_lambda()

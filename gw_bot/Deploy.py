@@ -29,19 +29,13 @@ class Deploy:
     def deploy_lambda__git_lambda(self):
         return self.get_package('gw_bot.lambdas.git_lambda').update_code()
 
-    def deploy_lambda__browser(self):
-        #package = Lambda_Package('osbot_browser.lambdas.lambda_browser')
-        #package._lambda.set_s3_bucket(self.oss_setup.s3_bucket_lambdas) \
-        #               .set_role(self.oss_setup.role_lambdas)
-        #return package.update_code()
-        package = self.get_package('osbot_browser.lambdas.lambda_browser')
+    def deploy_lambda__browser(self, lambda_name='osbot_browser.lambdas.lambda_browser'):
+        package = self.get_package(lambda_name)
         source_folder = Files.path_combine(__file__,'../../modules/OSBot-Browser/osbot_browser')
-        #return source_folder, Files.exists(source_folder)
         package.add_folder(source_folder)
         package.add_module('osbot_aws')
         package.add_pbx_gs_python_utils()
         package.update()
-        #return package.update_code()
         return package
 
     def deploy_lambda__slack_message(self):
