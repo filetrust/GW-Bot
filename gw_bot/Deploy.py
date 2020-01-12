@@ -38,6 +38,16 @@ class Deploy:
         package.update()
         return package
 
+    def deploy_lambda__jira(self, lambda_name=None):
+        if lambda_name:
+            package = self.get_package(lambda_name)
+            source_folder = Files.path_combine(__file__,'../../modules/OSBot-jira/osbot_jira')
+            package.add_folder(source_folder)
+            package.add_module('osbot_aws')
+            package.add_pbx_gs_python_utils()
+            package.update()
+            return package
+
     def deploy_lambda__slack_message(self):
         package = self.get_package('pbx_gs_python_utils_lambdas_utils_slack_message')
         package._lambda.handler = 'gw_bot.lambdas.slack_message.run'
