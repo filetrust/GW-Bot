@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <pdfConfig>
+		<metadata>allow</metadata>
+		<javascript>allow</javascript>
+		<acroform>disallow</acroform>
+		<actions_all>sanitise</actions_all>
+		<embedded_files>allow</embedded_files>
+		<external_hyperlinks>allow</external_hyperlinks>
+		<internal_hyperlinks>allow</internal_hyperlinks>
+		<embedded_images>allow</embedded_images>
+    </pdfConfig>
+    <wordConfig>
+		<metadata>allow</metadata>
+		<macros>allow</macros>
+		<embedded_files>allow</embedded_files>
+		<review_comments>allow</review_comments>
+		<internal_hyperlinks>allow</internal_hyperlinks>
+		<external_hyperlinks>allow</external_hyperlinks>
+		<dynamic_data_exchange>allow</dynamic_data_exchange>
+		<embedded_images>allow</embedded_images>
+    </wordConfig>
+    <pptConfig>
+		<metadata>allow</metadata>
+		<macros>allow</macros>
+		<embedded_files>allow</embedded_files>
+		<review_comments>allow</review_comments>
+		<internal_hyperlinks>allow</internal_hyperlinks>
+		<external_hyperlinks>allow</external_hyperlinks>
+		<embedded_images>allow</embedded_images>
+    </pptConfig>
+    <xlsConfig>
+		<metadata>allow</metadata>
+		<macros>allow</macros>
+		<embedded_files>allow</embedded_files>
+		<internal_hyperlinks>allow</internal_hyperlinks>
+		<external_hyperlinks>allow</external_hyperlinks>
+		<review_comments>allow</review_comments>
+		<dynamic_data_exchange>allow</dynamic_data_exchange>
+		<embedded_images>allow</embedded_images>
+    </xlsConfig>	
+</config>
