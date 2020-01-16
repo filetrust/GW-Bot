@@ -28,7 +28,7 @@ class API_Glasswall:
 
     def xml_to_json(self, xml_report):
         gw_report = Lambda('gw_bot.lambdas.gw.gw_report')
-        return gw_report.invoke({'xml_report':xml_report})
+        return gw_report.invoke({'xml_report':xml_report , 'report_type' :  'summary' })
 
     def run_analysis_audit(self):
 

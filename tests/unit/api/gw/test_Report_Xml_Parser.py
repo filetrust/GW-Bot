@@ -90,3 +90,18 @@ class test_Report_Xml_Parser(TestCase):
         assert self.parser.root().tag     == 'GWallInfo'
         assert len(self.parser.root())    == 1
         assert len(self.parser.root()[0]) == 4
+
+
+    # analysis methods
+    def test_analysis_report_summary(self):
+        json_report = self.parser.parse_document()
+        self.result = self.parser.analysis_report_summary(json_report)
+
+    def test_ids_content_groups(self):
+        assert 'Excel Other Instances' in self.parser.ids_content_groups(self.parser.parse_document())
+
+    def test_ids_content_groups_section(self):
+        assert 127 == len(self.parser.ids_content_groups_section(self.parser.parse_document(), 'ContentItems'))
+        assert 0   == len(self.parser.ids_content_groups_section(self.parser.parse_document(), 'IssueItems'))
+        assert 2   == len(self.parser.ids_content_groups_section(self.parser.parse_document(), 'RemedyItems'))
+        assert 6   == len(self.parser.ids_content_groups_section(self.parser.parse_document(), 'SanitisationItems'))

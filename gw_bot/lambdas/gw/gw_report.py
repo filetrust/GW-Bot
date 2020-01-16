@@ -9,7 +9,13 @@ def tag(element):
 
 def run(event, context):
 
-    xml_report = event.get('xml_report')
-    config     = event.get('config')
+    xml_report  = event.get('xml_report')
+    config      = event.get('config')
+    report_type = event.get('report_type')
 
-    return Report_Xml_Parser(xml_report,config).parse_document()
+    parser      = Report_Xml_Parser(xml_report, config)
+    json_report = parser.parse_document()
+    if report_type == 'summary':
+        return parser.analysis_report_summary(json_report)
+    return json_report
+

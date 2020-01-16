@@ -30,7 +30,7 @@ class test_gw_report(Test_Helper):
                     "include_sanitisation_items": True
                 }
 
-        payload = {'xml_report': xml_report, "config": config}
+        payload = {'xml_report': xml_report, "config": config , "report_type": 'summary'}
         self.result = self.aws_lambda.invoke(payload)
 
 

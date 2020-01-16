@@ -106,3 +106,25 @@ class Report_Xml_Parser():
         if self.config["include_content_groups"]:
             result['Content_Groups'] = self.parse_content_groups()
         return result
+
+    # analysis methods
+    def ids_content_groups(self, json_report):
+        return sorted(list(set(json_report.get('Content_Groups',[]))))
+
+    def ids_content_groups_section(self, json_report, section):
+        results = []
+        for key, value in json_report.get('Content_Groups',[]).items():
+            results.extend(list(set(value.get(section,[]))))
+        return sorted(set(results))
+
+    def analysis_report_summary(self, json_report):
+        result = {
+            "file_type"          : json_report.get('Document_Summary', {}).get('FileType')        ,
+            "file_size"          : json_report.get('Document_Summary', {}).get('TotalSizeInBytes'),
+            "content_groups"     : self.ids_content_groups(json_report)                           ,
+            "content_items"      : self.ids_content_groups_section(json_report,'ContentItems')    ,
+            "issue_items"        : self.ids_content_groups_section(json_report,'IssueItems')      ,
+            "remedy_items"       : self.ids_content_groups_section(json_report,'RemedyItems')     ,
+            "sanitisation_items" : self.ids_content_groups_section(json_report,'SanitisationItems')
+        }
+        return result
