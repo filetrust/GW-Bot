@@ -19,19 +19,18 @@ class test_gw_report(Test_Helper):
         self.result = run(payload,{})
 
     def test__invoke_via_lambda(self):
-        #self.test_update_lambda()
+        self.test_update_lambda()
         xml_report = test_Report_Xml_Parser().tmp_xml_report('macros.xml-report.xml')
-        payload = {'xml_report': xml_report}
+        config = {
+                    "include_policy"            : True,
+                    "include_content_groups"    : True ,
+                    "include_content_items"     : True,
+                    "include_issue_items"       : True,
+                    "include_remedy_items"      : True,
+                    "include_sanitisation_items": True
+                }
+
+        payload = {'xml_report': xml_report, "config": config}
         self.result = self.aws_lambda.invoke(payload)
 
-class Test_Using_Lambda_API(Test_Helper):
-    def test__invoke_via_lambda(self):
-        xml_report = test_Report_Xml_Parser().tmp_xml_report('macros.xml-report.xml')
-        payload = {'xml_report': xml_report}
-        #self.result = self.aws_lambda.invoke(payload)
-
-        from osbot_aws.apis.Lambda import Lambda
-        from pbx_gs_python_utils.utils.Dev import Dev
-        result = Lambda('gw_bot.lambdas.gw.gw_report').invoke(payload)
-        Dev.pprint(result)
 
