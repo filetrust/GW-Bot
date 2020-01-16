@@ -1,6 +1,5 @@
+from gw_bot.api.gw.API_Glasswall import API_Glasswall
 from gw_bot.helpers.Test_Helper import Test_Helper
-from gw_bot.lambdas.gw.gw_engine import run
-
 
 class test_gw_engine(Test_Helper):
     def setUp(self):
@@ -9,9 +8,13 @@ class test_gw_engine(Test_Helper):
     def test_update_lambda(self):
         self.aws_lambda.update_code()
 
-    # def test__invoke_directy(self):
-    #     self.result = run({'event': {'type': 'message', 'text': 'help'}},{})
-
     def test__invoke_via_lambda(self):
-        self.test_update_lambda()
-        self.result = self.aws_lambda.invoke()
+        #self.test_update_lambda()
+
+        target_file = '/tmp/logo192.png'
+        #target_file = '/Users/diniscruz//Downloads/Macros.xls'
+
+        (file_name, base64_data) = API_Glasswall().get_file_base_64(target_file)
+        payload = {'file_contents' : base64_data , 'file_name': file_name }
+
+        self.result = self.aws_lambda.invoke(payload)
