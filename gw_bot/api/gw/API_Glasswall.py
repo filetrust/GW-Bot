@@ -17,7 +17,7 @@ class API_Glasswall:
 
     def setup(self):
         if self.glasswall is None:
-            if Files.not_exists(self.path_engine):                                                                   # todo: there is some weird issue that happens if we don't download the file with every request
+            if Files.not_exists(self.path_engine):
                 S3().file_download_to('gw-bot-lambdas', 'lambdas-dependencies/libglasswall.classic.so', self.path_engine)
 
             self.glasswall = Glasswall(self.path_engine)             # load Glasswall engine

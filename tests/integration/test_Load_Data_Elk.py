@@ -9,7 +9,6 @@ from pbx_gs_python_utils.utils.Elastic_Search import Elastic_Search
 
 from gw_bot.helpers.Test_Helper import Test_Helper
 
-
 class Load_Data_Elk:
 
     def __init__(self):
