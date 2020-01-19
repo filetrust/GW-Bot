@@ -8,7 +8,7 @@ class Save_To_ELK():
     def __init__(self, index = None):
         if index is None:
             index = 'save_to_elk'
-        self.secret_id = 'elastic-logs-server-1'
+        self.secret_id = 'gw-elastic-server-1'
         self.elastic = self.setup(index)
 
     def add_document(self, doc_type, doc_data):

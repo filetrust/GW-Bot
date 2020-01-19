@@ -3,9 +3,15 @@ import unittest
 from time import sleep
 from unittest import TestCase
 
+from pbx_gs_python_utils.utils.Dev import Dev
 
-class Test_Save_To_ELK(TestCase):
+from gw_bot.elastic.Save_To_ELK import Save_To_ELK
+from gw_bot.helpers.Test_Helper import Test_Helper
+
+
+class Test_Save_To_ELK(Test_Helper):
     def setUp(self):
+        super().setUp()
         self.save_to_elk = Save_To_ELK()
         self.elastic     = self.save_to_elk.elastic
         self.doc_type    = 'unit-test'

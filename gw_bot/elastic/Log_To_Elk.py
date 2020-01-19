@@ -1,14 +1,15 @@
 import  datetime
 import pprint
 
-from pbx_gs_python_utils.utils.Elastic_Search import Elastic_Search
+from gw_bot.elastic.Elastic_Search import Elastic_Search
+
 
 class Log_To_Elk:
     _elastic_cache = None
 
     def __init__(self):
         self.index_id  = 'elastic_logs'
-        self.secret_id = 'elastic-logs-server-1'
+        self.secret_id = 'gw-elastic-server-1'
         self.elastic   = self.setup()
 
     def create(self):
@@ -19,7 +20,7 @@ class Log_To_Elk:
     def setup(self, index = None):
         if index is None:
             index = self.index_id
-        return Elastic_Search()._setup_Elastic_on_cloud_via_AWS_Secret(index, self.secret_id)
+        return Elastic_Search(index, self.secret_id)
 
         # username = 'elastic'
         # password = Secrets(self.secret_id).value()

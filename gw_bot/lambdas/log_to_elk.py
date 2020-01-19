@@ -1,12 +1,13 @@
+
+
+
 def run(event, context):
-    from osbot_aws.apis.Lambda import load_dependency
+    from gw_bot.lambdas.png_to_slack import load_dependency
     load_dependency('elastic')
 
-    from pbx_gs_python_utils.utils.Log_To_Elk import Log_To_Elk
-
+    from gw_bot.elastic.Log_To_Elk import Log_To_Elk
+    log_to_elk = Log_To_Elk()
     try:
-
-        log_to_elk = Log_To_Elk()
         level    = event.get('level'   )
         category = event.get('category')
         message  = event.get('message' )

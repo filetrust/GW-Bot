@@ -22,12 +22,12 @@ class Test_Elastic_Search(Test_Helper):
             Dev.pprint(self.result)
 
     def test_create_index(self):
-        #self.elastic.create_index()._result
-        #self.elastic.add({'answer':42})
-        #self.result = self.elastic.create_index_pattern()._result
-        self.elastic.index = 'test-index*'
-        self.elastic.delete_index_pattern()
-        self.elastic.delete_index()
+        self.elastic.create_index()._result
+        self.elastic.add({'answer':42})
+        self.result = self.elastic.create_index_pattern()._result
+        #self.elastic.index = 'test-index*'
+        #self.elastic.delete_index_pattern()
+        #self.elastic.delete_index()
         self.result = self.elastic._result
 
     def test_info(self):

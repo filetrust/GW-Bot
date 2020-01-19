@@ -58,12 +58,12 @@ class Deploy:
         package.update()
 
     def deploy_lambda_log_to_elk(self):
-        lambda_name = 'pbx_gs_python_utils_lambdas_utils_log_to_elk'
+        lambda_name = 'gw_bot_utils_log_to_elk'
         package = self.get_package(lambda_name)
         package._lambda.handler = 'gw_bot.lambdas.log_to_elk.run'
         package.add_module('gw_bot')
+        package.add_module('osbot_aws')
         package.add_pbx_gs_python_utils()
-        #package.delete()
         package.update()
         return package
 

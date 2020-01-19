@@ -1,19 +1,23 @@
-
-import  unittest
-
 from osbot_aws.apis.Lambda import Lambda
+from gw_bot.helpers.Test_Helper import Test_Helper
+from gw_bot.lambdas.log_to_elk import run
+from gw_bot.lambdas.png_to_slack import upload_dependency
+from pbx_gs_python_utils.utils.Dev import Dev
 
-from    pbx_gs_python_utils.lambdas.utils.log_to_elk    import run
-from    pbx_gs_python_utils.utils.Dev                   import Dev
 
-
-class Test_Lambda_log_to_elk(unittest.TestCase):
+class Test_Lambda_log_to_elk(Test_Helper):
     def setUp(self):
-        self.log_to_elk = Lambda('pbx_gs_python_utils.lambdas.utils.log_to_elk')
+        super().setUp()
+        self.log_to_elk = Lambda('gw_bot.utils.log_to_elk')
+        self.result = None
+
+    def tearDown(self):
+        if self.result is not None:
+            Dev.pprint(self.result)
 
     def test_invoke_directly(self):
-        assert run({},{}) is None
-
+        payload = {}
+        self.result = run(payload, {})
     # def test_update_invoke(self):
     #     payload = {'message' : 'an message'}
     #     response = self.log_to_elk.update_with_lib().invoke(payload)
@@ -30,3 +34,9 @@ class Test_Lambda_log_to_elk(unittest.TestCase):
         assert response.get('elastic_response').get('result') == 'created'
         response = self.log_to_elk.invoke({ 'level': 'error', 'category': 'category error', 'message': 'message error', 'data': {'answer' : 42}})
         assert response.get('elastic_response').get('result') == 'created'
+
+
+    def test_upload_dependency(self):
+        upload_dependency("elastic")
+
+        #pip3 install elasticsearch -t elastic

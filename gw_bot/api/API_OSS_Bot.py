@@ -5,6 +5,7 @@ import urllib
 from osbot_aws.apis.Secrets import Secrets
 
 from gw_bot.api.commands.OSS_Bot_Commands import OSS_Bot_Commands
+from gw_bot.helpers.Lambda_Helpers import log_to_elk
 
 
 class API_OSS_Bot:
@@ -53,7 +54,7 @@ class API_OSS_Bot:
         return text, attachments
 
     def process_event(self, slack_event):
-
+        log_to_elk('GW Bot Slack Message', slack_event)
         attachments = []
         try:
             event_type            = slack_event.get('type')
