@@ -1,6 +1,7 @@
 import sys
 
 from osbot_aws.apis.Lambda import Lambda
+from pbx_gs_python_utils.utils.Files import Files
 
 sys.path.append('.')
 
@@ -34,3 +35,19 @@ def slack_message(text, attachments = [], channel = 'GDL2EC3EE', team_id='T7F3AU
                 'team_id'     : team_id
               }
     Lambda('gw_bot.lambdas.slack_message').invoke_async(payload)
+
+
+def send_file_to_slack(file_path, title, bot_token, channel):
+    import requests
+    my_file = { 'file': ('/tmp/file.png', open(file_path, 'rb'), Files.file_extension(file_path)) }
+
+    payload = {
+        "filename"  : '{0}.png'.format(title),
+        "token"     : bot_token,
+        "channels"  : [channel],
+    }
+    requests.post("https://slack.com/api/files.upload", params=payload, files=my_file)
+
+    return 'sent png file: {0}'.format(title)
+
+

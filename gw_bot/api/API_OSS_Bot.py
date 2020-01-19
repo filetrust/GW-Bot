@@ -5,7 +5,7 @@ import urllib
 from osbot_aws.apis.Secrets import Secrets
 
 from gw_bot.api.commands.OSS_Bot_Commands import OSS_Bot_Commands
-from gw_bot.helpers.Lambda_Helpers import log_to_elk
+from gw_bot.helpers.Lambda_Helpers import log_to_elk, slack_message, log_error
 
 
 class API_OSS_Bot:
@@ -30,8 +30,10 @@ class API_OSS_Bot:
 
     def handle_command(self, slack_event):
         try:
+            attachments = []
+
             if slack_event.get('text'):
-                original = slack_event.get('text')
+                #original = slack_event.get('text')
                 command = slack_event.get('text').replace('<@URS8QH4UF>', '').strip()          # URS8QH4UF is the gw_bot slack ids
                 if not command:
                     command = 'hello'
@@ -43,15 +45,33 @@ class API_OSS_Bot:
                     (text,attachments) = method(slack_event,method_params)                       # invoke method
                 else:
                     text = ":exclamation: GW bot command `{0}` not found. Use `gw_bot help` to see a list of available commands".format(method_name)
-                    #text = "text = {0}, command= {1}".format(slack_event.get('text'), command )
-                    attachments = []
+                    log_error('Bad Command', {"text": text})
+            elif slack_event.get('subtype') == 'file_share':
+                text = f":point_right: Hi you dropped the file in a DM: ```{json.dumps(slack_event.get('files'), indent=2)}```"
             else:
                 return None, None
 
         except Exception as error:
             text = '*GW Bot command execution error in `handle_command` :exclamation:*'
             attachments = [ { 'text': ' ' + str(error) , 'color' :  'danger'}]
+            log_error(text, attachments)
         return text, attachments
+
+    def handle_file_drop(self, slack_event):
+        file_id = slack_event.get('file_id')
+        user_id = slack_event.get('user_id')
+        text = f":point_right: the user {user_id} you dropped the file in this channel: {file_id}"
+
+        from gw_bot.lambdas.png_to_slack import load_dependency
+        load_dependency('slack')
+        from gw_bot.api.API_Slack import API_Slack
+        api_slack = API_Slack()
+        file_info = api_slack.files_info(file_id)
+        channel = file_info.get('file').get('channels').pop()
+        text = f':point_right: the user {user_id} on the channel {channel} dropped the file ```f{json.dumps(file_info,indent=2) }```'
+        api_slack.send_message(text, channel=channel)
+        return text,[]
+
 
     def process_event(self, slack_event):
         log_to_elk('GW Bot Slack Message', slack_event)
@@ -59,11 +79,13 @@ class API_OSS_Bot:
         try:
             event_type            = slack_event.get('type')
 
-            if    event_type == 'message'    : (text,attachments)  = self.handle_command    (slack_event )    # same handled
-            elif  event_type == 'app_mention': (text,attachments)  = self.handle_command    (slack_event )    # for these two events
+            if    event_type == 'message'     : (text,attachments)  = self.handle_command    (slack_event )    # same handled
+            elif  event_type == 'app_mention' : (text,attachments)  = self.handle_command    (slack_event )    # for these two events
+            elif  event_type == 'file_created': (text,attachments)  = self.handle_file_drop  (slack_event )
             #elif  event_type == 'link_shared': (text,attachments)  = self.handle_link_shared(slack_event )    # special handler for jira links
             else:
                 text = ':point_right: Unsupposed Slack bot event type: {0}'.format(event_type)
+                log_error('Process Event', {'text': text})
         except Exception as error:
             text = '*OSS Bot command execution error in `process_event` :exclamation:*'
             attachments = [{'text': ' ' + str(error), 'color': 'danger'}]
