@@ -37,5 +37,5 @@ class test_API_Docker_Glasswall_1_x(TestCase):
     def test_watermark_file(self):
         file_to_scan = '/tmp/gcon-sessions.pdf'
         new_file     = '/tmp/gcon-sessions-with-WATERMARK.pdf'
-        watermark    = 'Hello World!!!'
+        watermark    = '!!Hello World!!'
         self.result = self.glasswall.watermark_file(file_to_scan, new_file,watermark)

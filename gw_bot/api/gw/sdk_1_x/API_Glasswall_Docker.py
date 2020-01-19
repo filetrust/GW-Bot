@@ -8,7 +8,7 @@ from pbx_gs_python_utils.utils.Process import Process
 
 class API_Docker_Glasswall:
     def __init__(self):
-        self.docker_image = "safiankhan/glasswallclassic:2.0"
+        self.docker_image = "glasswallsolutions/evaluationsdk:1"
         self.docker_cwd   = '/tmp'
         self.tmp_input    = '/tmp/tmp-input'
         self.tmp_output   = '/tmp/tmp-output'
@@ -28,17 +28,17 @@ class API_Docker_Glasswall:
 
     def glasswall_cli(self, command):
         params = ['run', '--rm',
-                         '-v', self.tmp_input  + ':/home/classic_cli/input' ,
-                         '-v', self.tmp_output + ':/home/classic_cli/output',
-                         '-v', self.tmp_config + ':/home/classic_cli/config',
+                         '-v', self.tmp_input  + ':/input' ,
+                         '-v', self.tmp_output + ':/output',
+                         '-v', self.tmp_config + ':/config',
                          self.docker_image                                  ,
-                        './glasswallCLI'
+                        'glasswallCLI'
                   ]
         params.extend(command)
         return self.docker_exec(params)
 
     def glasswall_scan(self):
-        command = ['-config=./config/config.ini', '-xmlconfig=./config/config.xml']
+        command = ['-config=/config/config.ini', '-xmlconfig=/config/config.xml']
         return self.glasswall_cli(command)
 
     def scan_file(self, file_input, file_output=None, config_ini=None, config_xml=None):
