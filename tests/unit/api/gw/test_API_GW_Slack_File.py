@@ -24,3 +24,10 @@ class test_API_GW_Slack_File(Test_Helper):
 
     def test_scan_file(self):
         self.result = self.api.gw_scan_file('/tmp/3uni12ba/gcon-sessions.pdf')
+
+    def test_send_report_to_slack(self):
+
+        file_info   = self.api.file_info_form_slack(self.slack_event)
+        file_path   = self.api.download_file(file_info)
+        gw_report   = self.api.gw_scan_file(file_path)
+        self.result = self.api.send_report_to_slack(file_info, gw_report)

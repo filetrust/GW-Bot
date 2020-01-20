@@ -34,6 +34,16 @@ class API_GW_Slack_File:
 
         return Lambda('gw_bot.lambdas.gw.gw_engine').invoke(payload)
 
+    def send_report_to_slack(self, file_info, gw_report):
+        import json
+        channel   = file_info.get('file').get('channels').pop()
+        file_name = file_info.get('file').get('name')
+        file_id   = file_info.get('file').get('id')
+        text      = f':point_right: Here is the Glasswall analysis for the file *{file_name}* ({file_id}) \n'+ \
+                    ''# f''''{json.dumps(gw_report,indent=2)}'''
+
+        self.api_slack.send_message(text, channel=channel)
+        return channel
 
 
         #user_id = slack_event.get('user_id')
