@@ -30,7 +30,7 @@ class test_API_OSS_Bot(Test_Helper):
     # user = 'UAULZ1T98'
 
 
-    def test_via_lambda_file_drop(self):
+    def test_via_lambda_handle_file_drop(self):
         super().lambda_package('gw_bot.lambdas.gw_bot').update_code()
 
         slack_event = {"type": "file_created",
