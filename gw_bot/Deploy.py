@@ -33,6 +33,8 @@ class Deploy:
         package = self.get_package(lambda_name)
         source_folder = Files.path_combine(__file__,'../../modules/OSBot-Browser/osbot_browser')
         package.add_folder(source_folder)
+        gw_bot_folder = Files.path_combine(__file__, '../../gw_bot')         # this is needed because of some of the helpers (which will need to be refactored into a separate module)
+        package.add_folder(gw_bot_folder)
         package.add_module('osbot_aws')
         package.add_pbx_gs_python_utils()
         package.update()

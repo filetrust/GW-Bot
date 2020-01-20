@@ -46,8 +46,8 @@ class API_OSS_Bot:
                 else:
                     text = ":exclamation: GW bot command `{0}` not found. Use `gw_bot help` to see a list of available commands".format(method_name)
                     log_error('Bad Command', {"text": text})
-            elif slack_event.get('subtype') == 'file_share':
-                text = f":point_right: Hi you dropped the file in a DM: ```{json.dumps(slack_event.get('files'), indent=2)}```"
+            #elif slack_event.get('subtype') == 'file_share':
+            #    text = f":point_right: Hi you dropped the file ```{json.dumps(slack_event.get('files'), indent=2)}```"
             else:
                 return None, None
 

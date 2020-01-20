@@ -1,10 +1,6 @@
 import base64
-from unittest import TestCase
-
+from osbot_browser.lambdas.lambda_browser import run
 from osbot_aws.apis.Lambda import Lambda
-from osbot_aws.apis.Lambdas import Lambdas
-from osbot_aws.apis.Secrets import Secrets
-from osbot_aws.helpers.Lambda_Package import Lambda_Package
 from pbx_gs_python_utils.utils.Dev import Dev
 
 from gw_bot.Deploy import Deploy
@@ -27,7 +23,6 @@ class test_run_command(Test_Helper):
                 fh.write(base64.decodebytes(self.png_data.encode()))
 
     def test__invoke__directly(self):
-        from osbot_browser.lambdas.lambda_browser import run
         self.result = run({},{})
 
     def test__invoke__no_params(self):
@@ -37,18 +32,33 @@ class test_run_command(Test_Helper):
         payload = { "params" :["version"]}
         self.result = self.aws_lambda.invoke(payload)
 
+    def test__update_lambda(self):
+        Deploy().deploy_lambda__browser()
+
     def test__invoke__screenshot(self):
-        deploy = Deploy()
-        deploy.oss_setup.setup_test_environment()
-        deploy.deploy_lambda__browser()
         payload = {"params": ["screenshot", "https://www.google.com/images", "1200"],
                    'data': {'channel': 'DRE51D4EM'}}
         self.result = self.aws_lambda.invoke(payload)
         #self.png_data = self.aws_lambda.invoke(payload)
 
     def test__invoke__screenshot__no_channel(self):
-        deploy = Deploy()
-        deploy.oss_setup.setup_test_environment()
-        deploy.deploy_lambda__browser()
         payload = {"params": ["screenshot", "https://www.google.com/images"]}
         self.result = self.aws_lambda.invoke(payload)
+
+    # Bugs
+
+    def test_bug_ResourceNotFoundException(self):
+        url = 'https://wwww.google.com'         # bad url (extra w in path)
+        payload = {"params": ['screenshot', url]}
+        # invoke directly
+        #self.result = run(payload, {})
+
+        # invoke via lambda
+        #self.test__update_lambda()
+        self.result = Lambda('osbot_browser.lambdas.lambda_browser').invoke(payload) #self.aws_lambda.invoke(payload)
+
+
+
+
+
+

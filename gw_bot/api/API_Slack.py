@@ -1,5 +1,6 @@
 from osbot_aws.apis.Lambda  import Lambda
 from osbot_aws.apis.Secrets import Secrets
+from pbx_gs_python_utils.utils.Files import Files
 from slack                  import WebClient
 
 
@@ -109,4 +110,19 @@ class API_Slack:
     #     return Lambda('utils.puml_to_slack').invoke(payload)
 
 
+    # at the moment this is using the REST API directly (see if there is a way to do this using the main Slack python API)
+
+    def upload_file(self, file_path, channel, title=None):
+            import requests
+            file_name       = Files.file_name(file_path)
+            file_extension  = Files.file_extension(file_path)
+            if title is None: title = file_name
+            my_file        = {  'file': ('/tmp/file.png', open(file_path, 'rb'), file_extension) }
+
+            payload        = {  "filename"  : '{0}.png'.format(title),
+                                "token"     : self.bot_token         ,
+                                "channels"  : [channel]              }
+            requests.post("https://slack.com/api/files.upload", params=payload, files=my_file)
+
+            return 'file sent to slack {0}'.format(file_path)
 

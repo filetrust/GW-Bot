@@ -211,20 +211,11 @@ class test_API_Slack(Test_Helper):
     #     puml = "@startuml \n aaa->bbb \n @enduml"
     #     assert self.api.puml_to_slack(puml) == 'image sent .... '
 
+    def test_upload_file(self):
+        target_file = '/tmp/test_file.png'
+        channel     = 'CSK9RADE2' #'DRE51D4EM'
+        title       = 'file upload'
+        self.api.upload_file(target_file,channel, title)
 
+    #def = screenshot_from_url
 
-    ## test using the API
-
-    #def test___send_message_to_gsbot(self):
-    #    #self.api.channel = 'UDK5W7W3T'  # gs bot
-    #    response = self.api.send_message("<@/jira>")
-    #    Dev.pprint(response)
-
-    # BUGS
-    def test_send_message_to_team__GS_CST(self):
-        #team_id = 'T0SDK1RA8'
-        #channel = 'DG30MH0KV'
-
-        team_id = 'T7F3AUXGV'
-        channel = 'GDL2EC3EE'
-        API_Slack(channel=channel, team_id=team_id)

@@ -42,12 +42,5 @@ class test_API_OSS_Bot(Test_Helper):
         self.result = Lambda('gw_bot.lambdas.gw_bot').invoke(paylaod)
 
 
-    def test_send_file_to_slack(self):
-        target_file = '/tmp/logo192.png'
-        channel     = 'CSK9RADE2'
-        bot_token   = API_OSS_Bot().resolve_bot_token()
-        self.result = Lambda_Helpers.send_file_to_slack(target_file, 'test file', bot_token, channel)
-
-
     def test_upload_dependency(self):
         upload_dependency("slack")

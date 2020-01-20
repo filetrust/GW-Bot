@@ -37,17 +37,34 @@ def slack_message(text, attachments = [], channel = 'GDL2EC3EE', team_id='T7F3AU
     Lambda('gw_bot.lambdas.slack_message').invoke_async(payload)
 
 
-def send_file_to_slack(file_path, title, bot_token, channel):
-    import requests
-    my_file = { 'file': ('/tmp/file.png', open(file_path, 'rb'), Files.file_extension(file_path)) }
+# def send_file_to_slack(file_path, title, bot_token, channel):
+#     import requests
+#     my_file = { 'file': ('/tmp/file.png', open(file_path, 'rb'), Files.file_extension(file_path)) }
+#
+#     payload = {
+#         "filename"  : '{0}.png'.format(title),
+#         "token"     : bot_token,
+#         "channels"  : [channel],
+#     }
+#     requests.post("https://slack.com/api/files.upload", params=payload, files=my_file)
+#
+#     return 'sent png file: {0}'.format(title)
 
+def slack_message(text, attachments = None, channel = 'GDL2EC3EE', team_id='T7F3AUXGV'):  # GBMGMK88Z is the 'from-aws-lambda' channel in the GS-CST Slack workspace
+    if attachments is None: attachments = []
     payload = {
-        "filename"  : '{0}.png'.format(title),
-        "token"     : bot_token,
-        "channels"  : [channel],
-    }
-    requests.post("https://slack.com/api/files.upload", params=payload, files=my_file)
+                'text'        : text        ,
+                'attachments' : attachments ,
+                'channel'     : channel     ,
+                'team_id'     : team_id
+              }
+    if channel:
+        Lambda('pbx_gs_python_utils.lambdas.utils.slack_message').invoke_async(payload)
+    else:
+        return text, attachments
 
-    return 'sent png file: {0}'.format(title)
 
+def screenshot_from_url(url):
+    payload = {"params": ['screenshot', url]}
+    return  Lambda('osbot_browser.lambdas.lambda_browser').invoke(payload)
 
