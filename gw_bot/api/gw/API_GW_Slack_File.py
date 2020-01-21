@@ -47,4 +47,10 @@ class API_GW_Slack_File:
         channel = 'DRE51D4EM'                # for now override the message to sent the value as a DM to DinisCruz
         self.api_slack.send_message(text, channel=channel)
 
+        from osbot_aws.apis.Lambda import Lambda
+        file_name = file_info.get('file').get('name')
+        payload = {'file_name': file_name, 'json_data': gw_report}
+        png_data = Lambda('osbot_browser.lambdas.gw.xml_report').invoke(payload).get('png_data')
+        self.api_slack.upload_image_from_png_base64(png_data, channel, file_name)
+
         #self.api_slack.upload_file('/tmp/test_file.png', channel)

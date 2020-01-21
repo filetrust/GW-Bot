@@ -12,7 +12,6 @@ def run(event, context):
         file_info = api.file_info_form_slack(event)
         file_path = api.download_file(file_info)
         gw_report = api.gw_scan_file(file_path)
-
         api.send_report_to_slack(file_info, gw_report)
 
         return {'file_info': file_info , 'gw_report': gw_report }
