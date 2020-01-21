@@ -1,3 +1,5 @@
+import base64
+
 from osbot_aws.apis.Lambda  import Lambda
 from osbot_aws.apis.Secrets import Secrets
 from pbx_gs_python_utils.utils.Files import Files
@@ -126,3 +128,9 @@ class API_Slack:
 
             return 'file sent to slack {0}'.format(file_path)
 
+    def upload_image_from_png_base64(self, png_data, channel, title=None):
+        png_file = Files.temp_file('.png')
+
+        with open(png_file, "wb") as fh:
+            fh.write(base64.decodebytes(png_data.encode()))
+        return self.upload_file(png_file,channel,title)

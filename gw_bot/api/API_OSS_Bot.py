@@ -59,11 +59,11 @@ class API_OSS_Bot:
 
     def handle_file_drop(self, slack_event):
         from osbot_aws.apis.Lambda import Lambda
-        return Lambda('gw_bot.lambdas.gw.gw_slack_file').invoke(slack_event)
+        Lambda('gw_bot.lambdas.gw.gw_slack_file').invoke_async(slack_event)
         # text = f':point_right: the user {user_id} on the channel {channel} dropped the file ```f{json.dumps(file_info,indent=2) }```'
         # api_slack.send_message(text, channel=channel)
         # log_to_elk('file info', {'text':text})
-        #return None,None
+        return None,None
 
 
     def process_event(self, slack_event):

@@ -3,6 +3,7 @@ from osbot_aws.apis.Lambda import Lambda
 from pbx_gs_python_utils.utils.Files import Files
 from gw_bot.api.API_Slack import API_Slack
 from gw_bot.api.gw.API_Glasswall import API_Glasswall
+from gw_bot.helpers.Lambda_Helpers import log_to_elk
 
 
 class API_GW_Slack_File:
@@ -35,33 +36,15 @@ class API_GW_Slack_File:
         return Lambda('gw_bot.lambdas.gw.gw_engine').invoke(payload)
 
     def send_report_to_slack(self, file_info, gw_report):
-        import json
         channel   = file_info.get('file').get('channels').pop()
-
         file_name = file_info.get('file').get('name')
         file_id   = file_info.get('file').get('id')
+
         text      = f':point_right: Here is the Glasswall analysis for the file *{file_name}* with file id ({file_id}) '+ \
-                    f'uploaded by the user <@{file_info.get("file").get("user")}> on channel <#{channel}> '
-        # f''''{json.dumps(gw_report,indent=2)}'''
+                    f'uploaded by the user <@{file_info.get("file").get("user")}> on channel <#{channel}> ' #+ \
+                    #f'```{json.dumps(gw_report,indent=2)}```'
 
         channel = 'DRE51D4EM'                # for now override the message to sent the value as a DM to DinisCruz
         self.api_slack.send_message(text, channel=channel)
 
-        self.api_slack.upload_file('/tmp/test_file.png', channel)
-
-        # this is not happening unless I wire this method to the DM workflow
-        # if channel != 'DRE51D4EM':
-        #     channel = 'DRE51D4EM'  # for now override the message to sent the value as a DM to DinisCruz
-        #     self.api_slack.send_message(text, channel=channel)
-        # else:
-        #     self.api_slack.send_message("::warning: can't upload analysis to this channel (recursive loop)", channel=channel)
-        return channel
-
-
-        #user_id = slack_event.get('user_id')
-        #channel = file_info.get('file').get('channels').pop()
-
-        #text = f':point_right: the user {user_id} on the channel {channel} dropped the file ```f{json.dumps(file_info, indent=2)}```'
-        #api_slack.send_message(text, channel=channel)
-        #log_to_elk('file info', {'text': text})
-
+        #self.api_slack.upload_file('/tmp/test_file.png', channel)

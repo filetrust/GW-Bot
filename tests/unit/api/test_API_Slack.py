@@ -4,6 +4,7 @@ import unittest
 from pbx_gs_python_utils.utils.Dev import Dev
 
 from gw_bot.api.API_Slack import API_Slack
+from gw_bot.helpers.Lambda_Helpers import screenshot_from_url
 from gw_bot.helpers.Test_Helper import Test_Helper
 
 
@@ -217,5 +218,10 @@ class test_API_Slack(Test_Helper):
         title       = 'file upload'
         self.api.upload_file(target_file,channel, title)
 
-    #def = screenshot_from_url
+    def test_upload_image_from_png_base64(self):
+        title    = 'Google'
+        channel  = 'DRE51D4EM' #'CSK9RADE2'  #
+        url      = 'https://www.google.com'
+        png_data = screenshot_from_url(url)
+        self.result = self.api.upload_image_from_png_base64(png_data, channel, title)
 
