@@ -1,9 +1,10 @@
+import json
 import requests
 from osbot_aws.apis.Lambda import Lambda
 from pbx_gs_python_utils.utils.Files import Files
 from gw_bot.api.API_Slack import API_Slack
 from gw_bot.api.gw.API_Glasswall import API_Glasswall
-from gw_bot.helpers.Lambda_Helpers import log_to_elk
+from gw_bot.helpers.Lambda_Helpers import log_to_elk, slack_message
 
 
 class API_GW_Slack_File:
@@ -36,21 +37,25 @@ class API_GW_Slack_File:
         return Lambda('gw_bot.lambdas.gw.gw_engine').invoke(payload)
 
     def send_report_to_slack(self, file_info, gw_report):
-        channel   = file_info.get('file').get('channels').pop()
+        channel   = file_info.get('file').get('channels')[0]
         file_name = file_info.get('file').get('name')
         file_id   = file_info.get('file').get('id')
 
-        text      = f':point_right: Here is the Glasswall analysis for the file *{file_name}* with file id ({file_id}) '+ \
-                    f'uploaded by the user <@{file_info.get("file").get("user")}> on channel <#{channel}> ' #+ \
+        text      = f':two: Scan of file *{file_id}* completed, generating report' #+ \
                     #f'```{json.dumps(gw_report,indent=2)}```'
+                    # f'uploaded by the user <@{file_info.get("file").get("user")}> on channel <#{channel}> ' #+ \
 
-        channel = 'DRE51D4EM'                # for now override the message to sent the value as a DM to DinisCruz
-        self.api_slack.send_message(text, channel=channel)
-
+        #channel = 'DRE51D4EM'                # for now override the message to sent the value as a DM to DinisCruz
+        #self.api_slack.send_message(text, [], channel=channel)
+        slack_message(text, [], channel=channel)
         from osbot_aws.apis.Lambda import Lambda
         file_name = file_info.get('file').get('name')
         payload = {'file_name': file_name, 'json_data': gw_report}
         png_data = Lambda('osbot_browser.lambdas.gw.xml_report').invoke(payload).get('png_data')
-        self.api_slack.upload_image_from_png_base64(png_data, channel, file_name)
+        if png_data is None:
+            slack_message(':red_circle: report table could not be be created', [], channel=channel)
+        else:
+            slack_message(':three: report created, sending it to Slack', [], channel=channel)
+            self.api_slack.upload_image_from_png_base64(png_data, channel, 'scan')
 
         #self.api_slack.upload_file('/tmp/test_file.png', channel)

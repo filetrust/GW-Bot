@@ -21,6 +21,9 @@ class test_gw_report(Test_Helper):
     def test__invoke_directy(self):
         self.result = run(self.payload,{})
 
-    def test__invoke_via_lambda(self):
+    def test__update_and_invoke_via_lambda(self):
         self.test_update_lambda()
+        self.result = self.aws_lambda.invoke(self.payload)
+
+    def test__invoke_via_lambda(self):
         self.result = self.aws_lambda.invoke(self.payload)

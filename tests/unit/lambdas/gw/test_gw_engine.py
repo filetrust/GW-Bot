@@ -9,9 +9,9 @@ class test_gw_engine(Test_Helper):
         self.aws_lambda.update_code()
 
     def test__invoke_via_lambda(self):
-        #self.test_update_lambda()
+        self.test_update_lambda()
 
-        target_file = '/tmp/logo192.png'
+        target_file = '/tmp/Macros.xls'
         #target_file = '/Users/diniscruz//Downloads/Macros.xls'
 
         (file_name, base64_data) = API_Glasswall().get_file_base_64(target_file)
