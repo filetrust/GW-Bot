@@ -1,6 +1,6 @@
 import  datetime
 
-from pbx_gs_python_utils.utils.Elastic_Search import Elastic_Search
+from gw_bot.elastic.Elastic_Search import Elastic_Search
 
 
 class Save_To_ELK():
@@ -49,4 +49,4 @@ class Save_To_ELK():
         return self.elastic.exists()
 
     def setup(self, index):
-        return Elastic_Search()._setup_Elastic_on_cloud_via_AWS_Secret(index, self.secret_id)
+        return Elastic_Search(index, self.secret_id)

@@ -38,6 +38,11 @@ class OSS_Bot_Commands:                                      # move to separate 
         # move to new routing mode
 
     @staticmethod
+    def graph(slack_event, params=None):
+        Lambda('osbot_jira.lambdas.graph').invoke_async({'params': params, 'data': slack_event}), []
+        return None, None
+
+    @staticmethod
     def jira(slack_event, params=None):
         Lambda('osbot_jira.lambdas.elastic_jira').invoke_async({"params" : params, "user": slack_event.get('user'), "channel": slack_event.get('channel'),
                                                                 'team_id': slack_event.get('team_id')}, )
@@ -53,11 +58,6 @@ class OSS_Bot_Commands:                                      # move to separate 
 
     @staticmethod
     def hello(slack_event=None, params=None):
-        user = Misc.get_value(slack_event, 'user')
-        return 'Hello <@{0}>, how can I help you?'.format(user), []
-
-    @staticmethod
-    def hello_v2(slack_event=None, params=None):
         user = Misc.get_value(slack_event, 'user')
         return 'Hello <@{0}>, how can I help you?'.format(user), []
 
