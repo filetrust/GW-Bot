@@ -1,20 +1,12 @@
-from unittest import TestCase
+from gw_bot.lambdas.gw_bot import run
 
-from osbot_aws.apis.Lambda import Lambda
-from osbot_aws.apis.Lambdas import Lambdas
-from osbot_aws.helpers.Lambda_Package import Lambda_Package
 
 from gw_bot.helpers.Test_Helper import Test_Helper
 
 
 class test_run_command(Test_Helper):
     def setUp(self):
-        #self.oss_setup = super().setUp()
-        #self.aws_lambda = Lambda_Package('gw_bot.lambdas.gw_bot')
         self.aws_lambda = super().lambda_package('gw_bot.lambdas.gw_bot')
-        #self.aws_lambda._lambda.set_s3_bucket(self.oss_setup.s3_bucket_lambdas)         \
-        #                       .set_role     (self.oss_setup.role_lambdas)
-        #self.aws_lambda.create()  # use when wanting to update lambda function
 
     def update_lambda(self):
         self.aws_lambda.update_code()
@@ -24,11 +16,14 @@ class test_run_command(Test_Helper):
         self.result = run({'event': {'type': 'message', 'text': 'help'}},{})
 
     def test__invoke_directly_gw(self):
-        from gw_bot.lambdas.gw_bot import run
         self.result = run({'event': {'type': 'message', 'text': 'gw'}}, {})
 
+
+    def test__invoke_directly_jira(self):
+        self.result = run({'event': {'type': 'message', 'text': 'jira'}}, {})
+
+
     def test__invoke_directly_version(self):
-        from gw_bot.lambdas.gw_bot import run
         self.result = run({'event': {'type': 'message', 'text': 'version'}}, {})
 
     def test_invoke(self):

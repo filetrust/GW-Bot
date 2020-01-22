@@ -5,23 +5,27 @@ from pbx_gs_python_utils.utils.Dev import Dev
 
 from gw_bot.Deploy import Deploy
 from gw_bot.helpers.Test_Helper import Test_Helper
+from gw_bot.lambdas.puml_to_slack import run
 
 
-class Test_Lambda_dot_to_png(Test_Helper):
+class Test_puml_to_slack(Test_Helper):
     def setUp(self):
-        self.plant_to_png = Lambda('utils.puml_to_png')
+        super().setUp()
+        self.puml_to_slack = Lambda('utils.puml_to_slack')
 
     def test_update_lambda(self):
-        Deploy().setup().deploy_lambda_puml_to_png()
-        #deploy.oss_setup.setup_test_environment()
-        #deploy.deploy_lambda_puml_to_png()
+        self.result = Deploy().setup().deploy_lambda_puml_to_slack()
 
+    def test_invoke_directly(self):
+        puml = "@startuml \n aaa30->bbb12 \n @enduml"
+        self.result = run({"puml": puml, 'channel': 'DRE51D4EM'},None)
 
     def test_update_invoke(self):
+        #self.test_update_lambda()
         puml = "@startuml \n aaa30->bbb12 \n @enduml"
-        result = self.plant_to_png.invoke({"puml": puml})
+        self.result = self.puml_to_slack.invoke({"puml": puml,'channel': 'DRE51D4EM'})
 
-        Dev.pprint(result)
+        Dev.pprint(self.result)
         #from pbx_gs_python_utils.utils.Show_Img import Show_Img
         #Show_Img.from_svg_string(result['png_base64'])
 

@@ -20,7 +20,7 @@ def use_command_class(slack_event, params, target_class):
 
 class OSS_Bot_Commands:                                      # move to separate class
 
-    gsbot_version = 'v0.17 (GW Bot)'
+    gsbot_version = 'v0.18 (GW Bot)'
 
     @staticmethod
     def browser(slack_event=None, params=None):
@@ -33,37 +33,15 @@ class OSS_Bot_Commands:                                      # move to separate 
 
     @staticmethod
     def gw(slack_event=None, params=None):
-        # from osbot_aws.Globals import Globals
-        # Globals.aws_session_region_name = 'eu-west-2'
-        # from osbot_aws.apis.Lambda import Lambda
-        # aws_lambda = Lambda('get_test_list')
-        # payload = {}
-        # import boto3
-        # aws_lambda._boto_lambda = boto3.client('lambda', region_name='eu-west-2')
-        # import json
-        # response = aws_lambda.boto_lambda().invoke(FunctionName='get_test_list', Payload=json.dumps(payload))
-        # result_bytes = response.get('Payload').read()
-        # result_string = result_bytes.decode('utf-8')
-        # result = json.loads(result_string).get('body')
-        # return result,None
-        # # arn:aws:lambda:eu-west-2:311800962295:function:get_test_list
-        # # arn:aws:lambda:eu-west-1:311800962295:function:get_test_list'
-        # #return
-        # #result = aws_lambda.invoke()
-        #
-        # return f"test 1123 {json.dumps(response)}", None
-        #
-        #
-        #
-        # from osbot_aws.Globals import Globals
-        #
-        #
-        #
-        # return "test: {0}".format(aws_lambda.invoke()),None
-
         return use_command_class(slack_event, params, GW_Commands)
-        #return '.....testing gw command..', None
 
+        # move to new routing mode
+
+    @staticmethod
+    def jira(slack_event, params=None):
+        Lambda('osbot_jira.lambdas.elastic_jira').invoke_async({"params" : params, "user": slack_event.get('user'), "channel": slack_event.get('channel'),
+                                                                'team_id': slack_event.get('team_id')}, )
+        return None, None
     @staticmethod
     def jp(slack_event=None, params=None):
         return OSS_Bot_Commands.jupyter(slack_event,params)

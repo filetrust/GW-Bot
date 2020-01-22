@@ -214,7 +214,7 @@ class Elastic_Search:
             results.append(item)
         return results
 
-    def search_using_query(self, query, size = 100000):
+    def search_using_query(self, query, size = 10000):  # to be more that 10000 this needs a Elastic change
         results = self.es.search(index=self.index, body= query, size=size)
         for result in results['hits']['hits']:
             yield result['_source']

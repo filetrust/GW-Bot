@@ -1,9 +1,19 @@
 import base64
+import os
+
 from pbx_gs_python_utils.utils.Files import Files
 from osbot_aws.apis.S3               import S3
 from osbot_aws.apis.Secrets          import Secrets
 
+def load_dependencies(targets):
+    for target in targets.split(','):
+        load_dependency(target.strip())
+
+
 def load_dependency(target):
+    if os.getenv('AWS_REGION') is None:
+        return
+
     from osbot_aws.apis.S3 import S3
     import shutil
     import sys

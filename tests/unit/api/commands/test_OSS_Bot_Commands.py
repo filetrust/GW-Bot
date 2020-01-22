@@ -24,6 +24,9 @@ class test_OSS_Bot_Commands(Test_Helper):
     def test_gw(self):
         self.result = OSS_Bot_Commands.gw()
 
+    def test_jira(self):
+        self.result = OSS_Bot_Commands.jira({}, [])
+
 
     def test_help(self):
         assert OSS_Bot_Commands.help()[0] ==  '*Here are the commands available*'

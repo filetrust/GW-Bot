@@ -45,6 +45,8 @@ class Deploy:
             package = self.get_package(lambda_name)
             source_folder = Files.path_combine(__file__,'../../modules/OSBot-jira/osbot_jira')
             package.add_folder(source_folder)
+            gw_bot_folder = Files.path_combine(__file__,'../../gw_bot')  # this is needed because of some of the helpers (which will need to be refactored into a separate module)
+            package.add_folder(gw_bot_folder)
             package.add_module('osbot_aws')
             package.add_pbx_gs_python_utils()
             package.update()
@@ -73,6 +75,16 @@ class Deploy:
         lambda_name = 'utils_png_to_slack'
         package = self.get_package(lambda_name)
         package._lambda.handler = 'gw_bot.lambdas.png_to_slack.run'
+        package.add_module('osbot_aws')
+        package.add_module('gw_bot')
+        package.add_pbx_gs_python_utils()
+        package.update()
+        return package
+
+    def deploy_lambda_puml_to_slack(self):
+        lambda_name = 'utils_puml_to_slack'
+        package = self.get_package(lambda_name)
+        package._lambda.handler = 'gw_bot.lambdas.puml_to_slack.run'
         package.add_module('osbot_aws')
         package.add_module('gw_bot')
         package.add_pbx_gs_python_utils()
