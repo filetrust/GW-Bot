@@ -1,8 +1,8 @@
 from pbx_gs_python_utils.utils.Json import Json
 from osbot_aws.apis.Lambda import Lambda
 from pbx_gs_python_utils.utils.Misc import Misc
-from pbx_gs_python_utils.utils.slack.Slack_Commands_Helper import Slack_Commands_Helper
 
+from gw_bot.api.Slack_Commands_Helper          import Slack_Commands_Helper
 from gw_bot.api.commands.GW_Commands           import GW_Commands
 from gw_bot.api.commands.Maps_Commands         import Maps_Commands
 from gw_bot.api.commands.Dev_Commands          import Dev_Commands
