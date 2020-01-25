@@ -109,15 +109,44 @@ class test_Unzip_Bug(TestCase):
         # print(json_data)
         #Json.load_json(path)
 
+    def test_edit_sisl(self):
+        path_json = '/tmp/tmp-input/bbbb.docx/Id_192233350_stream_5.sisl.json'
+        json_data = Json.load_json(path_json)
+        json_data["__struct_620: VALUEARRAY"]['__data'] = 'Changed from Python'
+        Dev.pprint(json_data["__struct_620: VALUEARRAY"]['__data'])
 
-            #Dev.print(line.replace("", "")
-            #                .replace()  \
-            #                .replace() \
-            #               .replace)
-            ##self.result = content
+        Json.save_json_pretty(path_json, json_data)
 
-    # def test_run_docker(self):
-    #     import subprocess
-    #     run_params = "./docker run --rm -v /tmp/tmp-input:/input -v /tmp/tmp-output/:/output -v /tmp/tmp-config:/config glasswallsolutions/evaluationsdk:2 ./GWQtCLI -i /input -o /output -c /config/config.xml -x import"
-    #     self.result = subprocess.call(run_params)
-    #     #Process
+    def test_write_sisl(self):
+        path_json = '/tmp/tmp-input/bbbb.docx/Id_192233350_stream_5.sisl.json'
+        path_sisl = '/tmp/tmp-input/bbbb.docx/Id_192233350_stream_5.sisl.json.sisl'
+        json_data = Files.contents(path_json)
+
+        tag_names = ['FileStream', 'DOCUMENT', 'STRUCTARRAY', 'VALUEARRAY',
+                     'STRUCT', 'VALUE',
+                     'ITEM']
+
+        field_names = ['cameraname', 'streamname', '__children',
+                       'name', 'estrc', 'offset', 'size', 'eitem',
+                       '__data']
+
+        mappings = [('"__struct', '__struct'    ),
+                    ('"meta":'  , '__meta: !__' )]
+
+        for tag_name in tag_names:
+            mappings.append((f'{tag_name}":', f'!{tag_name}'))
+
+        for field_name in field_names:
+            mappings.append((f'"{field_name}":', f'{field_name}: !__'))
+
+        sisl_data = ""
+        for line in json_data.splitlines():
+            for key, value in mappings:
+                line = line.replace(key, value)
+            sisl_data += f'{line}\n'
+
+        Files.write(path_sisl, sisl_data)
+
+
+
+
