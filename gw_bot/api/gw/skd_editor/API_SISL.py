@@ -1,5 +1,6 @@
 import json
 
+from pbx_gs_python_utils.utils.Dev import Dev
 from pbx_gs_python_utils.utils.Files import Files
 
 
@@ -26,11 +27,6 @@ class API_SISL:
         for field_name in self.field_names:
             mappings.append((f'{field_name}: !__', f'"{field_name}":'))
 
-        # json_data = ""
-        # for line in sisl_data.splitlines():
-        #     for key, value in mappings:
-        #         line = line.replace(key,value)
-        #     json_data += f'{line}\n'
         json_data = sisl_data
         for key, value in mappings:
             json_data = json_data.replace(key,value)
@@ -47,19 +43,32 @@ class API_SISL:
         for field_name in self.field_names:
             mappings.append((f'"{field_name}":', f'{field_name}: !__'))
 
-        #sisl_data = ""
-        #for line in json.dumps(json_data,indent=2).splitlines():
-        #    for key, value in mappings:
-        #        line = line.replace(key, value)
-        #    sisl_data += f'{line}\n'
-
         sisl_data = json.dumps(json_data,indent=2)
         for key, value in mappings:
             sisl_data = sisl_data.replace(key, value)
-        #    sisl_data += f'{line}\n'
         return sisl_data
 
     def convert_json_to_sisl_file(self, json_data, sisl_file):
         sisl_data = self.convert_json_to_sisl(json_data)
         Files.write(sisl_file, sisl_data)
         return sisl_file
+
+    def edit_value_array(self, target_folder, stream_id, struct_id, new_value):
+
+        matches = Files.find(f'{target_folder}/*stream_{stream_id}*.sisl')
+        if len(matches) == 1:
+            sisl_file = matches.pop()
+            json_data = self.convert_sisl_file_to_json(sisl_file)
+            key = f"__struct_{struct_id}: VALUEARRAY"
+            if json_data[key]:
+                json_data[key]['__data'] = new_value
+                return self.convert_json_to_sisl_file(json_data,sisl_file)
+        return False
+            #self.sisl.edit_value_array(target_folder, "5", "620", "NEW VALUE!!!!")
+
+    def unzip_sisl_file(self, sisl_zip_file, target_folder):
+        return Files.unzip_file(sisl_zip_file, target_folder)
+
+    def zip_sisl_files(self, folder_with_sisl_files):
+        return Files.zip_folder(folder_with_sisl_files)
+
