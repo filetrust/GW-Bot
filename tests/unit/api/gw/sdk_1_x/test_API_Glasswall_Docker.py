@@ -10,7 +10,7 @@ from pbx_gs_python_utils.utils.Process import Process
 from pbx_gs_python_utils.utils.Unzip_File import Unzip_File
 from pbx_gs_python_utils.utils.Zip_Folder import Zip_Folder
 
-from gw_bot.api.gw.sdk_1_x.API_Glasswall_Docker import API_Docker_Glasswall
+from gw_bot.api.gw.sdk_scanner.API_Glasswall_Docker import API_Docker_Glasswall
 
 
 class test_API_Docker_Glasswall_1_x(TestCase):
