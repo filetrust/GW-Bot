@@ -56,8 +56,8 @@ class test_API_Glasswall_Editor(TestCase):
         file_to_scan      = f'{test_folder}/{target_file}'                              # Original file to edit
         new_file          = f'{test_folder}/NEW-{target_file}'                          # New file to create
         sisl_stream_id    = '5'                                                         # sisl file that has the content
-        sisl_struct_id    = '961'                                                       # location in sisl_stream_id file
-        new_text          = 'This IS a NEW text field!!!'                                  # new text to go on sisl_struct_id
+        sisl_struct_id    = '977'                                                       # location in sisl_stream_id file
+        new_text          = 'This IS a NEW content !!!'                                 # new text to go on sisl_struct_id
 
         glasswall_editor = API_Glasswall_Editor()                                       # API to invoke GW Editor running locally in Docker
         sisl             = API_SISL()                                                   # API to access and manipulate SISL
