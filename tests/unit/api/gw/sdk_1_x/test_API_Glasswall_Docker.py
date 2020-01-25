@@ -1,6 +1,14 @@
+import json
+import os
+import sys
 from unittest import TestCase
 
 from pbx_gs_python_utils.utils.Dev import Dev
+from pbx_gs_python_utils.utils.Files import Files
+from pbx_gs_python_utils.utils.Json import Json
+from pbx_gs_python_utils.utils.Process import Process
+from pbx_gs_python_utils.utils.Unzip_File import Unzip_File
+from pbx_gs_python_utils.utils.Zip_Folder import Zip_Folder
 
 from gw_bot.api.gw.sdk_1_x.API_Glasswall_Docker import API_Docker_Glasswall
 
@@ -39,3 +47,77 @@ class test_API_Docker_Glasswall_1_x(TestCase):
         new_file     = '/tmp/gcon-sessions-with-WATERMARK.pdf'
         watermark    = 'Twitter Demo'
         self.result = self.glasswall.watermark_file(file_to_scan, new_file,watermark)
+
+
+class test_Unzip_Bug(TestCase):
+
+    def setUp(self) -> None:
+        self.result        = None
+        self.base_folder   = '/tmp/tmp-input'
+        self.target_file   = f'{self.base_folder}/doc-1.docx.zip'
+        self.target_folder = f'{self.base_folder}/bbbb.docx'
+
+    def tearDown(self) -> None:
+        if self.result is not None:
+            Dev.pprint(self.result)
+
+    def test_zip_File(self):
+        with Unzip_File(self.target_file, self.target_folder, delete_target_folder=False):
+            with Zip_Folder(self.target_folder, delete_zip_file=False):
+                self.result = 'alldone'
+
+    def test_just_unzip_File(self):
+        with Unzip_File(self.target_file, self.target_folder, delete_target_folder=False):
+            self.result = 'done'
+
+    def test_just_zip(self):
+        with Zip_Folder(self.target_folder, delete_zip_file=False):
+            self.result = 'alldone'
+
+
+    def test_parse_sisl(self):
+        path_sisl = '/tmp/tmp-input/bbbb.docx/Id_192233350_container_9.sisl'
+        path_sisl = '/tmp/tmp-input/bbbb.docx/Id_192233350_stream_1.sisl'
+        path_json = f'{path_sisl}.json'
+        content = Files.contents(path_sisl)
+
+        tag_names   = ['FileStream','DOCUMENT','STRUCTARRAY', 'VALUEARRAY',
+                       'STRUCT','VALUE',
+                       'ITEM']
+        field_names = ['cameraname','streamname', '__children',
+                       'name', 'estrc','offset','size', 'eitem',
+                       '__data']
+
+        mappings = [    ('__struct'      , '"__struct'     ),
+                        ('__meta: !__'   , '"meta":'       )]
+
+        for tag_name in tag_names:
+            mappings.append((f'!{tag_name}', f'{tag_name}":'))
+
+        for field_name in field_names:
+            mappings.append((f'{field_name}: !__', f'"{field_name}":'))
+
+        json_data = ""
+        for line in content.splitlines():
+            for key, value in mappings:
+                line = line.replace(key,value)
+            json_data += f'{line}\n'
+
+        Files.write(path_json, json_data)           # save to disk
+        json.loads(json_data)                       # confirm load
+
+        # print(json_data)
+        #Json.load_json(path)
+
+
+            #Dev.print(line.replace("", "")
+            #                .replace()  \
+            #                .replace() \
+            #               .replace)
+            ##self.result = content
+
+    # def test_run_docker(self):
+    #     import subprocess
+    #     run_params = "./docker run --rm -v /tmp/tmp-input:/input -v /tmp/tmp-output/:/output -v /tmp/tmp-config:/config glasswallsolutions/evaluationsdk:2 ./GWQtCLI -i /input -o /output -c /config/config.xml -x import"
+    #     self.result = subprocess.call(run_params)
+    #     #Process

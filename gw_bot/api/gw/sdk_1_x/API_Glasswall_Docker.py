@@ -1,6 +1,9 @@
 #rm -rf tmp-output;
 # #docker run --rm -v /tmp/tmp-input:/home/classic_cli/input -v /tmp/tmp-output/:/home/classic_cli/output -v /tmp/tmp-config:/home/classic_cli/config safiankhan/glasswallclassic:2.0
 # ./glasswallCLI -config=./config/config.ini -xmlconfig=./config/config.xml ;
+
+#docker run --rm -v /tmp/tmp-input:/input -v /tmp/tmp-output/:/output -v /tmp/tmp-config:/config glasswallsolutions/evaluationsdk:2 GWQtCLI
+#./glasswallCLI -config=./config/config.ini -xmlconfig=./config/config.xml ;
 #
 # cat tmp-output/glasswallCLIProcess.log
 from pbx_gs_python_utils.utils.Files import Files

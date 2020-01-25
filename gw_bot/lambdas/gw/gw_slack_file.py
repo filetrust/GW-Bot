@@ -7,6 +7,7 @@ def run(event, context):
     load_dependency('slack')
     load_dependency('requests')
     try:
+        #return          # disabled for now
         from gw_bot.api.gw.API_GW_Slack_File import API_GW_Slack_File
         api = API_GW_Slack_File()
         file_info = api.file_info_form_slack(event)
