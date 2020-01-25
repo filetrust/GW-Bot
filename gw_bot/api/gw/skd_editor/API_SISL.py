@@ -66,9 +66,13 @@ class API_SISL:
         return False
             #self.sisl.edit_value_array(target_folder, "5", "620", "NEW VALUE!!!!")
 
-    def unzip_sisl_file(self, sisl_zip_file, target_folder):
-        return Files.unzip_file(sisl_zip_file, target_folder)
+    def unzip_sisl_file(self, sisl_zip_file):
+        file_name = Files.file_name(sisl_zip_file).replace('.zip','')
+        temp_folder = Files.temp_folder(suffix='-' + file_name, parent_folder='/tmp')
+        return Files.unzip_file(sisl_zip_file, temp_folder)
 
     def zip_sisl_files(self, folder_with_sisl_files):
         return Files.zip_folder(folder_with_sisl_files)
+
+
 

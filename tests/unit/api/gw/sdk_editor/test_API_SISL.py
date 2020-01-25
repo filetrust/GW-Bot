@@ -51,7 +51,7 @@ class test_API_SISL(TestCase):
         target_file   = '/tmp/tmp-input/doc-1.docx.zip'
         target_folder = '/tmp/tmp-input/bb_123.docx'
         self.sisl.unzip_sisl_file(target_file, target_folder)
-        self.sisl.zip_sisl_files(target_folder)
+        #self.sisl.zip_sisl_files(target_folder)
         self.sisl.edit_value_array(target_folder, "5", "620", "Another value! 123")
         self.result = self.sisl.zip_sisl_files(target_folder)
 
