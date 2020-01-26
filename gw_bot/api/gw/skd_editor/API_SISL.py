@@ -75,4 +75,32 @@ class API_SISL:
         return Files.zip_folder(folder_with_sisl_files)
 
 
+    def mappings(self, sisl_file, max_entries=None):
+        json_data = self.convert_sisl_file_to_json(sisl_file)
 
+        def get_children(node):
+            children = node.get('__children')
+            if children is None:
+                return []
+            left, right = node.get('__children').split("-")
+            if left == right:
+                return [left]
+            else:
+                return [left, right]
+
+        mappings = {}
+
+        for node_key, node_data in json_data.items():
+            (node_id, node_type) = node_key.replace('__struct_', '').split(': ')
+            mappings[node_id] = {
+                'type': node_type,
+                'children': get_children(node_data),
+                'raw': node_data
+            }
+            if max_entries and len(mappings) > max_entries:
+               break
+
+        return mappings
+
+    def create_mappings_view(self,sisl_file, start_id, depth):
+        return []

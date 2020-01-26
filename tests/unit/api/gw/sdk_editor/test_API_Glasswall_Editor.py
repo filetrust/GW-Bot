@@ -13,6 +13,12 @@ from pbx_gs_python_utils.utils.Zip_Folder import Zip_Folder
 from gw_bot.api.gw.sdk_scanner.API_Glasswall_Docker import API_Docker_Glasswall
 from gw_bot.api.gw.skd_editor.API_Glasswall_Editor import API_Glasswall_Editor
 from gw_bot.api.gw.skd_editor.API_SISL import API_SISL
+from gw_bot.setup.OSS_Setup import OSS_Setup
+from osbot_browser.view_helpers.Vis_Js import Vis_Js
+from osbot_browser.view_helpers.Vis_Js_Views import Vis_Js_Views
+from osbot_browser.view_helpers.VivaGraph_Js import VivaGraph_Js
+from osbot_browser.view_helpers.VivaGraph_Js_Views import VivaGraph_Js_Views
+from osbot_jira.api.graph.GS_Graph import GS_Graph
 
 
 class test_API_Glasswall_Editor(TestCase):
@@ -72,112 +78,144 @@ class test_API_Glasswall_Editor(TestCase):
         glasswall_editor.sisl_to_file(new_sisl_file,new_file)                           # GW Engine in Docker to create new file (import)
 
 
+    def test_create_graph(self):
+        sisl = API_SISL()
+
+        sisl_files = '/tmp/tmpp7dlpszp-doc-2.docx'
+        sisl_file  = f'{sisl_files}/Id_1857206422_stream_5.sisl'
+
+        mappings = sisl.mappings(sisl_file,10)
+
+        Dev.pprint(mappings)
+        return
+        gs_graph = GS_Graph()
+        for key, mapping in mappings.items():
+            gs_graph.add_node(key,mapping)
+            for children in mapping['children']:
+                gs_graph.add_edge(key,'',children)
+
+        gs_graph.remove_no_links()
+
+        viva_graph_js = VivaGraph_Js(headless=False)
+
+        nodes = gs_graph.view_nodes(label_key='type',show_key=True, key_id='key')
+        edges = gs_graph.edges
+        viva_graph_js.create_graph(nodes,edges)
 
 
-    # def test_watermark_file(self):
-    #     file_to_scan = '/tmp/gcon-sessions.pdf'
-    #     new_file     = '/tmp/gcon-sessions-with-WATERMARK.pdf'
-    #     watermark    = 'Twitter Demo'
-    #     self.result = self.glasswall.watermark_file(file_to_scan, new_file,watermark)
+        return
+        #viva_graph_js.create_graph(gs_graph['nodes'], gs_graph['edges'])
+        #VivaGraph_Js_Views.default(params=[graph_name], headless=False)
+
+        vis_js = Vis_Js(headless=False)
+        vis_js.load_page(True)
+        # vis_js.options = vis_js.get_advanced_options()
+        vis_js.options = { 'nodes': { 'shape' : 'hexagon'          ,
+                                      'color' : 'darkblue'         ,
+                                      'font'  : {'color': 'black'  ,
+                                                 'face' : 'courier',
+                                                 'size' : 20    }}}
+
+        (nodes, edges) = gs_graph.view_nodes_and_edges('type',True)
+        vis_js.create_graph(nodes, edges)
+        #vis_js.show_gs_graph(gs_graph ,label_key='type', show_key=False)
+
+        return
 
 
-# class test_Unzip_Bug(TestCase):
-#
-#     def setUp(self) -> None:
-#         self.result        = None
-#         self.base_folder   = '/tmp/tmp-input'
-#         self.target_file   = f'{self.base_folder}/doc-1.docx.zip'
-#         self.target_folder = f'{self.base_folder}/bbbb.docx'
-#
-#     def tearDown(self) -> None:
-#         if self.result is not None:
-#             Dev.pprint(self.result)
-#
-#     def test_zip_File(self):
-#         with Unzip_File(self.target_file, self.target_folder, delete_target_folder=False):
-#             with Zip_Folder(self.target_folder, delete_zip_file=False):
-#                 self.result = 'alldone'
-#
-#     def test_just_unzip_File(self):
-#         with Unzip_File(self.target_file, self.target_folder, delete_target_folder=False):
-#             self.result = 'done'
-#
-#     def test_just_zip(self):
-#         with Zip_Folder(self.target_folder, delete_zip_file=False):
-#             self.result = 'alldone'
-#
-#
-#     def test_parse_sisl(self):
-#         path_sisl = '/tmp/tmp-input/bbbb.docx/Id_192233350_container_9.sisl'
-#         path_sisl = '/tmp/tmp-input/bbbb.docx/Id_192233350_stream_1.sisl'
-#         path_json = f'{path_sisl}.json'
-#         content = Files.contents(path_sisl)
-#
-#         tag_names   = ['FileStream','DOCUMENT','STRUCTARRAY', 'VALUEARRAY',
-#                        'STRUCT','VALUE',
-#                        'ITEM']
-#         field_names = ['cameraname','streamname', '__children',
-#                        'name', 'estrc','offset','size', 'eitem',
-#                        '__data']
-#
-#         mappings = [    ('__struct'      , '"__struct'     ),
-#                         ('__meta: !__'   , '"meta":'       )]
-#
-#         for tag_name in tag_names:
-#             mappings.append((f'!{tag_name}', f'{tag_name}":'))
-#
-#         for field_name in field_names:
-#             mappings.append((f'{field_name}: !__', f'"{field_name}":'))
-#
-#         json_data = ""
-#         for line in content.splitlines():
-#             for key, value in mappings:
-#                 line = line.replace(key,value)
-#             json_data += f'{line}\n'
-#
-#         Files.write(path_json, json_data)           # save to disk
-#         json.loads(json_data)                       # confirm load
-#
-#         # print(json_data)
-#         #Json.load_json(path)
-#
-#     def test_edit_sisl(self):
-#         path_json = '/tmp/tmp-input/bbbb.docx/Id_192233350_stream_5.sisl.json'
-#         json_data = Json.load_json(path_json)
-#         json_data["__struct_620: VALUEARRAY"]['__data'] = 'Changed from Python'
-#         Dev.pprint(json_data["__struct_620: VALUEARRAY"]['__data'])
-#
-#         Json.save_json_pretty(path_json, json_data)
-#
-#     def test_write_sisl(self):
-#         path_json = '/tmp/tmp-input/bbbb.docx/Id_192233350_stream_5.sisl.json'
-#         path_sisl = '/tmp/tmp-input/bbbb.docx/Id_192233350_stream_5.sisl.json.sisl'
-#         json_data = Files.contents(path_json)
-#
-#         tag_names = ['FileStream', 'DOCUMENT', 'STRUCTARRAY', 'VALUEARRAY',
-#                      'STRUCT', 'VALUE',
-#                      'ITEM']
-#
-#         field_names = ['cameraname', 'streamname', '__children',
-#                        'name', 'estrc', 'offset', 'size', 'eitem',
-#                        '__data']
-#
-#         mappings = [('"__struct', '__struct'    ),
-#                     ('"meta":'  , '__meta: !__' )]
-#
-#         for tag_name in tag_names:
-#             mappings.append((f'{tag_name}":', f'!{tag_name}'))
-#
-#         for field_name in field_names:
-#             mappings.append((f'"{field_name}":', f'{field_name}: !__'))
-#
-#         sisl_data = ""
-#         for line in json_data.splitlines():
-#             for key, value in mappings:
-#                 line = line.replace(key, value)
-#             sisl_data += f'{line}\n'
-#
-#         Files.write(path_sisl, sisl_data)
+        #vis_js.create_graph(graph['nodes'],graph['edges'])
+        #for node in graph['nodes']:
+        #    vis_js.add_node(node.get('key'), node.get('label'))
+
+        #for edge in graph['edges']:
+        #    vis_js.add_edge(edge['from'], edge['to'])
+
+
+    def test_visualise_graph(self):
+        graph = { 'edges': [ {'from': '0', 'to': '1'},
+                             {'from': '1', 'to': '4'},
+                             {'from': '1', 'to': '2'},
+                             {'from': '4', 'to': '5'},
+                             {'from': '5', 'to': '12'},
+                             {'from': '5', 'to': '6'}],
+                  'nodes': [ {'key': '0'},
+                             {'key': '1'},
+                             {'key': '4'},
+                             {'key': '5'},
+                             {'key': '12'},
+                             {'key': '11'}]}
+
+        vis_js = Vis_Js(headless=False)
+        vis_js.load_page(True)
+        for node in graph['nodes']:
+            key = node.get('key')
+            vis_js.add_node(key,key)
+
+        for edge in graph['edges']:
+            vis_js.add_edge(edge['from'], edge['to'])
+
+
+
+    def test_view_vis_js_graph(self):
+        OSS_Setup().setup_test_environment()
+        graph_name = 'graph_8MR'
+        #vis_js = Vis_Js_Views.default(params         =[graph_name],
+        #                              headless       =False       ,
+        #                              take_screenshot=False       )
+        #vis_js.browser_width(1050)
+
+        vis_js = Vis_Js(headless=False)
+        vis_js.load_page(True)
+        (vis_js.add_node('1','first node')
+               .add_node('2', '2nd node')
+               .add_edge('1','2'))
+
+
+    def test_using_viva_graph(self):
+        OSS_Setup().setup_test_environment()
+        graph_name = 'graph_8MR'
+        VivaGraph_Js_Views.default(params=[graph_name], headless=False)
+
+        #vivagraph_js = VivaGraph_Js(headless=False)
+        #vivagraph_js.load_page(True)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    def test_unzip_word_doc(self):
+        docx_file    = '/tmp/tmpp7dlpszp-doc-2.docx/doc-2.docx.zip'
+        unzip_folder = f'{docx_file}_unziped'
+
+        self.result = Files.unzip_file(docx_file, unzip_folder)
+
 
 
 
