@@ -78,12 +78,25 @@ class test_API_Glasswall_Editor(TestCase):
         glasswall_editor.sisl_to_file(new_sisl_file,new_file)                           # GW Engine in Docker to create new file (import)
 
 
-    def test_create_graph(self):
+    def test_create_mappings_view(self):
+        sisl_files = '/tmp/tmpp7dlpszp-doc-2.docx'
+        sisl_file = f'{sisl_files}/Id_1857206422_stream_5.sisl'
+
         sisl = API_SISL()
 
+        results = sisl.create_mappings_view(sisl_file, 1, 10)
+
+        print(f'\nFound: {len(results)}  \n\nKeys : {sorted(list(set(results)))}')
+
+        for key,value in results.items():
+            print(key)
+
+
+    def test_create_graph(self):
         sisl_files = '/tmp/tmpp7dlpszp-doc-2.docx'
         sisl_file  = f'{sisl_files}/Id_1857206422_stream_5.sisl'
 
+        sisl = API_SISL()
         mappings = sisl.mappings(sisl_file,10)
 
         Dev.pprint(mappings)
@@ -153,6 +166,8 @@ class test_API_Glasswall_Editor(TestCase):
 
         for edge in graph['edges']:
             vis_js.add_edge(edge['from'], edge['to'])
+
+
 
 
 

@@ -102,5 +102,26 @@ class API_SISL:
 
         return mappings
 
-    def create_mappings_view(self,sisl_file, start_id, depth):
-        return []
+    def process_item_recursively(self, key, current_depth, results, json_data):
+        #print(f'>>> at {key} key with {current_depth} depth')
+        item = json_data[key]
+        results[key] = item
+        if current_depth > 0:
+            #print(f'Recursive: {key} {current_depth}')
+            current_depth -= 1
+            for child_key in item['children']:
+                #print(item['children'])
+                self.process_item_recursively(child_key, current_depth, results, json_data)
+
+        #print(f'return from {key} with depth {current_depth}')
+
+    def create_mappings_view(self,sisl_file, start_id, max_depth):
+
+        print('-------')
+        results = {}
+        json_data   = self.mappings(sisl_file)
+        root_key    = str(start_id)
+        #root_item   = json_data[root_key]
+        self.process_item_recursively(root_key, max_depth, results, json_data)
+
+        return results
