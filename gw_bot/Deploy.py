@@ -52,6 +52,18 @@ class Deploy:
             package.update()
             return package
 
+    def deploy_lambda__jupyter(self, lambda_name=None):
+        if lambda_name:
+            package = self.get_package(lambda_name)
+            source_folder = Files.path_combine(__file__,'../../modules/OSBot-Jupyter/osbot_jupyter')
+            package.add_folder(source_folder)
+            gw_bot_folder = Files.path_combine(__file__,'../../gw_bot')  # this is needed because of some of the helpers (which will need to be refactored into a separate module)
+            package.add_folder(gw_bot_folder)
+            package.add_module('osbot_aws')
+            package.add_pbx_gs_python_utils()
+            package.update()
+            return package
+
     def deploy_lambda__slack_message(self):
         package = self.get_package('pbx_gs_python_utils_lambdas_utils_slack_message')
         package._lambda.handler = 'gw_bot.lambdas.slack_message.run'

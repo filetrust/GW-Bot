@@ -9,7 +9,7 @@
 	url = git@github.com:filetrust/OSBot-jira.git
 [submodule "modules/osbot-docker-codebuild"]
 	path = modules/osbot-docker-codebuild
-	url = git@github.com:owasp-sbot/osbot-docker-codebuild.git
+	url = git@github.com:filetrust/osbot-docker-codebuild.git
 [submodule "modules/OSBot-AWS"]
 	path = modules/OSBot-AWS
 	url = git@github.com:owasp-sbot/OSBot-AWS.git
