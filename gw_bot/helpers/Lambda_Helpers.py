@@ -45,7 +45,7 @@ def log_to_elk(message, data = None, index = "gw_bot_logs", level = "debug", cat
 #
 #     return 'sent png file: {0}'.format(title)
 
-def slack_message(text, attachments = None, channel = 'GDL2EC3EE', team_id='T7F3AUXGV'):  # GBMGMK88Z is the 'from-aws-lambda' channel in the GS-CST Slack workspace
+def slack_message(text, attachments = None, channel = None, team_id=None):  # GBMGMK88Z is the 'from-aws-lambda' channel in the GS-CST Slack workspace
     if attachments is None: attachments = []
     payload = {
                 'text'        : text        ,
