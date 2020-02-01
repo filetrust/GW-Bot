@@ -18,6 +18,7 @@ class Elastic_Search:
         self.timestamp      = datetime.datetime.utcnow()
         self.index          = index
         self._setup_Elastic_on_localhost()                  # default to localhost
+        self.kibana         = None
         self._result        = None                          # used to cache some responses (for methods that return self)
 
         if index and aws_secret_id:
@@ -31,6 +32,7 @@ class Elastic_Search:
 
     def _setup_Elastic_on_cloud_via_AWS_Secret(self,index, secret_id):
         credentials = json.loads(Secrets(secret_id).value())
+        self.kibana = credentials.get('kibana')
         host        = credentials['host']
         username    = credentials['username']
         password    = credentials['password']
@@ -154,7 +156,10 @@ class Elastic_Search:
         return self
 
     def delete_data_by_id(self, id):
-        return self.es.delete(index=self.index, doc_type='item', id=id)
+        try:
+            return self.es.delete(index=self.index, doc_type='item', id=id)
+        except Exception as error:
+            return { 'error':  error }
 
     def get_data(self,id):
         try:
