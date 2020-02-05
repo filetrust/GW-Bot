@@ -52,9 +52,12 @@ class Deploy:
             package.update()
             return package
 
-    def deploy_lambda__jupyter(self, lambda_name=None):
+    def deploy_lambda__jupyter(self, lambda_name=None, include_osbot_browser=False):
         if lambda_name:
             package = self.get_package(lambda_name)
+            if include_osbot_browser:
+                source_folder = Files.path_combine(__file__, '../../modules/OSBot-Browser/osbot_browser')
+                package.add_folder(source_folder)
             source_folder = Files.path_combine(__file__,'../../modules/OSBot-Jupyter/osbot_jupyter')
             package.add_folder(source_folder)
             gw_bot_folder = Files.path_combine(__file__,'../../gw_bot')  # this is needed because of some of the helpers (which will need to be refactored into a separate module)
