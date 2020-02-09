@@ -1,8 +1,10 @@
+from gw_bot.lambdas.gw_bot import run
+from osbot_aws.apis.Lambda import Lambda
 from pbx_gs_python_utils.utils.Dev import Dev
 
+from gw_bot.Deploy import Deploy
 from gw_bot.api.commands.GW_Commands import GW_Commands
 from gw_bot.helpers.Test_Helper import Test_Helper
-from osbot_browser.Deploy import Deploy
 
 
 class test_OSS_Bot_Commands(Test_Helper):
@@ -18,11 +20,21 @@ class test_OSS_Bot_Commands(Test_Helper):
     def test_ping(self):
         self.result = GW_Commands.ping()
 
-    def test_get_test_list(self):
-        self.result = GW_Commands.get_test_list()
+    def test_api_usage(self):
+        self.result = GW_Commands.api_usage(channel='DRE51D4EM')
 
+    def test_api_keys(self):
+        self.result = GW_Commands.api_keys()
 
-    def test_deploy_lambda__gw_bot(self):
-        self.aws_lambda = super().lambda_package('gw_bot.lambdas.gw_bot')
-        self.aws_lambda.update_code()
+    def test_update_lambda(self):
+        Deploy().deploy_lambda__gw_bot()
+
+    def test_invoke_directly(self):
+        payload = {'event': {'type': 'message', 'text': 'gw api_usage', 'channel':'DRE51D4EM'}}
+        self.result = run(payload,None)
+
+    def test_invoke_lambda(self):
+        self.test_update_lambda()
+        payload = {'event': {'type': 'message', 'text': 'gw api_usage'}}
+        self.result = Lambda('gw_bot.lambdas.gw_bot').invoke(payload)
 

@@ -13,10 +13,12 @@ from gw_bot.api.commands.Site_Commands         import Site_Commands
 from gw_bot.api.commands.FAQ_Commands          import FAQ_Commands
 
 def use_command_class(slack_event, params, target_class):
-    channel = Misc.get_value(slack_event, 'channel')
-    user    = Misc.get_value(slack_event, 'user')
-    Slack_Commands_Helper(target_class).invoke(team_id=user, channel=channel, params=params)
-    return None,None
+    channel          = Misc.get_value(slack_event, 'channel')
+    user             = Misc.get_value(slack_event, 'user')
+    text,attachments =  Slack_Commands_Helper(target_class).invoke(team_id=user, channel=channel, params=params)
+    if channel:
+        return None,None
+    return text,attachments
 
 class OSS_Bot_Commands:                                      # move to separate class
 
@@ -33,9 +35,9 @@ class OSS_Bot_Commands:                                      # move to separate 
 
     @staticmethod
     def gw(slack_event=None, params=None):
-        return use_command_class(slack_event, params, GW_Commands)
-
-        # move to new routing mode
+        #return use_command_class(slack_event, params, GW_Commands)
+        Lambda('gw_bot.lambdas.gw.commands').invoke_async({'params': params, 'data': slack_event}), []
+        return None, None
 
     @staticmethod
     def graph(slack_event, params=None):
