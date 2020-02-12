@@ -1,16 +1,9 @@
-from pbx_gs_python_utils.utils.Json import Json
 from osbot_aws.apis.Lambda import Lambda
 from pbx_gs_python_utils.utils.Misc import Misc
 
 from gw_bot.api.Slack_Commands_Helper          import Slack_Commands_Helper
-from gw_bot.api.commands.GW_Commands           import GW_Commands
 from gw_bot.api.commands.Maps_Commands         import Maps_Commands
-from gw_bot.api.commands.Dev_Commands          import Dev_Commands
-from gw_bot.api.commands.Participant_Commands  import Participant_Commands
-from gw_bot.api.commands.Schedule_Commands     import Schedule_Commands
-from gw_bot.api.commands.Sessions_Commands     import Sessions_Commands
-from gw_bot.api.commands.Site_Commands         import Site_Commands
-from gw_bot.api.commands.FAQ_Commands          import FAQ_Commands
+
 
 def use_command_class(slack_event, params, target_class):
     channel          = Misc.get_value(slack_event, 'channel')
@@ -22,7 +15,7 @@ def use_command_class(slack_event, params, target_class):
 
 class OSS_Bot_Commands:                                      # move to separate class
 
-    gsbot_version = 'v0.18 (GW Bot)'
+    gsbot_version = 'v0.38 (GW Bot)'
 
     @staticmethod
     def browser(slack_event=None, params=None):
@@ -79,13 +72,18 @@ class OSS_Bot_Commands:                                      # move to separate 
         Lambda('osbot_browser.lambdas.lambda_browser').invoke_async({'params': params, 'data': slack_event}), []
         return None, None
 
-    @staticmethod
-    def site(slack_event=None, params=None):
-        return use_command_class(slack_event, params, Site_Commands)
+    # @staticmethod
+    # def site(slack_event=None, params=None):
+    #     return use_command_class(slack_event, params, Site_Commands)
 
     @staticmethod
-    def faq(slack_event=None, params=None):
-        return use_command_class(slack_event, params, FAQ_Commands)
+    def store(slack_event=None, params=None):
+        Lambda('gw_bot.lambdas.gw.store').invoke_async({'params': params, 'data': slack_event}), []
+        return None, None
+
+    # @staticmethod
+    # def faq(slack_event=None, params=None):
+    #     return use_command_class(slack_event, params, FAQ_Commands)
 
     @staticmethod
     def maps(slack_event=None, params=None):

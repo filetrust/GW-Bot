@@ -1,5 +1,5 @@
 from gw_bot.api.Slack_Commands_Helper import Slack_Commands_Helper
-from gw_bot.api.commands.GW_Commands import GW_Commands
+from gw_bot.api.commands.gw.GW_Commands import GW_Commands
 from gw_bot.helpers.Lambda_Helpers import slack_message
 
 
