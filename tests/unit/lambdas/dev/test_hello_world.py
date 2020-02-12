@@ -1,3 +1,4 @@
+from gw_bot.lambdas.dev.hello_world import run
 from osbot_aws.apis.Lambdas import Lambdas
 from osbot_aws.apis.test_helpers.Temp_Aws_Roles import Temp_Aws_Roles
 from gw_bot.helpers.Test_Helper import Test_Helper
@@ -26,6 +27,12 @@ class test_run_command(Test_Helper):
         assert 'gw_bot_lambdas_dev_hello_world'              in list(set(Lambdas().list()))
         assert 'lambdas/gw_bot.lambdas.dev.hello_world.zip'  in self.aws_lambda._lambda.s3().find_files('gw-bot-lambdas','lambdas')
 
+    def test_invoke_directly(self):
+        self.result = run({},{})
+
+    def test_just_update(self):
+        self.aws_lambda.update()
+
     # test the invocation
     def test_update_and_invoke(self):
         self.aws_lambda.update()
@@ -33,8 +40,7 @@ class test_run_command(Test_Helper):
 
     # test the invocation
     def test_just_invoke(self):
-        self.aws_lambda.update()
-        print(self.aws_lambda.invoke({'name': 'abc'}))
+        self.result = self.aws_lambda.invoke({'name': 'abc'})
 
 
         #assert self.aws_lambda.invoke({'name': 'abc'}) == 'Hello abc (from lambda)'
