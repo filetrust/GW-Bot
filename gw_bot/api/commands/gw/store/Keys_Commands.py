@@ -1,3 +1,5 @@
+from pbx_gs_python_utils.utils.Dev import Dev
+
 from gw_bot.helpers.Lambda_Helpers import slack_message
 from osbot_aws.apis.API_Gateway import API_Gateway
 from osbot_aws.apis.Lambda import Lambda
@@ -39,12 +41,13 @@ class Keys_Commands:
     @staticmethod
     def usage(slack_id=None, channel=None, params=None) :
         days        = 5
+        plan_name   = '1k month'
         title       = 'API Keys Usage'
         slack_message(f':point_right: Rendering chart with API Gateway Keys usage for the last `{days}` days', [], channel)
         chart_type  = 'LineChart'
         api_gateway = API_Gateway()
-        usage_plans = api_gateway.usage_plans()
-        plan_id     = set(usage_plans).pop()
+        usage_plans = api_gateway.usage_plans('name')
+        plan_id     = usage_plans.get(plan_name).get('id')
         data        = api_gateway.usage__as_chart_data(plan_id,days)
         lambda_name = 'osbot_browser.lambdas.google_chart'
         options     = {'title'    : title,
@@ -59,3 +62,20 @@ class Keys_Commands:
             return None
         else:
             return png_data
+
+    @staticmethod
+    def usage_plans(team_id, channel, params):
+        api_gateway = API_Gateway()
+        result = ':point_down: Here are the current API Keys Usage Plans :point_down:\n'
+        result += f'```{Dev.pformat(api_gateway.usage_plans(index_by="name"))}```'
+        return slack_message(result, [], channel)
+
+    @staticmethod
+    def usage_plan_keys(team_id, channel, params):
+        if len(params)!=1:
+            return slack_message(':red_circle: you need to provide a an usage plan key', [], channel)
+        usage_plan_key = params.pop()
+        api_gateway = API_Gateway()
+        result = ':point_down: Here are the current API Keys Usage Plans :point_down:\n'
+        result += f'```{Dev.pformat(api_gateway.usage_plan_keys(usage_plan_key))}```'
+        return slack_message(result, [], channel)
