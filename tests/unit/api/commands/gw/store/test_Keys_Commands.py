@@ -9,8 +9,10 @@ class test_Keys_Commands(Test_Helper):
         self.keys_commands = Keys_Commands()
 
     def test_create__delete(self):
-        #self.keys_commands.create(None,None,['new key name'])
-        self.result = self.keys_commands.delete(None,None,['new key name'])
+        usage_plan_id = 'd0fhi9'  # '1k day'
+        key_name      = 'new_key_name'
+        self.result = self.keys_commands.create(None,None,[usage_plan_id, key_name])
+        self.keys_commands.delete(None,None,[key_name])
 
     def test_list(self):
         self.result = self.keys_commands.list(None,None,[])

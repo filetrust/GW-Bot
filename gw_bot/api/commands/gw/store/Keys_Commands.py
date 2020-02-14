@@ -9,12 +9,20 @@ class Keys_Commands:
 
     @staticmethod
     def create(team_id,channel, params):
-        key_name = ' '. join(params)
-        if key_name == '':
-            return slack_message(':red_circle: you need to provide a key name to create', [], channel)
+        if len(params) != 2:
+            return slack_message(':red_circle: you need to provide two params: `usage_plan_id` and `key_name` (no spaces allowed', [], channel)
 
-        key_value = API_Gateway().api_key_create(key_name).get('value')
-        return f'key `{key_name}` = {key_value}'
+        key_name      = params.pop()
+        usage_plan_id = params.pop()
+        api_gateway   = API_Gateway()
+        new_key       = api_gateway.api_key_create(key_name)
+        key_id        = new_key.get('id')
+        key_value     = new_key.get('value')
+        result        = api_gateway.usage_plan_add_key(usage_plan_id, key_id)
+        if result.get('error'):
+            return f':red_circle: Error {result.get("error")}'
+        return f'new key `{key_name}` with value "{key_value}" was added to the plan *{usage_plan_id}* '
+        #return f'going to create key "{result}" and add it to plan {usage_plan_id}'
 
     @staticmethod
     def delete(team_id, channel, params):

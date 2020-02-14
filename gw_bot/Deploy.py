@@ -23,8 +23,8 @@ class Deploy:
 
         return package
 
-    def deploy_lambda__gw_bot(self):
-        return self.get_package('gw_bot.lambdas.gw_bot').update_code()
+    def deploy_lambda__gw_bot(self, lambda_name='gw_bot.lambdas.gw_bot'):
+        return self.get_package(lambda_name).update_code()
 
     def deploy_lambda__git_lambda(self):
         return self.get_package('gw_bot.lambdas.git_lambda').update_code()
