@@ -16,17 +16,20 @@ def send_to_elk(data,id_key):
 def run(event, context):
     try:
         records    = event.get('Records',[])
-        for record in records:
-            event_name = record.get('eventName')
-            region     = record.get('awsRegion')
-            s3         = record.get('s3',{})
-            s3_bucket  = s3.get('bucket',{}).get('name')
-            s3_key     = s3.get('object', {}).get('key')
-            if event_name == 'ObjectCreated:Put':
-                records_raw = S3().file_contents_from_gzip(s3_bucket, s3_key)
-                records     = json.loads(records_raw).get('Records')
-                log_to_elk('on_s3_event', f'After "{event_name}" event on bucket "{s3_bucket}" on region "{region}", sending "{len(records)}" entries to elastic')
-                result = send_to_elk(records, 'eventID')
-                log_to_elk('on_s3_event', f'sent {result} records to Elastic')
+        if records:
+            for record in records:
+                event_name = record.get('eventName')
+                region     = record.get('awsRegion')
+                s3         = record.get('s3',{})
+                s3_bucket  = s3.get('bucket',{}).get('name')
+                s3_key     = s3.get('object', {}).get('key')
+                if event_name == 'ObjectCreated:Put':
+                    records_raw = S3().file_contents_from_gzip(s3_bucket, s3_key)
+                    records     = json.loads(records_raw).get('Records')
+                    log_to_elk('on_s3_event', f'After "{event_name}" event on bucket "{s3_bucket}" on region "{region}", sending "{len(records)}" entries to elastic')
+                    result = send_to_elk(records, 'eventID')
+                    log_to_elk('on_s3_event', f'sent {result} records to Elastic')
+        else:
+            log_to_elk('on_s3_event', f'unsupported event: {event}')
     except Exception as error:
         return log_to_elk('error in on_s3_event', f'{error}', level='error')
