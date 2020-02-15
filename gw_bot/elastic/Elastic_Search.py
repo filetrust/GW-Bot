@@ -19,6 +19,7 @@ class Elastic_Search:
         self.index          = index
         self._setup_Elastic_on_localhost()                  # default to localhost
         self.kibana         = None
+        self.host           = None
         self._result        = None                          # used to cache some responses (for methods that return self)
 
         if index and aws_secret_id:
@@ -33,12 +34,12 @@ class Elastic_Search:
     def _setup_Elastic_on_cloud_via_AWS_Secret(self,index, secret_id):
         credentials = json.loads(Secrets(secret_id).value())
         self.kibana = credentials.get('kibana')
-        host        = credentials['host']
+        self.host   = credentials['host']
         username    = credentials['username']
         password    = credentials['password']
         port        = credentials['port']
         self.index  = index
-        self._setup_Elastic_on_cloud(host, port, username, password)
+        self._setup_Elastic_on_cloud(self.host, port, username, password)
         return self
 
     def _setup_Elastic_on_cloud(self, host, port, username, password):
@@ -108,34 +109,16 @@ class Elastic_Search:
         self.create_index(body)
         return self
 
-    def create_index_pattern(self, add_time_field = True):
-        if add_time_field:
-            payload = {
-                "type": "index-pattern",
-                "index-pattern": {"title": self.index + '*', "timeFieldName": "date"}
-            }
+    def create_index_pattern(self, time_field = None):
+        if time_field:
+            payload = {"attributes":{"title": self.index ,"fields":"[]", f"timeFieldName": f"{time_field}"}}
         else:
-            print('creating index without index pattern')
-            payload = {
-                "type": "index-pattern",
-                "index-pattern": {"title": self.index + '*'}
-            }
-        data = json.dumps(payload)
-        headers = {'Content-Type': 'application/json', 'kbn-xsrf' : 'kibana'}
-
-        if self.host == 'localhost':
-            url = 'http://{0}:{1}/.kibana/doc/index-pattern:{2}'.format(self.host, self.port, self.index)
-            self._result = json.loads(PUT(url, data, headers))
-
-        else:
-            # todo: refactor line below to use kibana url from Secrets object (since we this is using Kibana api directly)
-            #url = 'https://{0}:{1}/.kibana/doc/index-pattern:{2}'.format(self.host, self.port, self.index)
-            url ='https://3b9de4482ca24840b16b0ef9b0db402c.eu-west-1.aws.found.io:9243/api/saved_objects/index-pattern'
-
-            data = json.dumps({"attributes":{"title":"test-index*","fields":"[]"}})
-
-            response = requests.post(url, data, headers=headers, auth=HTTPBasicAuth(self.username, self.password))
-            self._result = json.loads(response.text)
+            payload= {"attributes":{"title": self.index ,"fields":"[]"}}
+        data     = json.dumps(payload)
+        headers  = {'Content-Type': 'application/json', 'kbn-xsrf' : 'kibana'}
+        url      = f'https://{self.kibana}:9243/api/saved_objects/index-pattern'
+        response = requests.post(url, data, headers=headers, auth=HTTPBasicAuth(self.username, self.password))
+        self._result = json.loads(response.text)
 
         return self
 

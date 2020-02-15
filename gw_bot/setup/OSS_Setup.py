@@ -6,11 +6,11 @@ from osbot_aws.helpers.Lambda_Package import Lambda_Package
 
 class OSS_Setup:
 
-    def __init__(self):
+    def __init__(self, profile_name = None, account_id=None, region=None):
         self.bot_name          = 'gw_bot'
-        self.profile_name      = 'gw-bot'
-        self.region_name       = 'eu-west-1'
-        self.account_id        = '311800962295' #glasswalltestframework'
+        self.profile_name      = profile_name or 'gw-bot'
+        self.region_name       = region       or 'eu-west-1'
+        self.account_id        = account_id   or '311800962295' #glasswalltestframework'
         self.role_lambdas      = "arn:aws:iam::{0}:role/gwbot-lambdas-temp".format(self.account_id)
         self.s3_bucket_lambdas = '{0}-lambdas'.format(self.bot_name).replace('_','-')
         self.s3                = S3()
@@ -18,13 +18,12 @@ class OSS_Setup:
     def lambda_package(self, lambda_name) -> Lambda_Package:
         lambda_package               = Lambda_Package(lambda_name)
         lambda_package.tmp_s3_bucket = self.s3_bucket_lambdas                       # these four method calls need to be refactored
-        lambda_package.tmp_s3_key = 'lambdas/{0}.zip'.format(lambda_name)
+        lambda_package.tmp_s3_key    = 'lambdas/{0}.zip'.format(lambda_name)
         lambda_package._lambda.set_s3_bucket(lambda_package.tmp_s3_bucket)
         lambda_package._lambda.set_s3_key(lambda_package.tmp_s3_key)
         return lambda_package
 
     def setup_test_environment(self):
-        # todo: add check when running in AWS
         Globals.aws_session_profile_name = self.profile_name
         Globals.aws_session_region_name  = self.region_name
         return self

@@ -1,3 +1,4 @@
+#todo: refactor to inside the store folder
 def run(event, context):
     from gw_bot.api.Slack_Commands_Helper import Slack_Commands_Helper
     from gw_bot.api.commands.gw.store.Store_Commands import Store_Commands
