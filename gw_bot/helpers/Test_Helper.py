@@ -13,12 +13,18 @@ class Test_Helper(TestCase):
         return self.oss_setup(profile_name=profile_name, account_id=account_id,region=region)
 
     def oss_setup(self,profile_name = None, account_id=None, region=None) -> OSS_Setup:
-        self.result = None
+        self.result   = None
+        self.png_data = None
+        self.png_file = '/tmp/lambda_png_file.png'
         return OSS_Setup(profile_name=profile_name,account_id=account_id,region=region).setup_test_environment()
 
     def tearDown(self):
         if self.result is not None:
             Dev.pprint(self.result)
+        if self.png_data is not None:
+            with open(self.png_file, "wb") as fh:
+                fh.write(base64.decodebytes(self.png_data.encode()))
+            return "Png data with size {0} saved to {1}".format(len(self.png_data),self.png_file)
 
     def lambda_package(self, lambda_name, profile_name = None, account_id=None, region=None):
         #self.result = None

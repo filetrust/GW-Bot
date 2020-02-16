@@ -15,7 +15,12 @@ def use_command_class(slack_event, params, target_class):
 
 class OSS_Bot_Commands:                                      # move to separate class
 
-    gsbot_version = 'v0.38 (GW Bot)'
+    gsbot_version = 'v0.39 (GW Bot)'
+
+    @staticmethod
+    def aws(slack_event=None, params=None):
+        Lambda('gw_bot.lambdas.aws.commands').invoke_async({'params': params, 'data': slack_event}), []
+        return None, None
 
     @staticmethod
     def browser(slack_event=None, params=None):
