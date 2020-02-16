@@ -24,4 +24,4 @@ class test_Keys_Commands(Test_Helper):
         self.result = self.keys_commands.usage_plan_keys(None,None,['d0fhi9'])
 
     def test_update_lambda(self):
-        super().lambda_package('gw_bot.lambdas.gw.store').update_code()
+        super().lambda_package('gw_bot.lambdas.gw.store.commands').update_code()

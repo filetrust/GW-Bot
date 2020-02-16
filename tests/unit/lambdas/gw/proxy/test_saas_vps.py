@@ -67,7 +67,15 @@ class test_Rest_API__SaaS_VPs(Test_Helper):
         # self.result = rest_api_id.add_method_lambda('/', '{proxy+}')
         #self.result = rest_api.api_gateway.resources(rest_api_id)
 
-
+    # here is the test that added the A record
+    def test_record_set_upsert(self):
+        from osbot_aws.apis.Route_53 import Route_53
+        name                = 'gw-proxy.com.'
+        record_type         = 'A'
+        dns_name            = 'd-noho75bpih.execute-api.eu-west-1.amazonaws.com.'
+        hosted_zone_id      = '/hostedzone/ZMHOWKWA1ZN69'
+        alias_hosted_zone_id = 'ZLY8HYME6SFDD'
+        self.result = Route_53().record_set_upsert(name, record_type, dns_name,hosted_zone_id,alias_hosted_zone_id)
 
     def test_GET_request(self):
         self.result = GET(Rest_API(self.api_name).url())

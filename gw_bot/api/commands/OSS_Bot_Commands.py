@@ -83,7 +83,7 @@ class OSS_Bot_Commands:                                      # move to separate 
 
     @staticmethod
     def store(slack_event=None, params=None):
-        Lambda('gw_bot.lambdas.gw.store').invoke_async({'params': params, 'data': slack_event}), []
+        Lambda('gw_bot.lambdas.gw.store.commands').invoke_async({'params': params, 'data': slack_event}), []
         return None, None
 
     # @staticmethod
