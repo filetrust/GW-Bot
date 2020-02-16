@@ -9,8 +9,8 @@ from gw_bot.setup.OSS_Setup import OSS_Setup
 class Test_Helper(TestCase):
 
 
-    def setUp(self, profile_name = None, account_id=None, region=None) -> OSS_Setup:
-        return self.oss_setup(profile_name=profile_name, account_id=account_id,region=region)
+    def setUp(self) -> OSS_Setup:
+        return self.oss_setup()
 
     def oss_setup(self,profile_name = None, account_id=None, region=None) -> OSS_Setup:
         self.result   = None
