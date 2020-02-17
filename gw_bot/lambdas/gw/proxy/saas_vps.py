@@ -3,8 +3,8 @@ import base64
 from gw_bot.helpers.Lambda_Helpers import log_to_elk
 from gw_bot.lambdas.png_to_slack import load_dependency
 
-def log_request(path, method, headers):
-    data = { 'path': path,'method': method, 'headers':headers }
+def log_request(path, method, headers, domain_prefix,target):
+    data = { 'path': path,'method': method, 'headers':headers, 'domain_prefix':domain_prefix, 'target': target }
     log_to_elk('proxy message', data)
 
 def run(event, context=None):
@@ -13,19 +13,33 @@ def run(event, context=None):
     path            = event.get('path','')
     method          = event.get('httpMethod','')
     headers         = event.get('headers',{})
-    log_request(path, method,headers)
+    domain_prefix   = event.get('requestContext',{}).get('domainPrefix')
+
+
     request_headers = {'accept'         : headers.get('headers'        ),
                        'User-Agent'     : headers.get('User-Agent'     ),
                        'accept-encoding': headers.get('accept-encoding')}
 
-    target = f'https://glasswall-file-drop.azurewebsites.net{path}'
-    response = requests.get(target,headers=request_headers)
+    if   domain_prefix == 'stackoverflow' : target = f'https://stackoverflow.com{path}'
+    elif domain_prefix == 'glasswall'     : target = f'https://www.glasswallsolutions.com{path}'
+    elif domain_prefix is not None        : target = f'https://{domain_prefix.replace("_",".")}{path}'
+    else: target = f'https://glasswall-file-drop.azurewebsites.net{path}'
+
+    log_request(path, method, headers, domain_prefix, target)
+
+    response = requests.get(target, headers=request_headers)
+
+
     response_headers = {}
 
     response_body    = response.content
 
     for key, value in response.headers.items():           # the original value of result.headers is not serializable
-        response_headers[key] = str(value)
+        if key != 'Content-Encoding':
+            response_headers[key] = str(value)
+
+    #response_headers = {'Content-Type': 'text/html; charset=UTF-8'}
+
 
     content_type = response_headers.get('Content-Type')
 
@@ -53,6 +67,9 @@ def run(event, context=None):
     else:
         is_base_64 = False
         response_body = response.text
+
+        response_body = response_body.replace('glasswallsolutions.com', 'glasswall.gw-proxy.com')
+        response_body = response_body.replace('Stack Overflow', '<b>[CHANGED BY THE PROXY]</b>')
     return {
         "isBase64Encoded": is_base_64,
         "statusCode"     : 200,

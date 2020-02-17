@@ -22,30 +22,6 @@ def log_to_elk(message, data = None, index = "gw_bot_logs", level = "debug", cat
     Lambda('gw_bot.utils.log_to_elk').invoke_async(payload)
     return payload
 
-# ## todo: THIS NEEDED UPDATING
-# def slack_message(text, attachments = [], channel = 'GDL2EC3EE', team_id='T7F3AUXGV'):  # GBMGMK88Z is the 'from-aws-lambda' channel in the GS-CST Slack workspace
-#     payload = {
-#                 'text'        : text        ,
-#                 'attachments' : attachments ,
-#                 'channel'     : channel     ,
-#                 'team_id'     : team_id
-#               }
-#     Lambda('gw_bot.lambdas.slack_message').invoke_async(payload)
-
-
-# def send_file_to_slack(file_path, title, bot_token, channel):
-#     import requests
-#     my_file = { 'file': ('/tmp/file.png', open(file_path, 'rb'), Files.file_extension(file_path)) }
-#
-#     payload = {
-#         "filename"  : '{0}.png'.format(title),
-#         "token"     : bot_token,
-#         "channels"  : [channel],
-#     }
-#     requests.post("https://slack.com/api/files.upload", params=payload, files=my_file)
-#
-#     return 'sent png file: {0}'.format(title)
-
 def slack_message(text, attachments = None, channel = None, team_id=None):  # GBMGMK88Z is the 'from-aws-lambda' channel in the GS-CST Slack workspace
     if attachments is None: attachments = []
     payload = {
