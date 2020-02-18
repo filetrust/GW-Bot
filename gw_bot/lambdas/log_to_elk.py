@@ -1,8 +1,7 @@
-
+from osbot_aws.Dependencies import load_dependency
 
 
 def run(event, context):
-    from gw_bot.lambdas.png_to_slack import load_dependency
     load_dependency('elastic')
 
     from gw_bot.elastic.Log_To_Elk import Log_To_Elk

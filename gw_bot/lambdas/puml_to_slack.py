@@ -4,7 +4,7 @@ from osbot_aws.apis.Lambda import Lambda
 from osbot_aws.apis.Secrets import Secrets
 
 from gw_bot.helpers.Lambda_Helpers import log_to_elk
-from gw_bot.lambdas.png_to_slack import load_dependency
+from osbot_aws.Dependencies import load_dependency
 
 
 def upload_png_file(team_id, channel_id, file):

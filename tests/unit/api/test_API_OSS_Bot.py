@@ -1,9 +1,9 @@
+from osbot_aws.Dependencies import upload_dependency
 from osbot_aws.apis.Lambda import Lambda
 
 from gw_bot.api.API_OSS_Bot import API_OSS_Bot
 from gw_bot.helpers import Lambda_Helpers
 from gw_bot.helpers.Test_Helper import Test_Helper
-from gw_bot.lambdas.png_to_slack import upload_dependency
 
 
 class test_API_OSS_Bot(Test_Helper):

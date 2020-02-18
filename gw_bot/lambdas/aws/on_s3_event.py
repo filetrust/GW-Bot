@@ -1,7 +1,7 @@
 import json
 
 from gw_bot.helpers.Lambda_Helpers import log_to_elk
-from gw_bot.lambdas.png_to_slack import load_dependency
+from osbot_aws.Dependencies import load_dependency
 from osbot_aws.apis.S3 import S3
 
 # todo: move this to an helper class

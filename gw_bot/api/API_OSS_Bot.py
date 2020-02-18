@@ -3,7 +3,6 @@ import ssl
 import urllib
 
 from osbot_aws.apis.Secrets import Secrets
-from gw_bot.lambdas.png_to_slack import load_dependency
 from gw_bot.api.commands.OSS_Bot_Commands import OSS_Bot_Commands
 from gw_bot.helpers.Lambda_Helpers import log_to_elk, slack_message, log_error
 

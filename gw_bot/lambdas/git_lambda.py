@@ -1,14 +1,9 @@
-from pbx_gs_python_utils.utils.Files import Files
 from pbx_gs_python_utils.utils.Lambdas_Helpers import slack_message
-from pbx_gs_python_utils.utils.Misc import Misc
-from pbx_gs_python_utils.utils.Process import Process
-
-from gw_bot.lambdas.png_to_slack import load_dependency
+from osbot_aws.Dependencies import load_dependency
 
 
 def run(event, context):
     action    = event.get('action'   )
-    #name      = event.get('name'     )
     field     = event.get('field'    )
     value     = event.get('value'    )
     user      = event.get('user'     )
