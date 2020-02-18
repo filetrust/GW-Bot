@@ -19,8 +19,8 @@ class OSS_Setup:
         lambda_package               = Lambda_Package(lambda_name)
         lambda_package.tmp_s3_bucket = self.s3_bucket_lambdas                       # these four method calls need to be refactored
         lambda_package.tmp_s3_key    = 'lambdas/{0}.zip'.format(lambda_name)
-        lambda_package._lambda.set_s3_bucket(lambda_package.tmp_s3_bucket)
-        lambda_package._lambda.set_s3_key(lambda_package.tmp_s3_key)
+        lambda_package.aws_lambda.set_s3_bucket(lambda_package.tmp_s3_bucket)
+        lambda_package.aws_lambda.set_s3_key(lambda_package.tmp_s3_key)
         return lambda_package
 
     def setup_test_environment(self):

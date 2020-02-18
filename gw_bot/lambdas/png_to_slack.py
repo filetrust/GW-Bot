@@ -5,6 +5,8 @@ from pbx_gs_python_utils.utils.Files import Files
 from osbot_aws.apis.S3               import S3
 from osbot_aws.apis.Secrets          import Secrets
 
+#todo: move to separate class
+#todo: or event better use AWS Lambda Layers
 def load_dependencies(targets):
     for target in targets.split(','):
         load_dependency(target.strip())
@@ -32,6 +34,7 @@ def load_dependency(target):
         sys.path.append(tmp_dir)                                # add tmp_dir to the path that python uses to check for dependencies
     return Files.exists(tmp_dir)
 
+#todo: move to separate class
 def upload_dependency(target):
     s3        = S3()
     s3_bucket = 'gw-bot-lambdas'

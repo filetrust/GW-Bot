@@ -10,6 +10,6 @@ class AWS_Commands:
         Lambda(lambda_name).invoke({'channel': channel})
 
     @staticmethod
-    def restart_lambdas(team_id, channel, params):
+    def reset_lambdas(team_id, channel, params):
         slack_message(':point_right: restarting Lambda function: `osbot_browser.lambdas.jira_web`' ,[], channel)
-        OSS_Setup().lambda_package('osbot_browser.lambdas.jira_web').update_lambda_code()
+        OSS_Setup().lambda_package('osbot_browser.lambdas.jira_web').reset()

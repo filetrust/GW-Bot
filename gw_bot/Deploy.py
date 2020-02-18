@@ -17,7 +17,7 @@ class Deploy:
 
     def get_package(self, lambda_name):
         package = Lambda_Package(lambda_name)
-        package._lambda.set_s3_bucket(self.oss_setup.s3_bucket_lambdas) \
+        package.aws_lambda.set_s3_bucket(self.oss_setup.s3_bucket_lambdas) \
                        .set_s3_key('lambdas/{0}.zip'.format(lambda_name)) \
                        .set_role(self.oss_setup.role_lambdas)
 
@@ -69,7 +69,7 @@ class Deploy:
 
     def deploy_lambda__slack_message(self):
         package = self.get_package('pbx_gs_python_utils_lambdas_utils_slack_message')
-        package._lambda.handler = 'gw_bot.lambdas.slack_message.run'
+        package.aws_lambda.handler = 'gw_bot.lambdas.slack_message.run'
         package.add_module('gw_bot')
         package.add_module('osbot_aws')
         package.add_pbx_gs_python_utils()
@@ -79,7 +79,7 @@ class Deploy:
     def deploy_lambda_log_to_elk(self):
         lambda_name = 'gw_bot_utils_log_to_elk'
         package = self.get_package(lambda_name)
-        package._lambda.handler = 'gw_bot.lambdas.log_to_elk.run'
+        package.aws_lambda.handler = 'gw_bot.lambdas.log_to_elk.run'
         package.add_module('gw_bot')
         package.add_module('osbot_aws')
         package.add_pbx_gs_python_utils()
@@ -89,7 +89,7 @@ class Deploy:
     def deploy_lambda_png_to_slack(self):
         lambda_name = 'utils_png_to_slack'
         package = self.get_package(lambda_name)
-        package._lambda.handler = 'gw_bot.lambdas.png_to_slack.run'
+        package.aws_lambda.handler = 'gw_bot.lambdas.png_to_slack.run'
         package.add_module('osbot_aws')
         package.add_module('gw_bot')
         package.add_pbx_gs_python_utils()
@@ -99,7 +99,7 @@ class Deploy:
     def deploy_lambda_puml_to_slack(self):
         lambda_name = 'utils_puml_to_slack'
         package = self.get_package(lambda_name)
-        package._lambda.handler = 'gw_bot.lambdas.puml_to_slack.run'
+        package.aws_lambda.handler = 'gw_bot.lambdas.puml_to_slack.run'
         package.add_module('osbot_aws')
         package.add_module('gw_bot')
         package.add_pbx_gs_python_utils()
@@ -109,7 +109,7 @@ class Deploy:
     def deploy_lambda_puml_to_png(self):
         lambda_name = 'utils_puml_to_png'
         package = self.get_package(lambda_name)
-        package._lambda.handler = 'gw_bot.lambdas.puml_to_png.run'
+        package.aws_lambda.handler = 'gw_bot.lambdas.puml_to_png.run'
         package.add_module('osbot_aws')
         package.add_module('gw_bot')
         package.add_pbx_gs_python_utils()

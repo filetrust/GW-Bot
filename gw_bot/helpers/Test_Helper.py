@@ -22,13 +22,18 @@ class Test_Helper(TestCase):
         if self.result is not None:
             Dev.pprint(self.result)
         if self.png_data is not None:
-            with open(self.png_file, "wb") as fh:
-                fh.write(base64.decodebytes(self.png_data.encode()))
-            return "Png data with size {0} saved to {1}".format(len(self.png_data),self.png_file)
+            if type(self.png_data) is not str:
+                Dev.pprint(f'Png data was not a string: {self.png_data}')
+            else:
+                try:
+                    with open(self.png_file, "wb") as fh:
+                        fh.write(base64.decodebytes(self.png_data.encode()))
+                    Dev.pprint(f'Png data with size {len(self.png_data)} saved to {self.png_file}')
+                except Exception as error:
+                    Dev.pprint(f'png save error: {error}')
+                    Dev.pprint(self.png_data)
 
     def lambda_package(self, lambda_name, profile_name = None, account_id=None, region=None):
-        #self.result = None
-        #return OSS_Setup().setup_test_environment().lambda_package(lambda_name)
         return self.oss_setup(profile_name=profile_name,account_id=account_id,region=region).lambda_package(lambda_name)
 
     @staticmethod
