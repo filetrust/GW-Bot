@@ -16,7 +16,7 @@ class Test_Helper(TestCase):
         self.result   = None
         self.png_data = None
         self.png_file = '/tmp/lambda_png_file.png'
-        return OSS_Setup(profile_name=profile_name,account_id=account_id,region=region).setup_test_environment()
+        return OSS_Setup(profile_name=profile_name,account_id=account_id,region_name=region)#.setup_test_environment()
 
     def tearDown(self):
         if self.result is not None:

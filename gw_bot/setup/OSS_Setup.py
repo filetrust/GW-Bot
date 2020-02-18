@@ -1,18 +1,26 @@
 from osbot_aws.Globals import Globals
-from osbot_aws.apis.IAM import IAM
 from osbot_aws.apis.S3 import S3
 from osbot_aws.helpers.Lambda_Package import Lambda_Package
 
 
 class OSS_Setup:
 
-    def __init__(self, profile_name = None, account_id=None, region=None):
-        self.bot_name          = 'gw_bot'
-        self.profile_name      = profile_name or 'gw-bot'
-        self.region_name       = region       or 'eu-west-1'
-        self.account_id        = account_id   or '311800962295' #glasswalltestframework'
-        self.role_lambdas      = "arn:aws:iam::{0}:role/gwbot-lambdas-temp".format(self.account_id)
-        self.s3_bucket_lambdas = '{0}-lambdas'.format(self.bot_name).replace('_','-')
+    def __init__(self, bot_name= None, profile_name = None, account_id=None, region_name=None, lambda_s3_bucket=None, lambda_role_name=None):
+        if bot_name            : Globals.bot_name                 = bot_name
+        if profile_name        : Globals.aws_session_profile_name = profile_name
+        if account_id          : Globals.aws_session_account_id   = profile_name
+        if region_name         : Globals.aws_session_region_name  = region_name
+        if lambda_s3_bucket    : Globals.lambda_s3_bucket         = lambda_s3_bucket
+        if lambda_role_name    : Globals.lambda_role_name         = lambda_role_name
+
+        self.bot_name          = Globals.bot_name
+        self.profile_name      = Globals.aws_session_profile_name
+        self.region_name       = Globals.aws_session_region_name
+        self.account_id        = Globals.aws_session_account_id
+        self.s3_bucket_lambdas = Globals.lambda_s3_bucket
+        self.lambda_role_name  = Globals.lambda_role_name
+        self.lambda_role_arn   = f"arn:aws:iam::{self.account_id}:role/{self.lambda_role_name}"
+
         self.s3                = S3()
 
     def lambda_package(self, lambda_name) -> Lambda_Package:
@@ -23,10 +31,10 @@ class OSS_Setup:
         lambda_package.aws_lambda.set_s3_key(lambda_package.tmp_s3_key)
         return lambda_package
 
-    def setup_test_environment(self):
-        Globals.aws_session_profile_name = self.profile_name
-        Globals.aws_session_region_name  = self.region_name
-        return self
+    # def setup_test_environment(self):
+    #     Globals.aws_session_profile_name = self.profile_name
+    #     Globals.aws_session_region_name  = self.region_name
+    #     return self
 
     def set_up_buckets(self):
         if self.s3_bucket_lambdas not in self.s3.buckets():

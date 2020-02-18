@@ -12,14 +12,15 @@ class Deploy:
         self.oss_setup     = OSS_Setup()
 
     def setup(self):
-        self.oss_setup.setup_test_environment()
+        #self.oss_setup.setup_test_environment()
         return self
 
     def get_package(self, lambda_name):
         package = Lambda_Package(lambda_name)
         package.aws_lambda.set_s3_bucket(self.oss_setup.s3_bucket_lambdas) \
-                       .set_s3_key('lambdas/{0}.zip'.format(lambda_name)) \
-                       .set_role(self.oss_setup.role_lambdas)
+                          .set_role(self.oss_setup.lambda_role_arn)
+                       #.set_s3_key('lambdas/{0}.zip'.format(lambda_name)) \
+
 
         return package
 

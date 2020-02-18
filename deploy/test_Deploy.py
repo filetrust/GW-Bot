@@ -10,7 +10,7 @@ class test_Deploy(TestCase):
 
     def setUp(self):
         self.deploy = Deploy()
-        self.deploy.oss_setup.setup_test_environment()
+        #self.deploy.oss_setup.setup_test_environment()
         self.result = None
 
     def tearDown(self):
