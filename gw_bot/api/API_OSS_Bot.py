@@ -100,6 +100,6 @@ class API_OSS_Bot:
         data     = data.encode("ascii")
         request  = urllib.request.Request(self.slack_url, data=data, method="POST" ) # send data back to Slack
         request.add_header("Content-Type","application/x-www-form-urlencoded")
-        context  = ssl.SSLContext(ssl.PROTOCOL_TLSv1)
+        context  = ssl.SSLContext()
         response = urllib.request.urlopen(request,context = context).read()
         return json.loads(response.decode())
