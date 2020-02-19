@@ -13,9 +13,6 @@ class API_OSS_Slack:
         return self._api_slack
 
     def slack_id_to_slack_full_name(self,slack_id):
-
-        #user_id = 'UAULZ1T98'
-
-        data = self.api_slack().slack.api_call("users.info", user=slack_id)
+        data = self.api_slack().slack.users_info(user=slack_id)
         if data.get('ok') is True:
             return data.get('user').get('profile').get('real_name')

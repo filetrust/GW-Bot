@@ -62,7 +62,7 @@ class API_Slack:
         return self.slack.files_info(file=file_id).data
 
     def get_channel(self, channel):
-        return self.slack.api_call("channels.info", channel=channel)
+        return self.slack.channels_info(channel=channel)
 
     # def get_messages(self,channel,limit=10):
     #     messages = self.slack.api_call("conversations.history", channel=channel, limit=limit).get('messages')

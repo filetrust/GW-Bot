@@ -2,6 +2,7 @@ import json
 import ssl
 import urllib
 
+from osbot_aws.apis.Lambda import Lambda
 from osbot_aws.apis.Secrets import Secrets
 from gw_bot.api.commands.OSS_Bot_Commands import OSS_Bot_Commands
 from gw_bot.helpers.Lambda_Helpers import log_to_elk, slack_message, log_error
@@ -55,6 +56,14 @@ class API_OSS_Bot:
             attachments = [ { 'text': ' ' + str(error) , 'color' :  'danger'}]
             log_error(text, attachments)
         return text, attachments
+
+    def process_posted_body(self, post_body):  # handle the encoding created by API GW, which uses as transformation
+        try:                                  # { "body" : $input.json('$' ) }
+            return_value = Lambda('gw_bot.lambdas.slack_callback').invoke(post_body)
+            slack_message(f'return value: {return_value}')
+            return return_value
+        except Exception as error:
+            return "Error in processing posted data: {0}".format(str(error))
 
     def handle_file_drop(self, slack_event):
         from osbot_aws.apis.Lambda import Lambda

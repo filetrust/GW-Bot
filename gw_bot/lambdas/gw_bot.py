@@ -1,5 +1,4 @@
-def run(data, context):
-    # this Lambda function is triggered by this API GW method https://545ojrb6r0.execute-api.eu-west-2.amazonaws.com/dev/event-handler
+def run(data, context):    
     try:
         from gw_bot.api.Slack_Handler import Slack_Handler
         return Slack_Handler().run(data)
