@@ -12,7 +12,7 @@ from gw_bot.lambdas.png_to_slack import run
 class Test_Lambda_pdf_to_slack(Test_Helper):
     def setUp(self):
         super().setUp()
-        self.png_to_slack = Lambda('utils.png_to_slack')
+        self.png_to_slack = Lambda('gw_bot.lambdas.png_to_slack')
 
     def test_update_lambda(self):
         Deploy().setup().deploy_lambda_png_to_slack()

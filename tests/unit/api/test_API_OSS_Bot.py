@@ -17,7 +17,7 @@ class test_API_OSS_Bot(Test_Helper):
         assert type(self.api.resolve_bot_token()) is str
 
     def test_send_message(self):
-        self.response = self.api.send_message('DJ8UA0RFT', 'test message',[])
+        self.response = self.api.send_message('DRE51D4EM', 'test message',[])
 
     def test_handle_file_drop(self):
         slack_event = {  "type": "file_created",

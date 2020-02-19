@@ -66,7 +66,7 @@ class Keys_Commands:
 
         if channel:
             params = {'png_data': png_data, 'title': 'API Keys usage chart', 'channel': channel}
-            Lambda('utils.png_to_slack').invoke_async(params)
+            Lambda('gw_bot.lambdas.png_to_slack').invoke_async(params)
             return None
         else:
             return png_data

@@ -1,7 +1,7 @@
+#from osbot_aws.Dependencies import upload_dependency
 from osbot_aws.apis.Lambda import Lambda
 from gw_bot.helpers.Test_Helper import Test_Helper
 from gw_bot.lambdas.log_to_elk import run
-from gw_bot.lambdas.png_to_slack import upload_dependency
 from pbx_gs_python_utils.utils.Dev import Dev
 
 
@@ -36,7 +36,7 @@ class Test_Lambda_log_to_elk(Test_Helper):
         assert response.get('elastic_response').get('result') == 'created'
 
 
-    def test_upload_dependency(self):
-        upload_dependency("elastic")
+    # def test_upload_dependency(self):
+    #     upload_dependency("elastic")
 
         #pip3 install elasticsearch -t elastic

@@ -83,35 +83,6 @@ class API_Slack:
         self.channel = channel
         return self
 
-    # def user(self,used_id):
-    #     return self.slack.api_call("chat.postMessage",
-    #                                channel=self.channel,
-    #                                used_  =used_id)
-    #
-    # def users(self):
-    #     users = {}
-    #     cursor = None
-    #     while cursor != '':
-    #         data = self.slack.api_call("users.list", cursor = cursor )
-    #         cursor = data.get('response_metadata').get('next_cursor')
-    #         for user in data.get('members'):
-    #             users[user['name']] = user
-    #     return users
-
-
-    ## methods using lambdas
-
-    # def dot_to_slack(self, dot):
-    #     payload = {"dot"    : dot          ,
-    #                "channel": self.channel }
-    #     return Lambda('utils.dot_to_slack').invoke(payload)
-    #
-    # def puml_to_slack(self, puml):
-    #     payload = {"puml"   : puml          ,
-    #                "channel": self.channel  }
-    #     return Lambda('utils.puml_to_slack').invoke(payload)
-
-
     # at the moment this is using the REST API directly (see if there is a way to do this using the main Slack python API)
 
     def upload_file(self, file_path, channel, title=None):

@@ -11,7 +11,7 @@ from gw_bot.lambdas.puml_to_slack import run
 class Test_puml_to_slack(Test_Helper):
     def setUp(self):
         super().setUp()
-        self.puml_to_slack = Lambda('utils.puml_to_slack')
+        self.puml_to_slack = Lambda('gw_bot.lambdas.puml_to_slack')
 
     def test_update_lambda(self):
         self.result = Deploy().setup().deploy_lambda_puml_to_slack()

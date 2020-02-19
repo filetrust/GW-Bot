@@ -31,7 +31,7 @@ def slack_message(text, attachments = None, channel = None, team_id=None):  # GB
                 'team_id'     : team_id
               }
     if channel:
-        Lambda('pbx_gs_python_utils.lambdas.utils.slack_message').invoke_async(payload)
+        Lambda('gw_bot.lambdas.slack_message').invoke_async(payload)
     else:
         return text, attachments
 

@@ -4,11 +4,12 @@ from gw_bot.Deploy import Deploy
 
 class test_slack_message(Test_Helper):
     def setUp(self):
+        self.lambda_name = 'gw_bot.lambdas.slack_message'
         self.oss_setup = super().setUp()
-        self.aws_lambda = Lambda('pbx_gs_python_utils_lambdas_utils_slack_message')
+        self.aws_lambda = Lambda(self.lambda_name)
 
     def test_update_lambda(self):
-        Deploy().deploy_lambda__slack_message()
+        Deploy().deploy_lambda__gw_bot(self.lambda_name)
 
     def test_invoke(self):
         self.test_update_lambda()

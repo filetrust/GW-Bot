@@ -39,7 +39,7 @@ def run(event, context):
     puml            = event.get('puml')
     puml            = puml.replace('&lt;', '<').replace('&gt;', '>')
     (fd, tmp_file)  = tempfile.mkstemp('.png')
-    puml_to_png     = Lambda('utils.puml_to_png').invoke
+    puml_to_png     = Lambda('gw_bot.lambdas.puml_to_png').invoke
     result          = puml_to_png({"puml": puml })
 
 

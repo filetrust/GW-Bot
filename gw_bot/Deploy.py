@@ -25,10 +25,15 @@ class Deploy:
         return package
 
     def deploy_lambda__gw_bot(self, lambda_name='gw_bot.lambdas.gw_bot'):
-        return self.get_package(lambda_name).update_code()
+        package = self.get_package(lambda_name)
+        package.add_folder(Files.path_combine(__file__, '../../gw_bot'))
+        package.add_module('osbot_aws')
+        package.add_pbx_gs_python_utils()
+        package.update()
 
-    def deploy_lambda__git_lambda(self):
-        return self.get_package('gw_bot.lambdas.git_lambda').update_code()
+
+    # def deploy_lambda__git_lambda(self):
+    #     return self.get_package('gw_bot.lambdas.git_lambda').update_code()
 
     def deploy_lambda__browser(self, lambda_name='osbot_browser.lambdas.lambda_browser'):
         package = self.get_package(lambda_name)
@@ -68,64 +73,64 @@ class Deploy:
             package.update()
             return package
 
-    def deploy_lambda__slack_message(self):
-        package = self.get_package('pbx_gs_python_utils_lambdas_utils_slack_message')
-        package.aws_lambda.handler = 'gw_bot.lambdas.slack_message.run'
-        package.add_module('gw_bot')
-        package.add_module('osbot_aws')
-        package.add_pbx_gs_python_utils()
-        package.delete()
-        package.update()
+    # def deploy_lambda__slack_message(self):
+    #     package = self.get_package('pbx_gs_python_utils_lambdas_utils_slack_message')
+    #     package.aws_lambda.handler = 'gw_bot.lambdas.slack_message.run'
+    #     package.add_module('gw_bot')
+    #     package.add_module('osbot_aws')
+    #     package.add_pbx_gs_python_utils()
+    #     package.delete()
+    #     package.update()
+    #
+    # def deploy_lambda_log_to_elk(self):
+    #     lambda_name = 'gw_bot_utils_log_to_elk'
+    #     package = self.get_package(lambda_name)
+    #     package.aws_lambda.handler = 'gw_bot.lambdas.log_to_elk.run'
+    #     package.add_module('gw_bot')
+    #     package.add_module('osbot_aws')
+    #     package.add_pbx_gs_python_utils()
+    #     package.update()
+    #     return package
+    #
+    # def deploy_lambda_png_to_slack(self):
+    #     lambda_name = 'utils_png_to_slack'
+    #     package = self.get_package(lambda_name)
+    #     package.aws_lambda.handler = 'gw_bot.lambdas.png_to_slack.run'
+    #     package.add_module('osbot_aws')
+    #     package.add_module('gw_bot')
+    #     package.add_pbx_gs_python_utils()
+    #     package.update()
+    #     return package
+    #
+    # def deploy_lambda_puml_to_slack(self):
+    #     lambda_name = 'utils_puml_to_slack'
+    #     package = self.get_package(lambda_name)
+    #     package.aws_lambda.handler = 'gw_bot.lambdas.puml_to_slack.run'
+    #     package.add_module('osbot_aws')
+    #     package.add_module('gw_bot')
+    #     package.add_pbx_gs_python_utils()
+    #     package.update()
+    #     return package
+    #
+    # def deploy_lambda_puml_to_png(self):
+    #     lambda_name = 'utils_puml_to_png'
+    #     package = self.get_package(lambda_name)
+    #     package.aws_lambda.handler = 'gw_bot.lambdas.puml_to_png.run'
+    #     package.add_module('osbot_aws')
+    #     package.add_module('gw_bot')
+    #     package.add_pbx_gs_python_utils()
+    #     package.update()
+    #     return package
 
-    def deploy_lambda_log_to_elk(self):
-        lambda_name = 'gw_bot_utils_log_to_elk'
-        package = self.get_package(lambda_name)
-        package.aws_lambda.handler = 'gw_bot.lambdas.log_to_elk.run'
-        package.add_module('gw_bot')
-        package.add_module('osbot_aws')
-        package.add_pbx_gs_python_utils()
-        package.update()
-        return package
 
-    def deploy_lambda_png_to_slack(self):
-        lambda_name = 'utils_png_to_slack'
-        package = self.get_package(lambda_name)
-        package.aws_lambda.handler = 'gw_bot.lambdas.png_to_slack.run'
-        package.add_module('osbot_aws')
-        package.add_module('gw_bot')
-        package.add_pbx_gs_python_utils()
-        package.update()
-        return package
-
-    def deploy_lambda_puml_to_slack(self):
-        lambda_name = 'utils_puml_to_slack'
-        package = self.get_package(lambda_name)
-        package.aws_lambda.handler = 'gw_bot.lambdas.puml_to_slack.run'
-        package.add_module('osbot_aws')
-        package.add_module('gw_bot')
-        package.add_pbx_gs_python_utils()
-        package.update()
-        return package
-
-    def deploy_lambda_puml_to_png(self):
-        lambda_name = 'utils_puml_to_png'
-        package = self.get_package(lambda_name)
-        package.aws_lambda.handler = 'gw_bot.lambdas.puml_to_png.run'
-        package.add_module('osbot_aws')
-        package.add_module('gw_bot')
-        package.add_pbx_gs_python_utils()
-        package.update()
-        return package
-
-
-    def deploy_lambda__slack_web(self):
-        package = self.get_package('osbot_browser.lambdas.slack_web')
-        source_folder = Files.path_combine(__file__,'../../modules/OSBot-Browser/osbot_browser')
-        package.add_folder(source_folder)
-        package.add_module('osbot_aws')
-        package.add_module('gw_bot')
-        package.add_pbx_gs_python_utils()
-        package.update()
-        return package
+    # def deploy_lambda__slack_web(self):
+    #     package = self.get_package('osbot_browser.lambdas.slack_web')
+    #     source_folder = Files.path_combine(__file__,'../../modules/OSBot-Browser/osbot_browser')
+    #     package.add_folder(source_folder)
+    #     package.add_module('osbot_aws')
+    #     package.add_module('gw_bot')
+    #     package.add_pbx_gs_python_utils()
+    #     package.update()
+    #     return package
 
 

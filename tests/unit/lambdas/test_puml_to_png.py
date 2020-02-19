@@ -9,7 +9,7 @@ from gw_bot.helpers.Test_Helper import Test_Helper
 
 class Test_Lambda_dot_to_png(Test_Helper):
     def setUp(self):
-        self.plant_to_png = Lambda('utils.puml_to_png')
+        self.plant_to_png = Lambda('gw_bot.lambdas.puml_to_png')
 
     def test_update_lambda(self):
         Deploy().setup().deploy_lambda_puml_to_png()
