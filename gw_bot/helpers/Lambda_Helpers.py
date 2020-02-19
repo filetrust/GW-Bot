@@ -19,7 +19,7 @@ def log_to_elk(message, data = None, index = "gw_bot_logs", level = "debug", cat
                 "data"     : data
               }
 
-    Lambda('gw_bot.utils.log_to_elk').invoke_async(payload)
+    Lambda('gw_bot.lambdas.log_to_elk').invoke_async(payload)
     return payload
 
 def slack_message(text, attachments = None, channel = None, team_id=None):  # GBMGMK88Z is the 'from-aws-lambda' channel in the GS-CST Slack workspace

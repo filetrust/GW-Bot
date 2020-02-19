@@ -8,7 +8,7 @@ from pbx_gs_python_utils.utils.Dev import Dev
 class Test_Lambda_log_to_elk(Test_Helper):
     def setUp(self):
         super().setUp()
-        self.log_to_elk = Lambda('gw_bot.utils.log_to_elk')
+        self.log_to_elk = Lambda('gw_bot.lambdas.log_to_elk')
         self.result = None
 
     def tearDown(self):
