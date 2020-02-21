@@ -24,7 +24,7 @@ class test_Deploy_All_Lambdas(Test_Helper):
                                                          'osbot_browser.lambdas.slack_web'      ,
                                                          'osbot_browser.lambdas.gw.sow'         ,
                                                          'osbot_browser.lambdas.gw.xml_report' ],
-                             'deploy_lambda__jira'    : ['osbot_jira.lambdas.elastic_jira'      ,
+                             'deploy_lambda__jira'    : ['osbot_jira.lambdas.jira'      ,
                                                          'osbot_jira.lambdas.elk_to_slack'      ,
                                                          'osbot_jira.lambdas.graph'             ,
                                                          'osbot_jira.lambdas.jira'              ,

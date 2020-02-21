@@ -2,7 +2,7 @@ from gw_bot.helpers.Lambda_Helpers import log_debug
 
 def run(event, context):
     try:
-        log_debug("in slack callback", f'{event}')
+        #log_debug("in slack callback", f'{event}')
         from gw_bot.api.API_Slack_Integration import API_Slack_Interaction
         return API_Slack_Interaction().handle_request(event)
 

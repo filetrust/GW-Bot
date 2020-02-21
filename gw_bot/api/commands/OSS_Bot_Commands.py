@@ -44,7 +44,7 @@ class OSS_Bot_Commands:                                      # move to separate 
 
     @staticmethod
     def jira(slack_event, params=None):
-        Lambda('osbot_jira.lambdas.elastic_jira').invoke_async({"params" : params, "user": slack_event.get('user'), "channel": slack_event.get('channel'),
+        Lambda('osbot_jira.lambdas.jira').invoke_async({"params" : params, "user": slack_event.get('user'), "channel": slack_event.get('channel'),
                                                                 'team_id': slack_event.get('team_id')}, )
         return None, None
     @staticmethod

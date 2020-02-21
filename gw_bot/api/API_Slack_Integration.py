@@ -16,7 +16,7 @@ class API_Slack_Interaction:
         user_id     = data['user']['id']
         params      = ["issue", key]
 
-        return Lambda('osbot_jira.lambdas.elastic_jira').invoke( {"params": params, "user": user_id, "channel": channel})
+        return Lambda('osbot_jira.lambdas.jira').invoke( {"params": params, "user": user_id, "channel": channel})
 
     # def callback_change_issue_status(self, data):
     #     action    = data['actions'].pop(0)
