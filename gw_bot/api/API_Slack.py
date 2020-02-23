@@ -1,10 +1,8 @@
 import base64
-
-from osbot_aws.apis.Lambda  import Lambda
 from osbot_aws.apis.Secrets import Secrets
-from pbx_gs_python_utils.utils.Files import Files
 from slack                  import WebClient
 
+from osbot_utils.utils.Files import Files
 
 
 class API_Slack:
