@@ -16,3 +16,6 @@
 [submodule "modules/OSBot-Utils"]
 	path = modules/OSBot-Utils
 	url = git@github.com:owasp-sbot/OSBot-Utils.git
+[submodule "modules/gw-proxy-serverless"]
+	path = modules/gw-proxy-serverless
+	url = git@github.com:filetrust/gw-proxy-serverless.git
