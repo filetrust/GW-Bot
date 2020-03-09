@@ -19,8 +19,7 @@ class Deploy:
         package = Lambda_Package(lambda_name)
         package.aws_lambda.set_s3_bucket(self.oss_setup.s3_bucket_lambdas) \
                           .set_role(self.oss_setup.lambda_role_arn)
-                       #.set_s3_key('lambdas/{0}.zip'.format(lambda_name)) \
-
+                          #.set_s3_key('lambdas/{0}.zip'.format(lambda_name)) \
 
         return package
 
