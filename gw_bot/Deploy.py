@@ -36,7 +36,7 @@ class Deploy:
 
     def deploy_lambda__browser(self, lambda_name='osbot_browser.lambdas.lambda_browser'):
         package = self.get_package(lambda_name)
-        source_folder = Files.path_combine(__file__,'../../modules/OSBot-Browser/osbot_browser')
+        source_folder = Files.path_combine(__file__,'../../modules/OSBot-browser/osbot_browser')
         package.add_folder(source_folder)
         gw_bot_folder = Files.path_combine(__file__, '../../gw_bot')         # this is needed because of some of the helpers (which will need to be refactored into a separate module)
         package.add_folder(gw_bot_folder)
@@ -72,7 +72,7 @@ class Deploy:
     def deploy_lambda__jupyter_web(self, lambda_name=None):     # for the cases where osbot_browser is needed
         if lambda_name:
             package = self.get_package(lambda_name)
-            source_folder = Files.path_combine(__file__, '../../modules/OSBot-Browser/osbot_browser')
+            source_folder = Files.path_combine(__file__, '../../modules/OSBot-browser/osbot_browser')
             package.add_folder(source_folder)
             source_folder = Files.path_combine(__file__,'../../modules/OSBot-Jupyter/osbot_jupyter')
             package.add_folder(source_folder)
@@ -137,7 +137,7 @@ class Deploy:
 
     # def deploy_lambda__slack_web(self):
     #     package = self.get_package('osbot_browser.lambdas.slack_web')
-    #     source_folder = Files.path_combine(__file__,'../../modules/OSBot-Browser/osbot_browser')
+    #     source_folder = Files.path_combine(__file__,'../../modules/OSBot-browser/osbot_browser')
     #     package.add_folder(source_folder)
     #     package.add_module('osbot_aws')
     #     package.add_module('gw_bot')
