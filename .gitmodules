@@ -19,3 +19,6 @@
 [submodule "modules/gw-proxy-serverless"]
 	path = modules/gw-proxy-serverless
 	url = git@github.com:filetrust/gw-proxy-serverless.git
+[submodule "modules/SDK-Evaluation-Version-2.x"]
+	path = modules/SDK-Evaluation-Version-2.x
+	url = https://github.com/filetrust/SDK-Evaluation-Version-2.x.git
