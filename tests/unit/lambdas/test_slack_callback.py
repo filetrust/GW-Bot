@@ -1,6 +1,7 @@
 from unittest import TestCase
 
 from gw_bot.Deploy import Deploy
+from gw_bot.api.slack.API_Slack_Attachment import API_Slack_Attachment
 from gw_bot.helpers.Test_Helper import Test_Helper
 from gw_bot.lambdas.slack_callback import run
 from osbot_aws.apis.Lambda import Lambda
@@ -40,7 +41,6 @@ class test_lambda_gs_bot(Test_Helper):
     def test__create_button_to_test_dialog(self):
         self.test_lambda_update()
         from pbx_gs_python_utils.utils.Lambdas_Helpers import slack_message
-        from pbx_gs_python_utils.utils.slack.API_Slack_Attachment import API_Slack_Attachment
         self.api_attach = API_Slack_Attachment()
         self.api_attach.set_text       ('Click on button below to test dialog'          )   \
                        .set_callback_id("button-dialog-test"                            )   \
