@@ -1,3 +1,4 @@
+from gw_bot.Deploy import Deploy
 from osbot_aws.Dependencies import upload_dependency
 from osbot_aws.apis.Lambda import Lambda
 
@@ -41,6 +42,8 @@ class test_API_OSS_Bot(Test_Helper):
         paylaod = {'event': slack_event}
         self.result = Lambda('gw_bot.lambdas.gw_bot').invoke(paylaod)
 
+    def test_update_lambda(self):
+        Deploy().deploy_lambda__gw_bot()
 
     def test_upload_dependency(self):
         upload_dependency("slack")

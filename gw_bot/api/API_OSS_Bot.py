@@ -37,6 +37,10 @@ class API_OSS_Bot:
                 command = slack_event.get('text').replace('<@URS8QH4UF>', '').strip()          # URS8QH4UF is the gw_bot slack ids
                 if not command:
                     command = 'hello'
+
+                if command.startswith('graph_') and len(command)==9:        # todo: move special cases to different method
+                    command = f'graph show {command}'                       # in this case we are allowing the Slack user to just type a name of graph to see it
+
                 method_name = command.split(' ')[0].split('\n')[0]
 
                 method             = self.resolve_command_method(command)                        # find method to invoke
