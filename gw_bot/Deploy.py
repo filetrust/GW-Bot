@@ -28,7 +28,7 @@ class Deploy:
         package.add_folder(Files.path_combine(__file__, '../../gw_bot'))
         package.add_module('osbot_aws')
         package.add_pbx_gs_python_utils()
-        package.update()
+        return package.update()
 
 
     # def deploy_lambda__git_lambda(self):

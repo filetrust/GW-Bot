@@ -13,21 +13,12 @@ class test_OSS_Bot_Commands(Test_Helper):
         super().setUp()
         self.result = None
 
-    def tearDown(self):
-        if self.result is not None:
-            Dev.pprint(self.result)
-
     def test_ping(self):
         self.result = GW_Commands.ping()
 
-    def test_api_usage(self):
-        self.result = GW_Commands.api_usage(channel='DRE51D4EM')
-
-    def test_api_keys(self):
-        self.result = GW_Commands.api_keys()
 
     def test_update_lambda(self):
-        Deploy().deploy_lambda__gw_bot()
+        Deploy().deploy_lambda__gw_bot('gw_bot.lambdas.gw.commands')
 
     def test_invoke_directly(self):
         payload = {'event': {'type': 'message', 'text': 'gw api_usage', 'channel':'DRE51D4EM'}}
