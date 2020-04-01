@@ -17,6 +17,9 @@ class Test_Lambda_dot_to_png(Test_Helper):
                               a3 -> a0;
                               a3 -> end;
                               b3 -> end;
+                              image_1 [image="/tmp/ACCESS.png" label="" shape="plaintext"]
+                              image_1 -> end
+                              { rank=source ; image_1 }
                            }"""
 
     def test_deploy_lambda(self):
@@ -26,8 +29,8 @@ class Test_Lambda_dot_to_png(Test_Helper):
         self.result = run({})
 
     def test_lambda_invoke(self):
-        #self.test_deploy_lambda()
-        params = {'dot': self.test_dot}
+        self.test_deploy_lambda()
+        params = {'dot': self.test_dot, 'layout_engine':'dot' }
         self.result = self.dot_to_png.invoke(params)
         if self.result.get('svg'):
-            file_create('/tmp/aaa.svg',self.result.get('svg'))
+            file_create('/tmp/dot_image.svg',self.result.get('svg'))
