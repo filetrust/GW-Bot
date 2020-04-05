@@ -1,23 +1,22 @@
 from gw_bot.Deploy import Deploy
 from gw_bot.helpers.Test_Helper import Test_Helper
-from gw_bot.lambdas.dot_to_png import run
-from osbot_aws.apis.Lambda import Lambda
-from osbot_jira.api.jira_server.Jira_Icons import Jira_Icons
-from osbot_utils.utils.Files import file_create
+from gw_bot.lambdas.dot_to_svg  import run
+from osbot_aws.apis.Lambda      import Lambda
+from osbot_utils.utils.Files    import file_create
 
 
 class Test_Lambda_dot_to_png(Test_Helper):
 
     def setUp(self):
         super().setUp()
-        self.lambda_name = 'gw_bot.lambdas.dot_to_png'
+        self.lambda_name = 'gw_bot.lambdas.dot_to_svg'
         self.dot_to_png = Lambda(self.lambda_name)
         self.test_dot = """digraph G {
                               a1 -> b3;
                               b2 -> a3;
                               a3 -> a0;
                               a3 -> end;
-                              b3 -> end;                                                                                       
+                              b3 -> endAAA;                                                                                       
                               #{ rank=source ; b2 }
                            }"""
 
