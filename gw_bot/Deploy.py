@@ -1,3 +1,5 @@
+import shutil
+
 from osbot_aws.apis.Lambda import Lambda
 from osbot_aws.helpers.Lambda_Package import Lambda_Package
 from pbx_gs_python_utils.utils.Dev import Dev
@@ -42,6 +44,15 @@ class Deploy:
         package.add_folder(gw_bot_folder)
         package.add_module('osbot_aws')
         package.add_pbx_gs_python_utils()
+        package.update()
+        return package
+
+    def deploy_lambda__browser_dev(self, lambda_name):
+        package = self.get_package(lambda_name)
+        source_folder = Files.path_combine(__file__, '../../modules/OSBot-browser/osbot_browser')
+        package.add_folder(source_folder, ignore = 'web_root')
+        package.add_module('osbot_aws')
+        package.add_module('osbot_utils')
         package.update()
         return package
 
