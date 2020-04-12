@@ -15,7 +15,7 @@ class Test_Lambda_pdf_to_slack(Test_Helper):
         self.png_to_slack = Lambda('gw_bot.lambdas.png_to_slack')
 
     def test_update_lambda(self):
-        Deploy().setup().deploy_lambda_png_to_slack()
+        Deploy().deploy_lambda__gw_bot('gw_bot.lambdas.png_to_slack')
 
     def test_invoke_directly(self):
         #self.test_update_lambda()

@@ -35,6 +35,9 @@ class API_OSS_Bot:
             if slack_event.get('text'):
                 #original = slack_event.get('text')
                 command = slack_event.get('text').replace('<@URS8QH4UF>', '').strip()          # URS8QH4UF is the gw_bot slack ids
+
+                command = command.replace('\u00a0',' ')  # fix prob caused by copy and paste inside slack, note: ".encode('ascii','ignore').decode()" didn't work because we lost the space
+
                 if not command:
                     command = 'hello'
 

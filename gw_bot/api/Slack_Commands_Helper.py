@@ -50,6 +50,8 @@ class Slack_Commands_Helper:
                 (text,attachments) = self.help(':red_circle: command not found `{0}`\n\n'.format(command))
         if channel and text is not None:                                           # if there is a text value, then send it as a slack message
             slack_message(text, attachments, channel, team_id)
+            if self._show_duration:
+                text = ''                   # todo: fix bug that causes the need for this hack (without it, we were getting duplicated duration messages on commands like: browser viva_graph graph_5QQ default )
         return text,attachments
 
     def show_duration(self,value):

@@ -3,9 +3,12 @@ import base64
 
 from pbx_gs_python_utils.utils.Files import Files
 
+from gw_bot.helpers.Lambda_Helpers import slack_message
 from osbot_aws.Dependencies import load_dependency
 from osbot_aws.apis.S3               import S3
 from osbot_aws.apis.Secrets          import Secrets
+from osbot_aws.apis.shell.Lambda_Shell import lambda_shell
+
 
 def send_file_to_slack(file_path, title, bot_token, channel):                  # refactor into Slack_API class
 
@@ -24,7 +27,7 @@ def send_file_to_slack(file_path, title, bot_token, channel):                  #
 
     return 'send png file: {0}'.format(title)
 
-
+@lambda_shell
 def run(event, context):
 
     channel         = event.get('channel')
@@ -32,10 +35,9 @@ def run(event, context):
     s3_bucket       = event.get('s3_bucket')
     s3_key          = event.get('s3_key')
     title           = event.get('title')
-    team_id         = event.get('team_id')
-    #aws_secrets_id  = event.get('aws_secrets_id')
-    #if  team_id == 'T7F3AUXGV': aws_secrets_id = 'slack-gs-bot'             # hard coded values
-    #if  team_id == 'T0SDK1RA8': aws_secrets_id = 'slack-gsbot-for-pbx'      # need to move to special function
+
+    #slack_message(':point_right: in png_to_slack', channel=channel)
+
     aws_secrets_id = 'slack-bot-oauth'
     bot_token       = Secrets(aws_secrets_id).value()
 
@@ -50,4 +52,7 @@ def run(event, context):
         else:
             return None
 
-    return send_file_to_slack(tmp_file, title, bot_token, channel)
+    result = send_file_to_slack(tmp_file, title, bot_token, channel)
+
+    #slack_message(':point_right: file sent to slack', channel=channel)
+    return result

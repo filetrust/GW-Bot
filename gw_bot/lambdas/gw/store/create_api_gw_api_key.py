@@ -29,7 +29,7 @@ def create_key(params):
     except Exception as error:
         log_to_elk('error in create_key', f'{error}', level='error')
         return f'{error}'
-    return uuid.uuid1()
+    return uuid.uuid4()
 
 def run(event, context):
     params = event.get("queryStringParameters",{})
