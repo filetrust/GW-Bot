@@ -1,6 +1,6 @@
 from gw_bot.helpers.Lambda_Helpers import slack_message
 from osbot_aws.apis.Lambda import Lambda
-from gw_bot.setup.OSS_Setup import OSS_Setup
+from gw_bot.setup.OSBot_Setup import OSBot_Setup
 
 class AWS_Commands:
 
@@ -12,4 +12,4 @@ class AWS_Commands:
     @staticmethod
     def reset_lambdas(team_id, channel, params):
         slack_message(':point_right: restarting Lambda function: `osbot_browser.lambdas.jira_web`' ,[], channel)
-        OSS_Setup().lambda_package('osbot_browser.lambdas.jira_web').reset()
+        OSBot_Setup().lambda_package('osbot_browser.lambdas.jira_web').reset()

@@ -3,20 +3,20 @@ from unittest import TestCase
 
 from pbx_gs_python_utils.utils.Dev import Dev
 
-from gw_bot.setup.OSS_Setup import OSS_Setup
+from gw_bot.setup.OSBot_Setup import OSBot_Setup
 
 
 class Test_Helper(TestCase):
 
 
-    def setUp(self) -> OSS_Setup:
-        return self.oss_setup()
+    def setUp(self) -> OSBot_Setup:
+        return self.osbot_setup()
 
-    def oss_setup(self,profile_name = None, account_id=None, region=None) -> OSS_Setup:
+    def osbot_setup(self,profile_name = None, account_id=None, region=None) -> OSBot_Setup:
         self.result   = None
         self.png_data = None
         self.png_file = '/tmp/lambda_png_file.png'
-        return OSS_Setup(profile_name=profile_name,account_id=account_id,region_name=region)#.setup_test_environment()
+        return OSBot_Setup(profile_name=profile_name, account_id=account_id, region_name=region)#.setup_test_environment()
 
     def tearDown(self):
         if self.result is not None:
@@ -34,7 +34,7 @@ class Test_Helper(TestCase):
                     Dev.pprint(self.png_data)
 
     def lambda_package(self, lambda_name, profile_name = None, account_id=None, region=None):
-        return self.oss_setup(profile_name=profile_name,account_id=account_id,region=region).lambda_package(lambda_name)
+        return self.osbot_setup(profile_name=profile_name,account_id=account_id,region=region).lambda_package(lambda_name)
 
     @staticmethod
     def print(result):

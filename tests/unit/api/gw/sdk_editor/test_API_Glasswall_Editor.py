@@ -14,7 +14,7 @@ from gw_bot.api.gw.sdk_scanner.API_Glasswall_Docker import API_Docker_Glasswall
 from gw_bot.api.gw.skd_editor.API_Glasswall_Editor import API_Glasswall_Editor
 from gw_bot.api.gw.skd_editor.API_SISL import API_SISL
 from gw_bot.helpers.Test_Helper import Test_Helper
-from gw_bot.setup.OSS_Setup import OSS_Setup
+from gw_bot.setup.OSBot_Setup import OSBot_Setup
 from osbot_browser.view_helpers.Vis_Js import Vis_Js
 from osbot_browser.view_helpers.Vis_Js_Views import Vis_Js_Views
 from osbot_browser.view_helpers.VivaGraph_Js import VivaGraph_Js
@@ -174,7 +174,7 @@ class test_API_Glasswall_Editor(Test_Helper):
 
 
     def test_view_vis_js_graph(self):
-        #OSS_Setup().setup_test_environment()
+        #OSBot_Setup().setup_test_environment()
         graph_name = 'graph_8MR'
         #vis_js = Vis_Js_Views.default(params         =[graph_name],
         #                              headless       =False       ,
@@ -189,7 +189,7 @@ class test_API_Glasswall_Editor(Test_Helper):
 
 
     def test_using_viva_graph(self):
-        #OSS_Setup().setup_test_environment()
+        #OSBot_Setup().setup_test_environment()
         graph_name = 'graph_8MR'
         VivaGraph_Js_Views.default(params=[graph_name], headless=False)
 

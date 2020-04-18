@@ -13,7 +13,7 @@ class Test_Lambda_dot_to_png(Test_Helper):
 
     def test_update_lambda(self):
         Deploy().setup().deploy_lambda_puml_to_png()
-        #deploy.oss_setup.setup_test_environment()
+        #deploy.osbot_setup.setup_test_environment()
         #deploy.deploy_lambda_puml_to_png()
 
 

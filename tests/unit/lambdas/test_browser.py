@@ -9,7 +9,7 @@ from gw_bot.helpers.Test_Helper import Test_Helper
 
 class test_run_command(Test_Helper):
     def setUp(self):
-        self.oss_setup  = super().setUp()
+        self.osbot_setup  = super().setUp()
         self.aws_lambda = Lambda('osbot_browser.lambdas.lambda_browser')
         self.result     = None
         self.png_data   = None

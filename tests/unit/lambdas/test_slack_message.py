@@ -5,7 +5,7 @@ from gw_bot.Deploy import Deploy
 class test_slack_message(Test_Helper):
     def setUp(self):
         self.lambda_name = 'gw_bot.lambdas.slack_message'
-        self.oss_setup = super().setUp()
+        self.osbot_setup = super().setUp()
         self.aws_lambda = Lambda(self.lambda_name)
 
     def test_update_lambda(self):

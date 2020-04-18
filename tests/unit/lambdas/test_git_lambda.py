@@ -8,10 +8,10 @@ from gw_bot.helpers.Test_Helper import Test_Helper
 
 class test_git_lambda(Test_Helper):
     def setUp(self):
-        self.oss_setup = super().setUp()
+        self.osbot_setup = super().setUp()
         # self.aws_lambda = Lambda_Package('gw_bot.lambdas.git_lambda')
-        # self.aws_lambda._lambda.set_s3_bucket(self.oss_setup.s3_bucket_lambdas)         \
-        #                        .set_role     (self.oss_setup.role_lambdas)
+        # self.aws_lambda._lambda.set_s3_bucket(self.osbot_setup.s3_bucket_lambdas)         \
+        #                        .set_role     (self.osbot_setup.role_lambdas)
         self.aws_lambda = Lambda('gw_bot.lambdas.git_lambda')
         self.result = None
 
