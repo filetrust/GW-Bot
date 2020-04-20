@@ -45,6 +45,7 @@ class test_run_command(Test_Helper):
 
     # test the invocation
     def test_just_invoke(self):
+        #self.test_update_lambda()
         self.result = self.aws_lambda.invoke({'name': 'abc'})
 
 

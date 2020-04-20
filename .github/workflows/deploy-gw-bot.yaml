@@ -1,0 +1,27 @@
+name: Deploy to AWS
+# This workflow is triggered on pushes to the repository.
+on: [push]
+
+jobs:
+  build:
+    name: Configure AWS               # Job name is Greeting
+    runs-on: ubuntu-latest            # This job runs on Linux
+    steps:
+      - name: Clone repos
+        run: |
+          ls -la
+          ls -la ..
+          cd ..
+          git clone --depth 1 https://github.com/owasp-sbot/OSBot-AWS.git
+          git clone --depth 1 https://github.com/owasp-sbot/OSBot-Utils.git
+          rm -R GW-Bot
+          git clone --depth 1 https://github.com/filetrust/GW-Bot.git
+          ls -la
+
+      - name: setup python
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.7
+
+      - name: install python dependencies
+        run: pip install -r requirements.txt

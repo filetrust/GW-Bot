@@ -1,0 +1,6 @@
+{
+  "version": "v0.41 (GW Bot)",
+  "slack": {
+            "allowed_users": ["aaa", "bbbb"]
+            }
+}
