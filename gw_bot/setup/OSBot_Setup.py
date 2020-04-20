@@ -3,12 +3,12 @@ from osbot_aws.apis.S3 import S3
 from osbot_aws.helpers.Lambda_Package import Lambda_Package
 
 
-class OSS_Setup:
+class OSBot_Setup:
 
     def __init__(self, bot_name= None, profile_name = None, account_id=None, region_name=None, lambda_s3_bucket=None, lambda_role_name=None):
         if bot_name            : Globals.bot_name                 = bot_name
         if profile_name        : Globals.aws_session_profile_name = profile_name
-        if account_id          : Globals.aws_session_account_id   = profile_name
+        if account_id          : Globals.aws_session_account_id   = account_id
         if region_name         : Globals.aws_session_region_name  = region_name
         if lambda_s3_bucket    : Globals.lambda_s3_bucket         = lambda_s3_bucket
         if lambda_role_name    : Globals.lambda_role_name         = lambda_role_name

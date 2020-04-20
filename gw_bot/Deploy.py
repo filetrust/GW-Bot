@@ -5,22 +5,22 @@ from osbot_aws.helpers.Lambda_Package import Lambda_Package
 from pbx_gs_python_utils.utils.Dev import Dev
 from pbx_gs_python_utils.utils.Files import Files
 
-from gw_bot.setup.OSS_Setup import OSS_Setup
+from gw_bot.setup.OSBot_Setup import OSBot_Setup
 
 
 class Deploy:
 
     def __init__(self):
-        self.oss_setup     = OSS_Setup()
+        self.osbot_setup     = OSBot_Setup()
 
     def setup(self):
-        #self.oss_setup.setup_test_environment()
+        #self.osbot_setup.setup_test_environment()
         return self
 
     def get_package(self, lambda_name):
         package = Lambda_Package(lambda_name)
-        package.aws_lambda.set_s3_bucket(self.oss_setup.s3_bucket_lambdas) \
-                          .set_role(self.oss_setup.lambda_role_arn)
+        package.aws_lambda.set_s3_bucket(self.osbot_setup.s3_bucket_lambdas) \
+                          .set_role(self.osbot_setup.lambda_role_arn)
                           #.set_s3_key('lambdas/{0}.zip'.format(lambda_name)) \
 
         return package
