@@ -5,7 +5,8 @@ from    elasticsearch                           import Elasticsearch, helpers, N
 from    osbot_aws.apis.Secrets                  import Secrets
 from    requests.auth                           import HTTPBasicAuth
 from    osbot_utils.utils.Http                  import DELETE
-
+# todo: find long term solution for this (including being able to detect it)
+# on 25 August 2020, GWBot needed this fix
 #note the max query value in the search has been increased from 10000 to 100000 (which will need to be done on any new ES Install)
 # PUT _all/_settings
 # {
@@ -205,12 +206,12 @@ class Elastic_Search:
             results.append(item)
         return results
 
-    def search_using_query(self, query, size = 10000):  # to be more that 10000 this needs a Elastic change
+    def search_using_query(self, query, size = 100000):  # for GWBot making this 100k # to be more that 10000 this needs a Elastic change
         results = self.es.search(index=self.index, body= query, size=size)
         for result in results['hits']['hits']:
             yield result['_source']
 
-    def search_on_field_for_value(self, field, value, size=10000):
+    def search_on_field_for_value(self, field, value, size=100000):
         query = {"query": {"match": { field : {"query": value}}}}
         return self.search_using_query(query, size=size)
 
