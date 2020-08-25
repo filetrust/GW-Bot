@@ -1,12 +1,6 @@
-import shutil
-
-from osbot_aws.apis.Lambda import Lambda
 from osbot_aws.helpers.Lambda_Package import Lambda_Package
-from pbx_gs_python_utils.utils.Dev import Dev
-from pbx_gs_python_utils.utils.Files import Files
-
-from gw_bot.setup.OSBot_Setup import OSBot_Setup
-
+from gw_bot.setup.OSBot_Setup         import OSBot_Setup
+from osbot_utils.utils.Files          import path_combine
 
 class Deploy:
 
@@ -27,9 +21,9 @@ class Deploy:
 
     def deploy_lambda__gw_bot(self, lambda_name='gw_bot.lambdas.gw_bot'):
         package = self.get_package(lambda_name)
-        package.add_folder(Files.path_combine(__file__, '../../gw_bot'))
+        package.add_folder(path_combine(__file__, '../../gw_bot'))
         package.add_module('osbot_aws')
-        package.add_pbx_gs_python_utils()
+        package.add_osbot_utils()
         return package.update()
 
 
@@ -38,18 +32,18 @@ class Deploy:
 
     def deploy_lambda__browser(self, lambda_name='osbot_browser.lambdas.lambda_browser'):
         package = self.get_package(lambda_name)
-        source_folder = Files.path_combine(__file__,'../../modules/OSBot-browser/osbot_browser')
+        source_folder = path_combine(__file__,'../../modules/OSBot-browser/osbot_browser')
         package.add_folder(source_folder)
-        gw_bot_folder = Files.path_combine(__file__, '../../gw_bot')         # this is needed because of some of the helpers (which will need to be refactored into a separate module)
+        gw_bot_folder = path_combine(__file__, '../../gw_bot')         # this is needed because of some of the helpers (which will need to be refactored into a separate module)
         package.add_folder(gw_bot_folder)
         package.add_module('osbot_aws')
-        package.add_pbx_gs_python_utils()
+        package.add_osbot_utils()
         package.update()
         return package
 
     def deploy_lambda__browser_dev(self, lambda_name):
         package = self.get_package(lambda_name)
-        source_folder = Files.path_combine(__file__, '../../modules/OSBot-browser/osbot_browser')
+        source_folder = path_combine(__file__, '../../modules/OSBot-browser/osbot_browser')
         package.add_folder(source_folder, ignore = 'web_root')
         package.add_module('osbot_aws')
         package.add_module('osbot_utils')
@@ -59,38 +53,38 @@ class Deploy:
     def deploy_lambda__jira(self, lambda_name=None):
         if lambda_name:
             package = self.get_package(lambda_name)
-            source_folder = Files.path_combine(__file__,'../../modules/OSBot-jira/osbot_jira')
+            source_folder = path_combine(__file__,'../../modules/OSBot-jira/osbot_jira')
             package.add_folder(source_folder)
-            gw_bot_folder = Files.path_combine(__file__,'../../gw_bot')  # this is needed because of some of the helpers (which will need to be refactored into a separate module)
+            gw_bot_folder = path_combine(__file__,'../../gw_bot')  # this is needed because of some of the helpers (which will need to be refactored into a separate module)
             package.add_folder(gw_bot_folder)
             package.add_module('osbot_aws')
-            package.add_pbx_gs_python_utils()
+            package.add_osbot_utils()
             package.update()
             return package
 
     def deploy_lambda__jupyter(self, lambda_name=None):
         if lambda_name:
             package = self.get_package(lambda_name)
-            source_folder = Files.path_combine(__file__,'../../modules/OSBot-Jupyter/osbot_jupyter')
+            source_folder = path_combine(__file__,'../../modules/OSBot-Jupyter/osbot_jupyter')
             package.add_folder(source_folder)
-            gw_bot_folder = Files.path_combine(__file__,'../../gw_bot')  # this is needed because of some of the helpers (which will need to be refactored into a separate module)
+            gw_bot_folder = path_combine(__file__,'../../gw_bot')  # this is needed because of some of the helpers (which will need to be refactored into a separate module)
             package.add_folder(gw_bot_folder)
             package.add_module('osbot_aws')
-            package.add_pbx_gs_python_utils()
+            package.add_osbot_utils()
             package.update()
             return package
 
     def deploy_lambda__jupyter_web(self, lambda_name=None):     # for the cases where osbot_browser is needed
         if lambda_name:
             package = self.get_package(lambda_name)
-            source_folder = Files.path_combine(__file__, '../../modules/OSBot-browser/osbot_browser')
+            source_folder = path_combine(__file__, '../../modules/OSBot-browser/osbot_browser')
             package.add_folder(source_folder)
-            source_folder = Files.path_combine(__file__,'../../modules/OSBot-Jupyter/osbot_jupyter')
+            source_folder = path_combine(__file__,'../../modules/OSBot-Jupyter/osbot_jupyter')
             package.add_folder(source_folder)
-            gw_bot_folder = Files.path_combine(__file__,'../../gw_bot')  # this is needed because of some of the helpers (which will need to be refactored into a separate module)
+            gw_bot_folder = path_combine(__file__,'../../gw_bot')  # this is needed because of some of the helpers (which will need to be refactored into a separate module)
             package.add_folder(gw_bot_folder)
             package.add_module('osbot_aws')
-            package.add_pbx_gs_python_utils()
+            package.add_osbot_utils()
             package.update()
             return package
 
@@ -148,7 +142,7 @@ class Deploy:
 
     # def deploy_lambda__slack_web(self):
     #     package = self.get_package('osbot_browser.lambdas.slack_web')
-    #     source_folder = Files.path_combine(__file__,'../../modules/OSBot-browser/osbot_browser')
+    #     source_folder = path_combine(__file__,'../../modules/OSBot-browser/osbot_browser')
     #     package.add_folder(source_folder)
     #     package.add_module('osbot_aws')
     #     package.add_module('gw_bot')

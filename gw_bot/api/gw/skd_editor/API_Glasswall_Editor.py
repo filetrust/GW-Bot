@@ -6,15 +6,16 @@
 #./glasswallCLI -config=./config/config.ini -xmlconfig=./config/config.xml ;
 #
 # cat tmp-output/glasswallCLIProcess.log
-from pbx_gs_python_utils.utils.Files import Files
-from pbx_gs_python_utils.utils.Process import Process
+
 
 from gw_bot.api.gw.skd_editor.API_SISL import API_SISL
+from osbot_utils.utils.Files import Files
+from osbot_utils.utils.Process import Process
 
 
 class API_Glasswall_Editor:
     def __init__(self):
-        self.docker_image = "glasswallsolutions/evaluationsdk:2"
+        self.docker_image = "gw-editor-eval" #"glasswallsolutions/evaluationsdk:2"
         self.docker_cwd   = '/tmp'
         self.tmp_input    = '/tmp/tmp-input'
         self.tmp_output   = '/tmp/tmp-output'

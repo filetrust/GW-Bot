@@ -6,8 +6,8 @@
 #./glasswallCLI -config=./config/config.ini -xmlconfig=./config/config.xml ;
 #
 # cat tmp-output/glasswallCLIProcess.log
-from pbx_gs_python_utils.utils.Files import Files
-from pbx_gs_python_utils.utils.Process import Process
+from osbot_utils.utils.Files import Files
+
 
 class API_Docker_Glasswall:
     def __init__(self):

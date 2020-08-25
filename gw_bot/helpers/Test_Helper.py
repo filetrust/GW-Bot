@@ -1,9 +1,8 @@
 import base64
 from unittest import TestCase
 
-from pbx_gs_python_utils.utils.Dev import Dev
-
 from gw_bot.setup.OSBot_Setup import OSBot_Setup
+from osbot_utils.utils.Dev import Dev
 
 
 class Test_Helper(TestCase):
@@ -15,7 +14,7 @@ class Test_Helper(TestCase):
     def osbot_setup(self,profile_name = None, account_id=None, region=None) -> OSBot_Setup:
         self.result   = None
         self.png_data = None
-        self.png_file = '/tmp/lambda_png_file.png'
+        self.png_file = '/tmp/unit-test.png'
         return OSBot_Setup(profile_name=profile_name, account_id=account_id, region_name=region)#.setup_test_environment()
 
     def tearDown(self):

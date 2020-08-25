@@ -1,7 +1,6 @@
 import json
 
-from pbx_gs_python_utils.utils.Dev import Dev
-from pbx_gs_python_utils.utils.Files import Files
+from osbot_utils.utils.Files import Files
 
 
 class API_SISL:
