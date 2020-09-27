@@ -58,6 +58,7 @@ class Deploy:
             gw_bot_folder = path_combine(__file__,'../../gw_bot')  # this is needed because of some of the helpers (which will need to be refactored into a separate module)
             package.add_folder(gw_bot_folder)
             package.add_module('osbot_aws')
+            #package.add_module('pbx_gs_python_utils')       # todo: remove dependencies (or currently functions like 'osbot_jira.lambdas.jira' will fail in lambda)
             package.add_osbot_utils()
             package.update()
             return package
@@ -70,6 +71,7 @@ class Deploy:
             gw_bot_folder = path_combine(__file__,'../../gw_bot')  # this is needed because of some of the helpers (which will need to be refactored into a separate module)
             package.add_folder(gw_bot_folder)
             package.add_module('osbot_aws')
+            #package.add_module('pbx_gs_python_utils')  # todo: remove dependencies (or currently functions like 'osbot_jira.lambdas.jira' will fail in lambda)
             package.add_osbot_utils()
             package.update()
             return package
