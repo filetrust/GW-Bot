@@ -1,6 +1,4 @@
 import json
-
-from pbx_gs_python_utils.utils.Misc import Misc
 from gw_bot.api_in_lambda.Git_Lambda import Git_Lambda
 
 class OSS_Hugo:
@@ -32,7 +30,8 @@ class OSS_Hugo:
 
     def participant_get(self, user_name):
         import sys
-        sys.path.append('/tmp/oss2019/notebooks/api'); from oss_hugo.OSS_Participant import OSS_Participant # shows error on PyCharm
+        sys.path.append('/tmp/oss2019/notebooks/api');
+        from oss_hugo.OSS_Participant import OSS_Participant # shows error on PyCharm
 
         return  OSS_Participant(name=user_name, folder_oss=self.repo_path)
 

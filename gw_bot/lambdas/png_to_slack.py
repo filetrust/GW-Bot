@@ -1,13 +1,10 @@
 import base64
 
-
-from pbx_gs_python_utils.utils.Files import Files
-
-from gw_bot.helpers.Lambda_Helpers import slack_message
 from osbot_aws.Dependencies import load_dependency
 from osbot_aws.apis.S3               import S3
 from osbot_aws.apis.Secrets          import Secrets
 from osbot_aws.apis.shell.Lambda_Shell import lambda_shell
+from osbot_utils.utils.Files import Files
 
 
 def send_file_to_slack(file_path, title, bot_token, channel):                  # refactor into Slack_API class

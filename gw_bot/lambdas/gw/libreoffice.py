@@ -2,8 +2,9 @@ import base64
 import shutil
 
 from osbot_aws.apis.S3 import S3
-from pbx_gs_python_utils.utils.Files import Files
-from pbx_gs_python_utils.utils.Process import Process
+from osbot_utils.utils.Files import Files
+from osbot_utils.utils.Process import Process
+
 
 def install_libreoffice():
     tmp_dir      = '/tmp'

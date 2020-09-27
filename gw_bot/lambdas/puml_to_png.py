@@ -3,9 +3,9 @@ import os
 import subprocess
 import tempfile
 
-from pbx_gs_python_utils.utils.Files import Files
-from pbx_gs_python_utils.utils.Process import Process
 from osbot_aws.Dependencies import load_dependency
+from osbot_utils.utils.Files import Files
+from osbot_utils.utils.Process import Process
 
 
 def run(event, context):

@@ -1,10 +1,10 @@
 import json
 import requests
 from osbot_aws.apis.Lambda import Lambda
-from pbx_gs_python_utils.utils.Files import Files
 from gw_bot.api.API_Slack import API_Slack
 from gw_bot.api.gw.API_Glasswall import API_Glasswall
 from gw_bot.helpers.Lambda_Helpers import log_to_elk, slack_message
+from osbot_utils.utils.Files import Files
 
 
 class API_GW_Slack_File:

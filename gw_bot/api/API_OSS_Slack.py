@@ -8,7 +8,7 @@ class API_OSS_Slack:
     def api_slack(self):
         if self._api_slack is None:
             load_dependency('slack')
-            from pbx_gs_python_utils.utils.slack.API_Slack import API_Slack
+            from gw_bot.api.API_Slack import API_Slack
             self._api_slack = API_Slack()
         return self._api_slack
 
