@@ -22,3 +22,6 @@
 [submodule "modules/SDK-Evaluation-Version-2.x"]
 	path = modules/SDK-Evaluation-Version-2.x
 	url = https://github.com/filetrust/SDK-Evaluation-Version-2.x.git
+[submodule "modules/OSBot-gsuite"]
+	path = modules/OSBot-gsuite
+	url = git@github.com:owasp-sbot/OSBot-gsuite.git
