@@ -1,5 +1,5 @@
 from osbot_aws.helpers.Lambda_Package import Lambda_Package
-from gw_bot.setup.OSBot_Setup         import OSBot_Setup
+from osbot_aws.OSBot_Setup import OSBot_Setup
 from osbot_utils.utils.Files          import path_combine
 
 class Deploy:

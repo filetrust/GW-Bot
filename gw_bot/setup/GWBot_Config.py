@@ -2,7 +2,7 @@ from osbot_utils.decorators.Method_Wrappers import cache
 from osbot_utils.utils.Files import path_combine
 from osbot_utils.utils.Json import json_load
 
-
+# not currently used
 class GW_Bot_Config:
 
     def __init__(self):
