@@ -1,5 +1,5 @@
 from gw_bot.api.gw.API_GW_Slack_File import API_GW_Slack_File
-from gw_bot.helpers.Test_Helper import Test_Helper
+from osbot_aws.helpers.Test_Helper import Test_Helper
 
 
 class test_API_GW_Slack_File(Test_Helper):

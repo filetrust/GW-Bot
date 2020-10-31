@@ -1,7 +1,5 @@
-from osbot_aws.apis.Secrets import Secrets
-
 from gw_bot.elastic.Log_To_Elk import Log_To_Elk
-from gw_bot.helpers.Test_Helper import Test_Helper
+from osbot_aws.helpers.Test_Helper import Test_Helper
 
 
 class Test_Log_To_Elk(Test_Helper):

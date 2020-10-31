@@ -1,11 +1,8 @@
-import sys
-import unittest
-
 from pbx_gs_python_utils.utils.Dev import Dev
 
 from gw_bot.api.API_Slack import API_Slack
-from gw_bot.helpers.Lambda_Helpers import screenshot_from_url
-from gw_bot.helpers.Test_Helper import Test_Helper
+from osbot_aws.helpers.Lambda_Helpers import screenshot_from_url
+from osbot_aws.helpers.Test_Helper import Test_Helper
 
 
 class test_API_Slack(Test_Helper):

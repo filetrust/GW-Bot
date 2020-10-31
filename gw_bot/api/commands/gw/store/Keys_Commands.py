@@ -1,4 +1,4 @@
-from gw_bot.helpers.Lambda_Helpers import slack_message
+from osbot_aws.helpers.Lambda_Helpers import slack_message
 from osbot_aws.apis.API_Gateway import API_Gateway
 from osbot_aws.apis.Lambda import Lambda
 from osbot_utils.utils.Dev import Dev

@@ -1,6 +1,6 @@
 import json
 
-from gw_bot.helpers.Lambda_Helpers import log_to_elk
+from osbot_aws.helpers.Lambda_Helpers import log_to_elk
 from osbot_aws.Dependencies import load_dependency
 from osbot_aws.apis.S3 import S3
 

@@ -1,5 +1,5 @@
 from gw_bot.api.commands.gw.store.Keys_Commands import Keys_Commands
-from gw_bot.helpers.Test_Helper import Test_Helper
+from osbot_aws.helpers.Test_Helper import Test_Helper
 
 
 class test_Keys_Commands(Test_Helper):

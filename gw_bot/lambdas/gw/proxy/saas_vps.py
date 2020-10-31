@@ -1,6 +1,6 @@
 import base64
 
-from gw_bot.helpers.Lambda_Helpers import log_to_elk
+from osbot_aws.helpers.Lambda_Helpers import log_to_elk
 from osbot_aws.Dependencies import load_dependency
 
 def log_request(path, method, headers, domain_prefix,target):

@@ -1,4 +1,4 @@
-from gw_bot.helpers.Test_Helper import Test_Helper
+from osbot_aws.helpers.Test_Helper import Test_Helper
 from gw_bot.lambdas.aws.on_s3_event import run
 
 

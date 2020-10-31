@@ -2,7 +2,7 @@ from gw_bot.Deploy import Deploy
 from gw_bot.lambdas.gw_bot import run
 
 
-from gw_bot.helpers.Test_Helper import Test_Helper
+from osbot_aws.helpers.Test_Helper import Test_Helper
 
 
 class test_run_command(Test_Helper):

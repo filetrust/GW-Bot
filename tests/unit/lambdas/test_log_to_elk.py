@@ -1,6 +1,6 @@
 #from osbot_aws.Dependencies import upload_dependency
 from osbot_aws.apis.Lambda import Lambda
-from gw_bot.helpers.Test_Helper import Test_Helper
+from osbot_aws.helpers.Test_Helper import Test_Helper
 from gw_bot.lambdas.log_to_elk import run
 from osbot_utils.utils.Dev import Dev
 

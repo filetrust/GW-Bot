@@ -3,7 +3,6 @@ from gw_bot.api.API_OSS_Bot import API_OSS_Bot
 class Slack_Handler:
 
     def run(self,data):
-        from gw_bot.helpers.Lambda_Helpers import log_to_elk
         result = None
         if "challenge" in data:              # required for Slack event check
             return data.get("challenge")

@@ -1,13 +1,8 @@
-from unittest import TestCase
-
 from gw_bot.Deploy import Deploy
 from gw_bot.api.slack.API_Slack_Attachment import API_Slack_Attachment
-from gw_bot.helpers.Test_Helper import Test_Helper
+from osbot_aws.helpers.Test_Helper import Test_Helper
 from gw_bot.lambdas.slack_callback import run
 from osbot_aws.apis.Lambda import Lambda
-from osbot_aws.helpers.Lambda_Package import Lambda_Package
-from pbx_gs_python_utils.utils.Dev import Dev
-
 
 
 class test_lambda_gs_bot(Test_Helper):

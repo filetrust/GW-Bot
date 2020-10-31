@@ -1,5 +1,5 @@
 import uuid
-from gw_bot.helpers.Lambda_Helpers import log_to_elk
+from osbot_aws.helpers.Lambda_Helpers import log_to_elk
 from osbot_aws.apis.API_Gateway import API_Gateway
 
 def create_key_in_policy(policy_name, key_name):

@@ -1,4 +1,4 @@
-from gw_bot.helpers.Lambda_Helpers import log_error, slack_message
+from osbot_aws.helpers.Lambda_Helpers import log_error, slack_message
 from osbot_aws.Dependencies import load_dependency
 
 

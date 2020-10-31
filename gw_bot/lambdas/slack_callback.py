@@ -1,4 +1,4 @@
-from gw_bot.helpers.Lambda_Helpers import log_debug
+from osbot_aws.helpers.Lambda_Helpers import log_debug
 
 def run(event, context):
     try:

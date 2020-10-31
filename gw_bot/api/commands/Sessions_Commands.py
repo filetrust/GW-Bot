@@ -1,10 +1,9 @@
 import json
 
 from osbot_aws.apis.Lambda import Lambda
-from gw_bot.helpers.Lambda_Helpers import slack_message
+from osbot_aws.helpers.Lambda_Helpers import slack_message
 
 from gw_bot.api.API_OSS_Slack import API_OSS_Slack
-from gw_bot.api.commands.Participant_Commands import Participant_Commands
 from gw_bot.api.commands.Site_Commands import send_screenshot_to_slack
 
 

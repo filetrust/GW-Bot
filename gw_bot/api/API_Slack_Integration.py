@@ -1,8 +1,7 @@
-import datetime
 import json
 import urllib
 
-from gw_bot.helpers.Lambda_Helpers import log_to_elk
+from osbot_aws.helpers.Lambda_Helpers import log_to_elk
 from osbot_aws.apis.Lambda import Lambda
 
 

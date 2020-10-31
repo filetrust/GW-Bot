@@ -1,7 +1,7 @@
 
 from gw_bot.api.gw.skd_editor.API_Glasswall_Editor import API_Glasswall_Editor
 from gw_bot.api.gw.skd_editor.API_SISL import API_SISL
-from gw_bot.helpers.Test_Helper import Test_Helper
+from osbot_aws.helpers.Test_Helper import Test_Helper
 
 from osbot_browser.view_helpers.Vis_Js import Vis_Js
 from osbot_browser.view_helpers.VivaGraph_Js import VivaGraph_Js

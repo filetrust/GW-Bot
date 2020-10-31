@@ -1,7 +1,6 @@
 # create REST API that creates a proxy for multiple sites
-from pbx_gs_python_utils.utils.Http import GET
 
-from gw_bot.helpers.Test_Helper import Test_Helper
+from osbot_aws.helpers.Test_Helper import Test_Helper
 from gw_bot.lambdas.gw.proxy.saas_vps import run
 from osbot_aws.apis.API_Gateway import API_Gateway
 from osbot_aws.helpers.Rest_API import Rest_API

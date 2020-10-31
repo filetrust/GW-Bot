@@ -1,5 +1,5 @@
 from osbot_aws.apis.Lambda import Lambda
-from gw_bot.helpers.Test_Helper import Test_Helper
+from osbot_aws.helpers.Test_Helper import Test_Helper
 from gw_bot.Deploy import Deploy
 
 class test_slack_message(Test_Helper):

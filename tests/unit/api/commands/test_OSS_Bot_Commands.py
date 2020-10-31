@@ -1,6 +1,6 @@
 from gw_bot.Deploy import Deploy
 from gw_bot.api.commands.OSS_Bot_Commands import OSS_Bot_Commands
-from gw_bot.helpers.Test_Helper import Test_Helper
+from osbot_aws.helpers.Test_Helper import Test_Helper
 from osbot_utils.utils.Dev import Dev
 
 

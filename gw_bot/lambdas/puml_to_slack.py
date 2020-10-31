@@ -3,7 +3,7 @@ import tempfile
 from osbot_aws.apis.Lambda import Lambda
 from osbot_aws.apis.Secrets import Secrets
 
-from gw_bot.helpers.Lambda_Helpers import log_to_elk
+from osbot_aws.helpers.Lambda_Helpers import log_to_elk
 from osbot_aws.Dependencies import load_dependency
 
 

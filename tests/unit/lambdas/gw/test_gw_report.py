@@ -1,6 +1,4 @@
-from unittest import TestCase
-
-from gw_bot.helpers.Test_Helper import Test_Helper
+from osbot_aws.helpers.Test_Helper import Test_Helper
 from gw_bot.lambdas.gw.gw_report import run
 from unit.api.gw.test_Report_Xml_Parser import test_Report_Xml_Parser
 

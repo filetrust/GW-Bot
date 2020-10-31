@@ -2,7 +2,7 @@ from gw_bot.lambdas.gw.store.create_api_gw_api_key import run
 from osbot_aws.apis.Lambda import Lambda
 
 from gw_bot.Deploy import Deploy
-from gw_bot.helpers.Test_Helper import Test_Helper
+from osbot_aws.helpers.Test_Helper import Test_Helper
 from osbot_aws.helpers.Rest_API import Rest_API
 
 
