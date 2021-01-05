@@ -1,3 +1,11 @@
-pytest==5.3.5
-#pbx_gs_python_utils==0.5.1
-#unit==0.2.2
+#pytest==5.3.5
+git+https://github.com/owasp-sbot/OSBot-Utils.git
+git+https://github.com/owasp-sbot/OSBot-AWS.git
+git+https://github.com/owasp-sbot/OSBot-Elastic.git
+boto3
+python-dotenv
+
+# for development
+pytest
+pytest-cov
+coveralls

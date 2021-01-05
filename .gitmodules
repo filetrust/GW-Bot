@@ -1,21 +1,9 @@
 [submodule "modules/OSBot-browser"]
 	path = modules/OSBot-browser
 	url = git@github.com:filetrust/OSBot-browser.git
-[submodule "modules/OSBot-Jupyter"]
-	path = modules/OSBot-Jupyter
-	url = git@github.com:filetrust/OSBot-Jupyter.git
-[submodule "modules/OSBot-jira"]
-	path = modules/OSBot-jira
-	url = git@github.com:filetrust/OSBot-jira.git
 [submodule "modules/osbot-docker-codebuild"]
 	path = modules/osbot-docker-codebuild
 	url = git@github.com:filetrust/osbot-docker-codebuild.git
-[submodule "modules/OSBot-AWS"]
-	path = modules/OSBot-AWS
-	url = git@github.com:owasp-sbot/OSBot-AWS.git
-[submodule "modules/OSBot-Utils"]
-	path = modules/OSBot-Utils
-	url = git@github.com:owasp-sbot/OSBot-Utils.git
 [submodule "modules/gw-proxy-serverless"]
 	path = modules/gw-proxy-serverless
 	url = git@github.com:filetrust/gw-proxy-serverless.git
