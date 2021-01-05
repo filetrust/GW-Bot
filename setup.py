@@ -4,7 +4,7 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    version                       = "0.4.4"               , # change this on every release
+    version                       = "0.4.5"               , # change this on every release
     name                          = "gw_bot"  ,
 
     author                        = "Dinis Cruz",
