@@ -2,10 +2,9 @@ import datetime
 import unittest
 from time import sleep
 
-from pbx_gs_python_utils.utils.Dev import Dev
-
-from gw_bot.elastic.Save_To_ELK import Save_To_ELK
 from osbot_aws.helpers.Test_Helper import Test_Helper
+from osbot_elastic.Save_To_ELK import Save_To_ELK
+from osbot_utils.utils.Dev import Dev
 
 
 class Test_Save_To_ELK(Test_Helper):

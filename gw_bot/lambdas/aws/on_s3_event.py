@@ -7,7 +7,7 @@ from osbot_aws.apis.S3 import S3
 # todo: move this to an helper class
 def send_to_elk(data,id_key):
         load_dependency("elastic")
-        from gw_bot.elastic.Elastic_Search import Elastic_Search
+        from osbot_elastic.Elastic_Search import Elastic_Search
         index_id      = 'gw-cloud-trail'
         aws_secret_id = 'gw-elastic-server-1'
         elastic       = Elastic_Search(index=index_id, aws_secret_id=aws_secret_id)

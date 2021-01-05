@@ -1,7 +1,6 @@
-from pbx_gs_python_utils.utils.Dev import Dev
-
-from gw_bot.elastic.Elastic_Search import Elastic_Search
 from osbot_aws.helpers.Test_Helper import Test_Helper
+from osbot_elastic.Elastic_Search import Elastic_Search
+from osbot_utils.utils.Dev import Dev
 
 
 class Test_Elastic_Search(Test_Helper):

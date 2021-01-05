@@ -1,4 +1,4 @@
-from pbx_gs_python_utils.utils.Dev import Dev
+from osbot_utils.utils.Dev import Dev
 
 from gw_bot.api.commands.Site_Commands import Site_Commands
 from osbot_aws.helpers.Test_Helper import Test_Helper

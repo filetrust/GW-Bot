@@ -1,6 +1,7 @@
 #pytest==5.3.5
 git+https://github.com/owasp-sbot/OSBot-Utils.git
 git+https://github.com/owasp-sbot/OSBot-AWS.git
+git+https://github.com/owasp-sbot/OSBot-Jira.git
 git+https://github.com/owasp-sbot/OSBot-Elastic.git
 boto3
 python-dotenv
